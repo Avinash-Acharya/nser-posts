@@ -102,6 +102,23 @@ def publish_reel(day, user):
     return permalink(mid) or mid
 
 
+def token_warning():
+    """Meta tokens have a 90-day 'data access' clock. Warn 14 days before it runs out."""
+    try:
+        d = ig("GET", "debug_token", input_token=os.environ["IG_TOKEN"]).get("data", {})
+    except Exception:
+        return ""
+    now = time.time()
+    exp, data_exp = d.get("expires_at", 0), d.get("data_access_expires_at", 0)
+    if not d.get("is_valid", True):
+        return "Instagram token is no longer valid. Make a new one (see README)."
+    for label, t in (("token", exp), ("data access", data_exp)):
+        if t and t - now < 14 * 86400:
+            return (f"Instagram {label} expires {dt.datetime.fromtimestamp(t, IST):%d %b %Y}. "
+                    "Re-do the token steps in README and update the IG_TOKEN secret.")
+    return ""
+
+
 # ---------- Notion ----------
 def notion(method, path, body=None):
     return http(method, "https://api.notion.com/v1/" + path,
@@ -141,10 +158,16 @@ def main():
     for v in ("IG_USER_ID", "IG_TOKEN", "NOTION_TOKEN", "NOTION_DB"):
         if not os.environ.get(v): die(f"missing secret {v}")
     user = os.environ["IG_USER_ID"]
+    warn = token_warning()
+    if warn: print("WARNING:", warn)
 
     if kind == "check":
         me = ig("GET", user, fields="username,account_type,media_count")
         print(f"Instagram OK: @{me.get('username')} ({me.get('account_type','')}), {me.get('media_count')} posts")
+        d = ig("GET", "debug_token", input_token=os.environ["IG_TOKEN"]).get("data", {})
+        fmt = lambda t: "never" if not t else f"{dt.datetime.fromtimestamp(t, IST):%d %b %Y}"
+        print(f"Token: type {d.get('type')}, expires {fmt(d.get('expires_at'))}, "
+              f"data access until {fmt(d.get('data_access_expires_at'))}")
         lim = ig("GET", f"{user}/content_publishing_limit", fields="quota_usage,config")
         print("Publishing quota:", lim.get("data", lim))
         row = notion_row(day)
@@ -174,6 +197,7 @@ def main():
     other = prop_text(row, "Reel post" if kind == "carousel" else "Carousel post")
     upd = {done_field: link if link.startswith("http") else None}
     if other: upd["Status"] = "Posted"
+    if warn: upd["Notes"] = warn
     set_props(row, **{k: v for k, v in upd.items() if v is not None})
 
 
