@@ -162,8 +162,8 @@ def main():
     if warn: print("WARNING:", warn)
 
     if kind == "check":
-        me = ig("GET", user, fields="username,account_type,media_count")
-        print(f"Instagram OK: @{me.get('username')} ({me.get('account_type','')}), {me.get('media_count')} posts")
+        me = ig("GET", user, fields="username,media_count")
+        print(f"Instagram OK: @{me.get('username')}, {me.get('media_count')} posts")
         d = ig("GET", "debug_token", input_token=os.environ["IG_TOKEN"]).get("data", {})
         fmt = lambda t: "never" if not t else f"{dt.datetime.fromtimestamp(t, IST):%d %b %Y}"
         print(f"Token: type {d.get('type')}, expires {fmt(d.get('expires_at'))}, "
