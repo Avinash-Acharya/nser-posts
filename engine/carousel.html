@@ -1,0 +1,163 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  @font-face{font-family:"Fraunces";src:url(fonts/Fraunces.ttf)}
+  @font-face{font-family:"Caveat";src:url(fonts/Caveat.ttf)}
+  @font-face{font-family:"Serif Italic";src:url(fonts/InstrumentSerif-Italic.ttf)}
+  :root{--paper:#FAF7F0;--ink:#1C1A17;--muted:#6B665D;--soft:#EFE8DA;--line:#E2DBCD;--mark:#FFE16A}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1080px;height:1350px;background:var(--paper);overflow:hidden}
+  body{font-family:"Inter",sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+  .slide{position:relative;width:1080px;height:1350px;overflow:hidden}
+  .wm{position:absolute;left:64px;top:56px;font:600 30px/1 "Inter";color:var(--muted);letter-spacing:.01em;z-index:5}
+  .abs{position:absolute}
+  .serif{font-family:"Fraunces";font-weight:600;letter-spacing:-.025em;font-variation-settings:"opsz" 144,"SOFT" 50}
+  .hand{font-family:"Caveat";font-weight:700}
+  mark{background:linear-gradient(transparent 58%,var(--mark) 58%,var(--mark) 92%,transparent 92%);color:inherit;padding:0 .05em}
+  p.body{font:400 42px/1.4 "Inter";color:#3B3833}
+</style>
+<script src="mascot.js"></script><script src="egypt.js"></script></head>
+<body><div id="root"></div>
+<script>
+function esc(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function rich(s){return esc(s).replace(/\*\*(.+?)\*\*/g,'<mark>$1</mark>')}
+const EG_POSE={wave:'point',idle:'idle',point:'point',think:'think',cheer:'cheer',hold:'hold',shrug:'shrug'};
+const EG_MOOD={smile:'smile',happy:'smile',wow:'wow',worried:'side',blep:'neutral'};
+const nib=(o,d)=>{const m=Object.assign({},d,o||{});
+  if(window.MASCOT==='egypt') return egyptSVG({pose:EG_POSE[m.pose]||'idle',mood:EG_MOOD[m.mood]||'neutral',size:Math.round((m.size||300)*0.66)});
+  m.kind = window.MASCOT==='banana' ? 'banana' : 'phone';
+  return mascotSVG(m);};
+// MIT-licensed 3D graphics (Microsoft Fluent Emoji) in assets/3d
+const img=(n,size,css='')=>n?`<img src="assets/3d/${n}_3d.png" style="width:${size}px;height:${size}px;${css}" alt="">`:'';
+const glow=(x,y,r)=>`<div class="abs" style="left:${x-r}px;top:${y-r}px;width:${2*r}px;height:${2*r}px;border-radius:50%;background:var(--soft)"></div>`;
+
+const L = {
+  // 1 · YouTube-thumbnail cover: one idea, few words, big Nib
+  thumb: s => `
+    ${s.tag?`<div class="abs" style="left:0;right:0;top:150px;text-align:center"><span style="display:inline-block;background:var(--ink);color:var(--paper);font:600 34px/1 Inter;padding:16px 28px;border-radius:999px">${esc(s.tag)}</span></div>`:''}
+    <div class="abs serif" style="left:60px;right:60px;top:250px;text-align:center;font-size:${s.title.length>12?150:190}px;line-height:.95">${rich(s.title)}</div>
+    ${s.title2?`<div class="abs serif" style="left:60px;right:60px;top:${s.title.length>12?420:460}px;text-align:center;font-size:96px;line-height:1">${rich(s.title2)}</div>`:''}
+    <div class="abs" style="left:50%;bottom:-10px;width:900px;height:640px;transform:translateX(-50%);border-radius:50% 50% 0 0;background:var(--soft)"></div>
+    ${s.img?`<div class="abs" style="left:110px;bottom:120px;transform:rotate(-12deg)">${img(s.img,300)}</div>`:''}
+    <div class="abs" style="left:50%;bottom:30px;transform:translateX(${s.img?'-18%':'-46%'})">${nib(s.nib,{pose:'shrug',mood:'worried',size:470})}</div>`,
+
+  // 2 · big statement, Nib peeking in from the edge
+  statement: s => `
+    <div class="abs serif" style="left:88px;right:120px;top:250px;font-size:100px;line-height:1.04">${rich(s.text)}</div>
+    ${s.sub?`<p class="abs body" style="left:88px;width:640px;top:${s.subTop||760}px">${rich(s.sub)}</p>`:''}
+    ${s.img?`${glow(250,1080,190)}<div class="abs" style="left:100px;top:930px">${img(s.img,300)}</div>`:''}
+    ${s.note?`<div class="abs hand" style="left:430px;top:960px;width:300px;font-size:58px;line-height:1.05;transform:rotate(-4deg)">${esc(s.note)}</div>`:''}
+    <div class="abs" style="right:-120px;bottom:-60px;transform:rotate(-14deg)">${nib(s.nib,{pose:'wave',mood:'smile',size:430})}</div>`,
+
+  // 3 · vertical timeline
+  timeline: s => `
+    <div class="abs serif" style="left:88px;right:88px;top:150px;font-size:76px;line-height:1.05">${rich(s.title)}</div>
+    <div class="abs" style="left:150px;top:350px;bottom:170px;width:6px;background:var(--ink);border-radius:3px"></div>
+    <div class="abs" style="left:110px;right:300px;top:340px;bottom:170px;display:flex;flex-direction:column;justify-content:space-between">
+      ${s.items.map(it=>`<div style="display:flex;gap:46px;align-items:flex-start">
+        <div style="flex:none;width:86px;height:86px;border-radius:50%;background:${it.hot?'var(--mark)':'var(--paper)'};border:6px solid var(--ink)"></div>
+        <div><div class="hand" style="font-size:58px;line-height:1">${esc(it.when)}</div><div style="font:500 40px/1.3 Inter;margin-top:6px">${rich(it.what)}</div></div></div>`).join('')}
+    </div>
+    <div class="abs" style="right:-10px;bottom:30px">${nib(s.nib,{pose:'point',mood:'smile',size:260})}</div>`,
+
+  // 4 · giant number
+  bignum: s => `
+    <div class="abs hand" style="left:88px;top:220px;font-size:62px;color:var(--muted)">${esc(s.pre||'')}</div>
+    <div class="abs serif" style="left:72px;top:300px;font-size:${s.num.length>6?250:320}px;line-height:.9"><mark>${esc(s.num)}</mark></div>
+    <div class="abs serif" style="left:88px;top:590px;font-size:84px">${rich(s.label)}</div>
+    <p class="abs body" style="left:88px;width:560px;top:720px">${rich(s.line)}</p>
+    ${s.img?`<div class="abs" style="right:80px;top:640px;display:flex">${[0,1,2].map(k=>`<div style="margin-left:-60px;transform:translateY(${k%2?24:0}px)">${img(s.img,170)}</div>`).join('')}</div>`:''}
+    <div class="abs" style="right:40px;bottom:60px">${nib(s.nib,{pose:'point',mood:'wow',size:330})}</div>`,
+
+  // 5 · pull quote
+  quote: s => `
+    <div class="abs serif" style="left:60px;top:90px;font-size:420px;line-height:1;color:var(--soft)">“</div>
+    ${(s.imgs||[]).map((n,k)=>`<div class="abs" style="right:${90+k*190}px;top:${130+k*40}px;transform:rotate(${k?-10:8}deg)">${img(n,220)}</div>`).join('')}
+    <div class="abs" style="left:110px;right:110px;top:360px;font:400 92px/1.08 'Serif Italic',serif">${rich(s.quote)}</div>
+    <div class="abs hand" style="left:110px;top:${s.whoTop||820}px;font-size:56px">— ${esc(s.who)}</div>
+    <div class="abs" style="left:-30px;bottom:-40px;transform:rotate(10deg)">${nib(s.nib,{pose:'think',mood:'smile',size:300})}</div>`,
+
+  // 6 · two-column comparison
+  split: s => `
+    <div class="abs serif" style="left:88px;right:88px;top:150px;font-size:80px;line-height:1.05">${rich(s.title)}</div>
+    <div class="abs" style="left:70px;right:70px;top:400px;display:grid;grid-template-columns:1fr 1fr;gap:28px">
+      ${[s.left,s.right].map((c,k)=>`<div style="border:${k?'6px solid var(--ink)':'3px dashed var(--line)'};border-radius:28px;padding:40px 36px;min-height:470px;background:${k?'#fff':'transparent'}">
+        ${c.img?`<div style="margin:-80px 0 6px;${k?'':'filter:grayscale(1);opacity:.6'}">${img(c.img,130)}</div>`:''}
+        <div class="hand" style="font-size:56px;color:${k?'var(--ink)':'var(--muted)'}">${esc(c.head)}</div>
+        ${c.items.map(t=>`<div style="font:${k?600:400} 42px/1.25 Inter;margin-top:26px;color:${k?'var(--ink)':'var(--muted)'};${k?'':'text-decoration:line-through;text-decoration-thickness:3px'}">${rich(t)}</div>`).join('')}
+      </div>`).join('')}
+    </div>
+    <div class="abs" style="left:50%;bottom:20px;transform:translateX(-50%)">${nib(s.nib,{pose:'idle',mood:'blep',size:270})}</div>`,
+
+  // 7 · bar chart, drawn to scale
+  chart: s => { const max=Math.max(...s.bars.map(b=>b.value)), W=840;
+    return `
+    <div class="abs serif" style="left:88px;right:88px;top:150px;font-size:80px;line-height:1.05">${rich(s.title)}</div>
+    <div class="abs" style="left:120px;right:120px;top:420px;display:grid;gap:70px">
+      ${s.bars.map(b=>{const w=Math.max(6,Math.round(b.value/max*W));return `<div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="hand" style="font-size:54px">${esc(b.label)}</span><span class="serif" style="font-size:64px">${esc(b.display)}</span></div>
+        <div style="margin-top:14px;height:96px;width:${w}px;background:${b.hot?'var(--mark)':'var(--ink)'};border:${b.hot?'5px solid var(--ink)':'0'};border-radius:14px"></div>
+        ${b.note?`<div class="hand" style="font-size:46px;margin-top:10px;color:var(--muted)">↑ ${esc(b.note)}</div>`:''}
+        ${b.img?`<div style="position:relative;height:0"><div style="position:absolute;left:${Math.round(w*0.42)}px;top:-200px;transform:rotate(8deg)">${img(b.img,150)}</div></div>`:''}</div>`}).join('')}
+    </div>
+    ${s.source?`<div class="abs" style="left:120px;bottom:70px;font:500 26px Inter;color:var(--muted)">${esc(s.source)}</div>`:''}
+    <div class="abs" style="right:30px;bottom:30px">${nib(s.nib,{pose:'cheer',mood:'happy',size:280})}</div>`;},
+
+  // 8 · checklist with hand-drawn boxes
+  checklist: s => `
+    <div class="abs serif" style="left:88px;right:88px;top:150px;font-size:84px;line-height:1.05">${rich(s.title)}</div>
+    <div class="abs" style="left:88px;right:330px;top:380px;display:grid;gap:44px">
+      ${s.items.map((t,k)=>`<div style="display:flex;gap:30px;align-items:center">
+        <svg width="64" height="64" viewBox="0 0 64 64" style="flex:none"><path d="M8 10 C24 7 42 8 56 9 C57 26 56 42 55 56 C40 57 24 57 9 55 C8 40 7 24 8 10Z" fill="#fff" stroke="#1C1A17" stroke-width="5" stroke-linejoin="round"/>${k===0?'<path d="M18 33 L28 44 L48 18" fill="none" stroke="#1C1A17" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>':''}</svg>
+        <div style="font:500 44px/1.25 Inter">${rich(t)}</div></div>`).join('')}
+    </div>
+    ${s.img?`<div class="abs" style="right:70px;top:330px;transform:rotate(10deg)">${img(s.img,230)}</div>`:''}
+    <div class="abs" style="right:10px;bottom:40px">${nib(s.nib,{pose:'hold',mood:'smile',size:320})}</div>`,
+
+  // 9 · community question with a comment box
+  ask: s => `
+    <div class="abs serif" style="left:88px;right:88px;top:190px;font-size:104px;line-height:1.02;text-align:center">${rich(s.title)}</div>
+    <div class="abs" style="left:110px;right:110px;top:560px;background:#fff;border:3px solid var(--line);border-radius:999px;padding:26px 30px;display:flex;gap:24px;align-items:center">
+      <div style="width:70px;height:70px;border-radius:50%;background:var(--soft);flex:none"></div>
+      <div style="flex:1;font:400 40px/1 Inter;color:#A39C90">${esc(s.placeholder||'Add a comment…')}</div>
+      <div style="font:700 38px/1 Inter;color:#3D7BFF">Post</div></div>
+    ${s.sub?`<div class="abs hand" style="left:0;right:0;top:720px;text-align:center;font-size:58px">${esc(s.sub)}</div>`:''}
+    ${s.img?`<div class="abs" style="left:110px;bottom:190px;transform:rotate(-10deg)">${img(s.img,230)}</div>`:''}
+    <div class="abs" style="left:50%;bottom:20px;transform:translateX(-50%)">${nib(s.nib,{pose:'cheer',mood:'blep',size:380})}</div>`,
+
+  // 11 · closing CTA: send + save (the two signals that get a post recommended)
+  share: s => {
+    const plane=`<svg width="120" height="120" viewBox="0 0 48 48"><path d="M43 6 L5 21 L19 26 L24 41 Z" fill="#fff" stroke="#1C1A17" stroke-width="3.2" stroke-linejoin="round"/><path d="M43 6 L19 26" stroke="#1C1A17" stroke-width="3.2" stroke-linecap="round"/></svg>`;
+    const mark=`<svg width="120" height="120" viewBox="0 0 48 48"><path d="M12 6 H36 V42 L24 33 L12 42 Z" fill="#FFE16A" stroke="#1C1A17" stroke-width="3.2" stroke-linejoin="round"/></svg>`;
+    return `
+    <div class="abs serif" style="left:88px;right:88px;top:170px;font-size:${s.title.length>34?92:104}px;line-height:1.02">${rich(s.title)}</div>
+    <div class="abs" style="left:88px;right:330px;top:${s.title.length>34?520:470}px;display:grid;gap:44px">
+      <div style="display:flex;gap:32px;align-items:center">${plane}<div><div class="hand" style="font-size:66px;line-height:1">${esc(s.send)}</div>${s.sendSub?`<div style="font:400 36px/1.3 Inter;color:var(--muted);margin-top:6px">${esc(s.sendSub)}</div>`:''}</div></div>
+      <div style="display:flex;gap:32px;align-items:center">${mark}<div><div class="hand" style="font-size:66px;line-height:1">${esc(s.save)}</div>${s.saveSub?`<div style="font:400 36px/1.3 Inter;color:var(--muted);margin-top:6px">${esc(s.saveSub)}</div>`:''}</div></div>
+    </div>
+    ${s.product?`<div class="abs" style="left:88px;bottom:96px;background:var(--ink);color:var(--paper);font:600 34px/1 Inter;padding:20px 28px;border-radius:999px">${esc(s.product)}</div>`:''}
+    <div class="abs" style="right:30px;bottom:${s.product?150:40}px">${nib(s.nib,{pose:'hold',mood:'happy',size:330})}</div>`;},
+
+  // 10 · a video card we draw ourselves (never a real thumbnail)
+  video: s => `
+    <div class="abs serif" style="left:88px;right:88px;top:150px;font-size:80px;line-height:1.05">${rich(s.title)}</div>
+    <div class="abs" style="left:90px;right:90px;top:360px;aspect-ratio:16/9;border-radius:30px;border:6px solid var(--ink);background:linear-gradient(135deg,#FFE7A3 0%,#FFD23F 100%);overflow:hidden">
+      <div class="abs serif" style="left:44px;top:60px;font-size:150px;line-height:.9">${esc(s.screen||'')}</div>
+      <div class="abs" style="right:40px;top:40px">${img(s.img,190)}</div>
+      <div class="abs" style="left:50%;top:58%;width:130px;height:130px;margin:-65px 0 0 -65px;border-radius:50%;background:rgba(28,26,23,.85);display:grid;place-items:center"><div style="width:0;height:0;border-left:44px solid #fff;border-top:28px solid transparent;border-bottom:28px solid transparent;margin-left:10px"></div></div>
+      ${s.badge?`<div class="abs" style="right:24px;bottom:22px;background:var(--ink);color:#fff;font:600 30px/1 Inter;padding:10px 16px;border-radius:10px">${esc(s.badge)}</div>`:''}
+    </div>
+    <div class="abs" style="left:90px;right:90px;top:900px;display:flex;gap:24px;align-items:flex-start">
+      <div style="flex:none;width:72px;height:72px;border-radius:50%;background:var(--soft);border:3px solid var(--line)"></div>
+      <div><div style="font:700 44px/1.2 Inter">${esc(s.videoTitle)}</div><div style="font:400 34px/1.4 Inter;color:var(--muted);margin-top:6px">${esc(s.meta||'')}</div></div></div>
+    ${s.note?`<div class="abs hand" style="left:90px;top:1080px;width:640px;font-size:60px;line-height:1.05;transform:rotate(-2deg)">${esc(s.note)}</div>`:''}
+    <div class="abs" style="right:20px;bottom:20px">${nib(s.nib,{pose:'cheer',mood:'wow',size:240})}</div>`
+};
+
+window.renderSlide = function(post, i){
+  const s = post.carousel[i]; window.MASCOT = post.mascot || 'phone';
+  const f = L[s.kind] || L.statement;
+  document.getElementById('root').innerHTML =
+    `<div class="slide"><div class="wm">${esc(post.handle||'@nser.in_officials')}</div>${f(s)}</div>`;
+};
+</script></body></html>

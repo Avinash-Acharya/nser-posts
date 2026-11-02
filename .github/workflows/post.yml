@@ -1,0 +1,56 @@
+name: Post to Instagram
+
+on:
+  schedule:
+    - cron: "30 5 * * *"    # 11:00 IST  -> carousel
+    - cron: "30 13 * * *"   # 19:00 IST  -> reel
+  workflow_dispatch:
+    inputs:
+      kind:
+        description: "carousel, reel or check (check = test the setup, posts nothing)"
+        required: true
+        default: check
+      date:
+        description: "YYYY-MM-DD (empty = today in India)"
+        required: false
+        default: ""
+      force:
+        description: "Post even if Notion is not Approved (yes/no)"
+        required: false
+        default: "no"
+
+concurrency:
+  group: instagram-post
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Decide what to post
+        id: what
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "kind=${{ inputs.kind }}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event.schedule }}" = "30 5 * * *" ]; then
+            echo "kind=carousel" >> $GITHUB_OUTPUT
+          else
+            echo "kind=reel" >> $GITHUB_OUTPUT
+          fi
+      - name: Publish
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DB: ${{ secrets.NOTION_DB }}
+          AUTO_APPROVE: ${{ vars.AUTO_APPROVE }}
+        run: |
+          ARGS="${{ steps.what.outputs.kind }}"
+          if [ -n "${{ inputs.date }}" ]; then ARGS="$ARGS --date ${{ inputs.date }}"; fi
+          if [ "${{ inputs.force }}" = "yes" ]; then ARGS="$ARGS --force"; fi
+          python poster/post_ig.py $ARGS

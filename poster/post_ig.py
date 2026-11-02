@@ -1,0 +1,181 @@
+"""Publish today's nser post to Instagram through the official Graph API.
+
+Usage:  python poster/post_ig.py carousel|reel|check [--date YYYY-MM-DD] [--force]
+
+Reads   posts/<date>/  (carousel/*.jpg + caption.txt, reel.mp4 + reel-caption.txt)
+Checks  the Notion "Content Queue" row whose Post date = <date>:
+        posts only if Status is Approved (or Ready when AUTO_APPROVE=true). Skipped = never.
+Writes  the post link back to Notion, and Status = Posted once both are out.
+
+Env:    IG_USER_ID, IG_TOKEN            (Instagram professional account id + page access token)
+        NOTION_TOKEN, NOTION_DB         (Notion connection token + Content Queue database id)
+        AUTO_APPROVE=true|false         GITHUB_REPOSITORY (set by GitHub Actions)
+"""
+import datetime as dt, glob, json, os, sys, time, urllib.parse, urllib.request
+
+GRAPH = "https://graph.facebook.com"
+IST = dt.timezone(dt.timedelta(hours=5, minutes=30))
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def die(msg):
+    print("ERROR:", msg); sys.exit(1)
+
+
+def http(method, url, data=None, headers=None, raw=None):
+    body = raw if raw is not None else (urllib.parse.urlencode(data).encode() if data and method != "GET" else None)
+    if data and method == "GET":
+        url += ("&" if "?" in url else "?") + urllib.parse.urlencode(data)
+    req = urllib.request.Request(url, data=body, method=method, headers=headers or {})
+    try:
+        with urllib.request.urlopen(req, timeout=120) as r:
+            return json.loads(r.read().decode() or "{}")
+    except urllib.error.HTTPError as e:
+        txt = e.read().decode(errors="replace")
+        raise RuntimeError(f"{method} {url.split('?')[0]} -> {e.code}: {txt[:600]}")
+
+
+# ---------- Instagram ----------
+def ig(method, path, **params):
+    params["access_token"] = os.environ["IG_TOKEN"]
+    return http(method, f"{GRAPH}/{path}", params)
+
+
+def wait_ready(container, label, timeout=600):
+    t0 = time.time()
+    while time.time() - t0 < timeout:
+        st = ig("GET", container, fields="status_code,status").get("status_code")
+        print(f"  {label}: {st}")
+        if st == "FINISHED": return
+        if st in ("ERROR", "EXPIRED"): die(f"{label} processing failed: {ig('GET', container, fields='status')}")
+        time.sleep(8)
+    die(f"{label} not ready after {timeout}s")
+
+
+def permalink(media_id):
+    try: return ig("GET", media_id, fields="permalink").get("permalink", "")
+    except Exception: return ""
+
+
+def publish_carousel(day, user):
+    folder = os.path.join(ROOT, "posts", day)
+    slides = sorted(glob.glob(os.path.join(folder, "carousel", "*.jpg")))
+    if not 2 <= len(slides) <= 20: die(f"carousel needs 2-20 JPEGs, found {len(slides)}")
+    caption = open(os.path.join(folder, "caption.txt"), encoding="utf-8").read().strip()
+    repo = os.environ.get("GITHUB_REPOSITORY", "Avinash-Acharya/nser-posts")
+    base = f"https://raw.githubusercontent.com/{repo}/main/posts/{day}/carousel/"
+    alt = json.load(open(os.path.join(folder, "post.json"), encoding="utf-8")).get("carousel_alt", "")
+    kids = []
+    for i, s in enumerate(slides):
+        params = dict(image_url=base + os.path.basename(s), is_carousel_item="true")
+        if alt and i == 0: params["alt_text"] = alt[:1000]
+        try: c = ig("POST", f"{user}/media", **params)
+        except RuntimeError as e:
+            if "alt_text" in str(e): params.pop("alt_text", None); c = ig("POST", f"{user}/media", **params)
+            else: raise
+        kids.append(c["id"]); print(f"  slide {i+1}/{len(slides)} -> {c['id']}")
+    for k in kids: wait_ready(k, "slide")
+    parent = ig("POST", f"{user}/media", media_type="CAROUSEL", children=",".join(kids), caption=caption)["id"]
+    wait_ready(parent, "carousel")
+    mid = ig("POST", f"{user}/media_publish", creation_id=parent)["id"]
+    return permalink(mid) or mid
+
+
+def publish_reel(day, user):
+    folder = os.path.join(ROOT, "posts", day)
+    path = os.path.join(folder, "reel.mp4")
+    if not os.path.exists(path): die("reel.mp4 missing")
+    caption = open(os.path.join(folder, "reel-caption.txt"), encoding="utf-8").read().strip()
+    params = dict(media_type="REELS", upload_type="resumable", caption=caption, share_to_feed="true",
+                  thumb_offset="1500", is_ai_generated="true")   # AI voice -> Instagram's AI label
+    try: c = ig("POST", f"{user}/media", **params)
+    except RuntimeError as e:
+        if "is_ai_generated" in str(e): params.pop("is_ai_generated"); c = ig("POST", f"{user}/media", **params)
+        else: raise
+    cid, uri = c["id"], c.get("uri") or f"https://rupload.facebook.com/ig-api-upload/{c['id']}"
+    data = open(path, "rb").read()
+    http("POST", uri, raw=data, headers={"Authorization": "OAuth " + os.environ["IG_TOKEN"],
+                                        "offset": "0", "file_size": str(len(data))})
+    print(f"  uploaded {len(data)//1024} KB")
+    wait_ready(cid, "reel", timeout=900)
+    mid = ig("POST", f"{user}/media_publish", creation_id=cid)["id"]
+    return permalink(mid) or mid
+
+
+# ---------- Notion ----------
+def notion(method, path, body=None):
+    return http(method, "https://api.notion.com/v1/" + path,
+                raw=json.dumps(body).encode() if body is not None else None,
+                headers={"Authorization": "Bearer " + os.environ["NOTION_TOKEN"],
+                         "Notion-Version": "2022-06-28", "Content-Type": "application/json"})
+
+
+def notion_row(day):
+    res = notion("POST", f"databases/{os.environ['NOTION_DB']}/query",
+                 {"filter": {"property": "Post date", "date": {"equals": day}}}).get("results", [])
+    return res[0] if res else None
+
+
+def prop_text(row, name):
+    p = row["properties"].get(name, {})
+    if p.get("type") == "select": return (p.get("select") or {}).get("name", "")
+    if p.get("type") == "url": return p.get("url") or ""
+    return ""
+
+
+def set_props(row, **props):
+    out = {}
+    for k, v in props.items():
+        out[k] = {"select": {"name": v}} if k == "Status" else ({"url": v} if k.endswith("post") else
+                 {"rich_text": [{"text": {"content": v[:1900]}}]})
+    notion("PATCH", f"pages/{row['id']}", {"properties": out})
+
+
+# ---------- main ----------
+def main():
+    args = sys.argv[1:]
+    if not args or args[0] not in ("carousel", "reel", "check"): die(__doc__)
+    kind = args[0]
+    day = args[args.index("--date") + 1] if "--date" in args else dt.datetime.now(IST).strftime("%Y-%m-%d")
+    force = "--force" in args
+    for v in ("IG_USER_ID", "IG_TOKEN", "NOTION_TOKEN", "NOTION_DB"):
+        if not os.environ.get(v): die(f"missing secret {v}")
+    user = os.environ["IG_USER_ID"]
+
+    if kind == "check":
+        me = ig("GET", user, fields="username,account_type,media_count")
+        print(f"Instagram OK: @{me.get('username')} ({me.get('account_type','')}), {me.get('media_count')} posts")
+        lim = ig("GET", f"{user}/content_publishing_limit", fields="quota_usage,config")
+        print("Publishing quota:", lim.get("data", lim))
+        row = notion_row(day)
+        print(f"Notion OK. Row for {day}:", (row and prop_text(row, 'Status')) or "none")
+        print("Files:", os.listdir(os.path.join(ROOT, "posts", day)) if os.path.isdir(os.path.join(ROOT, "posts", day)) else "no folder")
+        return
+
+    if not os.path.isdir(os.path.join(ROOT, "posts", day)):
+        print(f"No post folder for {day}. Nothing to do."); return
+    row = notion_row(day)
+    if not row: print(f"No Notion row with Post date {day}. Nothing to do."); return
+    status = prop_text(row, "Status")
+    auto = os.environ.get("AUTO_APPROVE", "false").lower() == "true"
+    if status == "Skipped": print("Row is Skipped. Not posting."); return
+    if not force and not (status == "Approved" or (auto and status in ("Ready", "Approved"))):
+        print(f"Row status is '{status}', not Approved. Not posting."); return
+    done_field = "Carousel post" if kind == "carousel" else "Reel post"
+    if prop_text(row, done_field) and not force:
+        print(f"{kind} already posted: {prop_text(row, done_field)}"); return
+
+    try:
+        link = publish_carousel(day, user) if kind == "carousel" else publish_reel(day, user)
+    except Exception as e:
+        set_props(row, Status="Failed", Notes=f"{kind} failed {dt.datetime.now(IST):%d %b %H:%M}: {e}")
+        raise
+    print(f"Published {kind}: {link}")
+    other = prop_text(row, "Reel post" if kind == "carousel" else "Carousel post")
+    upd = {done_field: link if link.startswith("http") else None}
+    if other: upd["Status"] = "Posted"
+    set_props(row, **{k: v for k, v in upd.items() if v is not None})
+
+
+if __name__ == "__main__":
+    main()

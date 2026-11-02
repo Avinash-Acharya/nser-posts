@@ -1,0 +1,219 @@
+{
+ "topic": "Case study: MrBeast posted for 5 years before his first hit",
+ "pillar": "Case study",
+ "handle": "@nser.in_officials",
+ "voice": "af_heart",
+ "sources": [
+  "https://en.wikipedia.org/wiki/MrBeast"
+ ],
+ "carousel": [
+  {
+   "kind": "thumb",
+   "tag": "The MrBeast story",
+   "title": "5 years.",
+   "title2": "Then **one video**.",
+   "nib": {
+    "pose": "shrug",
+    "mood": "worried"
+   }
+  },
+  {
+   "kind": "statement",
+   "text": "If you feel **late**, this one is for you.",
+   "sub": "We've been there too. So was the biggest creator on YouTube. Here's what changed for him.",
+   "subTop": 600
+  },
+  {
+   "kind": "timeline",
+   "title": "How it **actually** went",
+   "items": [
+    {
+     "when": "Feb 2012",
+     "what": "Uploads his first video, age 13"
+    },
+    {
+     "when": "Mid 2016",
+     "what": "About **30,000** subscribers"
+    },
+    {
+     "when": "Jan 2017",
+     "what": "Counts to 100,000. **Breakthrough.**",
+     "hot": true
+    },
+    {
+     "when": "June 2026",
+     "what": "First creator to **500M** subscribers"
+    }
+   ]
+  },
+  {
+   "kind": "bignum",
+   "pre": "after 4 years of uploading",
+   "num": "30,000",
+   "label": "subscribers.",
+   "line": "Good, not life-changing. Most people quit **long before** this point."
+  },
+  {
+   "kind": "quote",
+   "quote": "Relentlessly, unhealthily **obsessed** with studying virality.",
+   "who": "MrBeast, on those five years",
+   "whoTop": 760
+  },
+  {
+   "kind": "split",
+   "title": "The real **difference**",
+   "left": {
+    "head": "Posting and hoping",
+    "items": [
+     "Post more",
+     "Hope it works",
+     "Repeat"
+    ]
+   },
+   "right": {
+    "head": "What he did",
+    "items": [
+     "Study what goes **viral**",
+     "Test one idea",
+     "Post, then study again"
+    ]
+   }
+  },
+  {
+   "kind": "chart",
+   "title": "Same channel. **10 years** apart.",
+   "bars": [
+    {
+     "label": "2016",
+     "value": 30000,
+     "display": "~30K",
+     "note": "that's 30K. Too small to see."
+    },
+    {
+     "label": "2026",
+     "value": 500000000,
+     "display": "500M",
+     "hot": true
+    }
+   ],
+   "source": "Subscriber counts. Source: Wikipedia, MrBeast"
+  },
+  {
+   "kind": "checklist",
+   "title": "Steal his method **this week**",
+   "items": [
+    "Pick 3 creators in your niche",
+    "Find posts that did 5x their usual",
+    "Note the hook, length and format",
+    "Use it in your next post",
+    "Repeat every Sunday"
+   ]
+  },
+  {
+   "kind": "share",
+   "title": "Know a creator who's about to **quit**?",
+   "send": "Send them this.",
+   "sendSub": "It might be the push they need.",
+   "save": "Save it for yourself.",
+   "saveSub": "For the day you feel like quitting.",
+   "product": "One creator story every day · @nser.in_officials"
+  }
+ ],
+ "reel": [
+  {
+   "scene": "relate",
+   "say": "MrBeast waited 5 years for his first hit.",
+   "card": "for **one hit**.",
+   "big": "5 years"
+  },
+  {
+   "scene": "relate",
+   "say": "If you post and nobody watches, this one's for you.",
+   "card": "Posting to **nobody**?",
+   "views": 12
+  },
+  {
+   "scene": "friend",
+   "say": "We've been there. So was he.",
+   "card": "We've been **there**.",
+   "sub": "So was he."
+  },
+  {
+   "scene": "trust",
+   "say": "In 2012, at 13, he uploaded his first video.",
+   "node": 0
+  },
+  {
+   "scene": "trust",
+   "say": "Four years later, about 30,000 subscribers.",
+   "node": 1
+  },
+  {
+   "scene": "trust",
+   "say": "Most people quit there. He studied what goes viral instead.",
+   "node": 2
+  },
+  {
+   "scene": "trust",
+   "say": "In 2017, he counted to 100,000. It took 40 hours.",
+   "node": 3
+  },
+  {
+   "scene": "trust",
+   "say": "That was his breakthrough. In June 2026, he hit 500 million subscribers.",
+   "node": 4
+  },
+  {
+   "scene": "value",
+   "say": "So don't just post more. Study what works, then post.",
+   "card": "Don't just post **more**.",
+   "items": [
+    "Study 3 creators in your niche",
+    "Copy the structure, not the words",
+    "Post, check, repeat"
+   ]
+  },
+  {
+   "scene": "product",
+   "say": "We break down one creator story like this every day.",
+   "card": "One creator story, **every day**."
+  },
+  {
+   "scene": "product",
+   "say": "Send this to a creator who's about to quit, and save it.",
+   "card": "**Send** it. **Save** it.",
+   "cta": true
+  }
+ ],
+ "carousel_caption": "MrBeast posted for 5 years before his first hit. Most content creators quit long before that.\n\nFour years in, he had about 30,000 subscribers. He kept going and studied what makes videos go viral, obsessively. In January 2017 he counted to 100,000 on camera. It took 40 hours, and it was his breakthrough. In June 2026 he became the first creator to reach 500 million subscribers.\n\nThe lesson isn't \"post more\". It's study what works, then post more.\n\nSend this to a creator friend who's thinking of quitting, and save it for the day you are.\n\nSource: Wikipedia, MrBeast\n\n#contentcreator #youtubegrowth #instagramgrowth #creatortips #indiancreators",
+ "reel_caption": "MrBeast waited 5 years for his first hit. If you post and nobody watches, this one's for you.\n\nFull story in today's carousel. Send this to a creator who's about to quit, and save it.\n\nSource: Wikipedia, MrBeast\n\n#contentcreator #youtubegrowth #creatortips #indiancreators",
+ "mascot": "phone",
+ "reel_nodes": [
+  {
+   "year": "2012",
+   "text": "First video. Age 13.",
+   "widget": "camera"
+  },
+  {
+   "year": "2016",
+   "text": "About 30,000 subscribers",
+   "widget": "counter",
+   "value": 30000
+  },
+  {
+   "year": "",
+   "text": "Studied what goes **viral**, every day",
+   "widget": "magnifier"
+  },
+  {
+   "year": "2017",
+   "text": "Counted to 100,000 on camera",
+   "widget": "clock"
+  },
+  {
+   "year": "2026",
+   "text": "First creator to 500M",
+   "widget": "bars"
+  }
+ ]
+}
