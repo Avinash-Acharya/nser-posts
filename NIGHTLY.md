@@ -33,28 +33,34 @@ Playwright + Chromium + ffmpeg are pre-installed in Claude's cloud workspace.
 - Follow the 5 sales steps in BOTH carousel and reel, in order:
   1) Relate (their situation, in their shoes)  2) Be a friend ("we've been there")
   3) Build trust (sourced facts, story)  4) Sell the value (the method they can use)
-  5) Then the product (pre-launch: "One creator story every day · @nser.in_officials").
+  5) Then the product (pre-launch: FOLLOW @nser.in_officials for more on creator growth and monetisation).
+  Never promise a posting schedule ("every day", "daily") anywhere.
 - English only. Plain, warm, short sentences. Simple words.
 
 ### Carousel (`carousel` in post.json)
 - 8 to 10 slides, every slide a DIFFERENT layout kind. Kinds available in engine/carousel.html:
-  `thumb` (slide 1 only: like a YouTube thumbnail, ≤6 words, one idea, big Nib),
+  `thumb` (slide 1 only: like a YouTube thumbnail, one idea, big Nib. It must carry the RELATE step and be
+  instantly clear: `title` = the viewer's own problem as a short question, ≤10 characters, e.g. "No views?";
+  `title2` = the story's answer, ≤32 characters, e.g. "MrBeast had **5 years** of it."),
   `statement`, `timeline`, `bignum`, `quote`, `split`, `chart` (bars drawn to scale),
   `checklist`, `ask`, `share` (last slide: send + save CTA + `product` line).
 - `**word**` = yellow marker highlight. No slide numbers, no progress bars. Mascot is Phone Nib (default).
-- Last slide is always `share`: ask people to SEND it to a friend and SAVE it.
+- Last slide is always `share`: ask people to SEND it to a friend and SAVE it, with
+  `product` = "Follow for more on creator growth & monetisation".
 
 ### Reel (`reel` + `reel_nodes` in post.json)
 - 30–40 s of narration, beats of one short sentence each. Scenes, in order:
   `relate` (2 beats: hook with a number, then "if you…"), `friend` (1 beat),
   `trust` (4–5 beats; each has `node` index into `reel_nodes`; widgets: camera, counter,
-  magnifier, clock, bars), `value` (1 beat with 3 `items`), `product` (2 beats, last has `"cta": true`).
+  magnifier, clock, bars), `value` (1 beat with 3 `items`), `product` (2 beats: first = "Follow us for more on creator growth and
+  monetisation.", card "More on **growth** and **monetisation**."; last = send + save, has `"cta": true`).
 - Hook must score ≥ 70 with `python3 tools/hookscore.py --hook "..."`.
 - Voice `af_heart`.
 
 ### Captions
-- `carousel_caption`: first line ≤ 125 chars and concrete; story; one ask (send + save); source; 3–5 hashtags.
-- `reel_caption`: short, points to the carousel, same single ask, source, hashtags.
+- `carousel_caption`: first line ≤ 125 chars and concrete; story; one ask (send + save); then the line
+  "Follow @nser.in_officials for more on creator growth and monetisation."; source; 3–5 hashtags.
+- `reel_caption`: short, points to the carousel, same single ask, the same follow line, source, hashtags.
 - `carousel_alt`: one-line alt text.
 - Lint: `python3 tools/caption.py <file> --keywords "..."` must say READY.
 

@@ -135,7 +135,7 @@ const L = {
       <div style="display:flex;gap:32px;align-items:center">${plane}<div><div class="hand" style="font-size:66px;line-height:1">${esc(s.send)}</div>${s.sendSub?`<div style="font:400 36px/1.3 Inter;color:var(--muted);margin-top:6px">${esc(s.sendSub)}</div>`:''}</div></div>
       <div style="display:flex;gap:32px;align-items:center">${mark}<div><div class="hand" style="font-size:66px;line-height:1">${esc(s.save)}</div>${s.saveSub?`<div style="font:400 36px/1.3 Inter;color:var(--muted);margin-top:6px">${esc(s.saveSub)}</div>`:''}</div></div>
     </div>
-    ${s.product?`<div class="abs" style="left:88px;bottom:96px;background:var(--ink);color:var(--paper);font:600 34px/1 Inter;padding:20px 28px;border-radius:999px">${esc(s.product)}</div>`:''}
+    ${s.product?`<div class="abs" style="left:88px;bottom:96px;max-width:600px;background:var(--ink);color:var(--paper);font:600 34px/1.25 Inter;padding:20px 30px;border-radius:40px">${esc(s.product)}</div>`:''}
     <div class="abs" style="right:30px;bottom:${s.product?150:40}px">${nib(s.nib,{pose:'hold',mood:'happy',size:330})}</div>`;},
 
   // 10 · a video card we draw ourselves (never a real thumbnail)
