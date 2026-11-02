@@ -2,7 +2,7 @@
  "topic": "Case study: MrBeast posted for 5 years before his first hit",
  "pillar": "Case study",
  "handle": "@nser.in_officials",
- "voice": "af_heart",
+ "voice": "hf_alpha:0.4+af_heart:0.6",
  "sources": [
   "https://en.wikipedia.org/wiki/MrBeast"
  ],

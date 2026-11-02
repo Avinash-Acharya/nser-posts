@@ -55,7 +55,7 @@ Playwright + Chromium + ffmpeg are pre-installed in Claude's cloud workspace.
   magnifier, clock, bars), `value` (1 beat with 3 `items`), `product` (2 beats: first = "Follow us for more on creator growth and
   monetisation.", card "More on **growth** and **monetisation**."; last = send + save, has `"cta": true`).
 - Hook must score ≥ 70 with `python3 tools/hookscore.py --hook "..."`.
-- Voice `af_heart`.
+- Voice: `"voice": "hf_alpha:0.4+af_heart:0.6"` in post.json (Indian-accent blend: 40% Alpha, 60% Heart).
 
 ### Captions
 - `carousel_caption`: first line ≤ 125 chars and concrete; story; one ask (send + save); then the line
