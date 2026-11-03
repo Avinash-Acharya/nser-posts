@@ -5,6 +5,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 pd = os.path.abspath(sys.argv[1]); rd = os.path.join(pd, "reel")
 tl = json.load(open(os.path.join(rd, "timeline.json"), encoding="utf-8"))
 post = json.load(open(os.path.join(pd, "post.json"), encoding="utf-8"))
+post["_dir"] = "file://" + pd + "/"
 FPS = 30
 stills = sys.argv[3].split(",") if len(sys.argv) > 3 and sys.argv[2] == "--frames" else None
 with sync_playwright() as p:
@@ -12,6 +13,7 @@ with sync_playwright() as p:
     errs = []; pg.on("pageerror", lambda e: errs.append(str(e)))
     pg.goto("file://" + os.path.join(HERE, "reel2.html"))
     pg.evaluate("([t,p]) => window.setTimeline(t,p)", [tl, post]); pg.evaluate("document.fonts.ready")
+    pg.evaluate("Promise.all([...document.images].map(i=>i.complete?1:new Promise(r=>{i.onload=i.onerror=r})))")
     if stills:
         for s in stills:
             pg.evaluate(f"window.render({float(s)})")

@@ -7,6 +7,7 @@ from playwright.sync_api import sync_playwright
 HERE = os.path.dirname(os.path.abspath(__file__))
 post_dir = os.path.abspath(sys.argv[1])
 post = json.load(open(os.path.join(post_dir, "post.json"), encoding="utf-8"))
+post["_dir"] = "file://" + post_dir + "/"
 out = os.path.join(post_dir, "carousel")
 os.makedirs(out, exist_ok=True)
 
@@ -17,6 +18,7 @@ with sync_playwright() as p:
     for i in range(len(post["carousel"])):
         pg.evaluate("([p,i]) => window.renderSlide(p,i)", [post, i])
         pg.evaluate("document.fonts.ready")
+        pg.evaluate("Promise.all([...document.images].map(i=>i.complete?1:new Promise(r=>{i.onload=i.onerror=r})))")
         png = os.path.join(out, f"{i+1:02d}.png")
         pg.screenshot(path=png)
         jpg = png[:-4] + ".jpg"
