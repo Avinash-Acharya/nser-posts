@@ -81,3 +81,22 @@ before pushing: no text overlapping Nib, nothing in the bottom caption zone of t
 - Notion row: Status = Ready, Post date = tomorrow, Hook, Carousel caption, Reel caption,
   Files = `https://github.com/Avinash-Acharya/nser-posts/tree/main/posts/<date>`.
 - Tell Avinash in one short message: tomorrow's topic, the hook, and that it's waiting for Approved.
+
+## Real screenshots in case studies (added 3 Nov)
+Pure motion graphics feel detached; case studies need real proof of who the creator is.
+- NEVER use photos of real people, their faces, video thumbnails or video frames. Screenshots of a creator's public
+  channel/profile page are OK, cropped (not covered) so no face shows: cut out the avatar, banner and any thumbnails.
+- Screenshots come from Avinash, so plan case studies ONE DAY AHEAD. Each night, if the day after tomorrow should be a
+  case study, add that row to Notion (Post date = day after tomorrow, Status = Idea) with Notes listing the exact links
+  to screenshot: the YouTube channel page (top part: name, @handle, subscribers) and its "...more" panel (joined date,
+  subscribers, videos, views). In the nightly message, ask him to drag-and-drop them at
+  https://github.com/Avinash-Acharya/nser-posts/upload/main/inbox/<that date>
+- When making a post, look in inbox/<date>/. Crop with PIL into posts/<date>/photos/ (pad each crop ~26px in its own
+  background colour), then `git rm -r inbox/<date>`. Look at every crop: no face anywhere.
+- Where they go (engine already supports it, see posts/2026-11-04/post.json):
+  cover `photo` = tight crop of name + handle + subscribers; a `proof` slide right after the relate statement
+  ("Meet **Name**.", `photo` = channel crop, `photo2` = stats crop); reel beat 0 `photo` = the tight crop; a last trust
+  node {"year":"Today","text":"**15.2M** subscribers","photo":"photos/stats.png"} with its own beat.
+- Check every fact against the screenshots. If a screenshot conflicts with your source (e.g. joined date), don't show
+  the conflicting part. Add "her YouTube channel" to the caption sources.
+- No screenshots in the inbox when it's time? Make a growth-topic post instead and move the case study to a later date.
