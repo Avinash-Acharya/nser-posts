@@ -1,0 +1,221 @@
+{
+ "topic": "Case study: Nisha Madhulika started YouTube after 50",
+ "pillar": "Case study",
+ "handle": "@nser.in_officials",
+ "voice": "hf_alpha:0.4+af_heart:0.6",
+ "sources": [
+  "https://en.wikipedia.org/wiki/Nisha_Madhulika"
+ ],
+ "carousel": [
+  {
+   "kind": "thumb",
+   "tag": "The Nisha Madhulika story",
+   "title": "Too late?",
+   "title2": "She started YouTube at **50+**.",
+   "nib": {
+    "pose": "shrug",
+    "mood": "worried"
+   }
+  },
+  {
+   "kind": "statement",
+   "text": "If you feel **too old** to start, this one is for you.",
+   "sub": "We've been there too. Here's a creator who started past 50, and what happened next.",
+   "subTop": 640
+  },
+  {
+   "kind": "timeline",
+   "title": "How it **actually** went",
+   "items": [
+    {
+     "when": "2007",
+     "what": "Starts a blog of vegetarian recipes"
+    },
+    {
+     "when": "2011",
+     "what": "100+ recipes in. Starts **YouTube**.",
+     "hot": true
+    },
+    {
+     "when": "2017",
+     "what": "Wins Top YouTube Cooking creator award"
+    },
+    {
+     "when": "2020",
+     "what": "Crosses **10 million** subscribers"
+    }
+   ]
+  },
+  {
+   "kind": "bignum",
+   "pre": "written on her blog before YouTube",
+   "num": "100+",
+   "label": "recipes.",
+   "line": "The blog **made her popular** first. Then she moved to video."
+  },
+  {
+   "kind": "split",
+   "title": "Waiting vs **starting**",
+   "left": {
+    "head": "Waiting",
+    "items": [
+     "\"I'm too old\"",
+     "\"Everyone's younger\"",
+     "\"Maybe next year\""
+    ]
+   },
+   "right": {
+    "head": "What she did",
+    "items": [
+     "Start with what you **know**",
+     "One clear topic: recipes",
+     "Keep going for years"
+    ]
+   }
+  },
+  {
+   "kind": "chart",
+   "title": "Same channel. **9 years** apart.",
+   "bars": [
+    {
+     "label": "2011",
+     "value": 0,
+     "display": "0",
+     "note": "Day one. Everyone starts here."
+    },
+    {
+     "label": "2020",
+     "value": 10000000,
+     "display": "10M",
+     "hot": true
+    }
+   ],
+   "source": "Subscribers. Source: Wikipedia, Nisha Madhulika"
+  },
+  {
+   "kind": "checklist",
+   "title": "Start **this week**, at any age",
+   "items": [
+    "Write 3 things you know well",
+    "Pick the one people ask you about",
+    "Make one simple post on it",
+    "Post again next week",
+    "Do more of what gets saved"
+   ]
+  },
+  {
+   "kind": "ask",
+   "title": "What's **stopping** you from starting?",
+   "placeholder": "Too old, no time, no idea…",
+   "sub": "Tell us in the comments."
+  },
+  {
+   "kind": "share",
+   "title": "Know someone who thinks it's **too late**?",
+   "send": "Send them this.",
+   "sendSub": "It might be the push they need.",
+   "save": "Save it for yourself.",
+   "saveSub": "For the day you doubt your timing.",
+   "product": "Follow for more on creator growth & monetisation"
+  }
+ ],
+ "reel": [
+  {
+   "scene": "relate",
+   "say": "You're not too late. Nisha Madhulika started YouTube after 50.",
+   "card": "when she **started**.",
+   "big": "50+"
+  },
+  {
+   "scene": "relate",
+   "say": "If you think you're too old to start, this one's for you.",
+   "card": "Too **old** to start?",
+   "views": 12
+  },
+  {
+   "scene": "friend",
+   "say": "We've been there. That too late feeling is real.",
+   "card": "We've been **there**.",
+   "sub": "That 'too late' feeling."
+  },
+  {
+   "scene": "trust",
+   "say": "In 2007, in her late forties, she started a recipe blog.",
+   "node": 0
+  },
+  {
+   "scene": "trust",
+   "say": "In 2011, past 50, she started a YouTube channel.",
+   "node": 1
+  },
+  {
+   "scene": "trust",
+   "say": "She kept going. In 2017, she won a top cooking creator award.",
+   "node": 2
+  },
+  {
+   "scene": "trust",
+   "say": "In 2020, she crossed 10 million subscribers.",
+   "node": 3
+  },
+  {
+   "scene": "value",
+   "say": "So stop counting your age. Start with what you know.",
+   "card": "Start with what you **know**.",
+   "items": [
+    "Pick one thing you know well",
+    "Post it simply",
+    "Keep going for years, not weeks"
+   ]
+  },
+  {
+   "scene": "product",
+   "say": "Follow us for more on creator growth and monetisation.",
+   "card": "More on **growth** and **monetisation**."
+  },
+  {
+   "scene": "product",
+   "say": "Send this to someone who thinks it's too late, and save it.",
+   "card": "**Send** it. **Save** it.",
+   "cta": true
+  }
+ ],
+ "mascot": "phone",
+ "reel_nodes": [
+  {
+   "year": "2007",
+   "text": "A blog of vegetarian recipes",
+   "widget": "counter",
+   "value": 100,
+   "label": "recipes, by 2011"
+  },
+  {
+   "year": "2011",
+   "text": "Starts YouTube, past 50",
+   "widget": "camera"
+  },
+  {
+   "year": "2017",
+   "text": "Top YouTube Cooking creator **award**",
+   "widget": "magnifier"
+  },
+  {
+   "year": "2020",
+   "text": "Crosses 10 million subscribers",
+   "widget": "bars",
+   "bars": [
+    [
+     "2011",
+     "0"
+    ],
+    [
+     "2020",
+     "10M"
+    ]
+   ]
+  }
+ ],
+ "carousel_caption": "Nisha Madhulika started her YouTube channel after 50. In 2020, she crossed 10 million subscribers.\n\nShe began in 2007, in her late forties, with a blog of Indian vegetarian recipes. By 2011 she had written over 100 recipes, and that year she launched her YouTube channel. In 2017 she won the Top YouTube Cooking content creator award at the Social Media Summit & Awards. In 2020 she crossed 10 million subscribers and got YouTube's Diamond Play Button.\n\nThe lesson: you don't need to be young. Start with what you know, and keep going.\n\nSend this to someone who thinks it's too late to start, and save it for the day you doubt your own timing.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSource: Wikipedia, Nisha Madhulika\n\n#indiancreators #contentcreator #youtubeindia #creatortips #foodcreator",
+ "reel_caption": "You're not too late. Nisha Madhulika started YouTube after 50, and crossed 10 million subscribers in 2020.\n\nFull story in today's carousel. Send this to someone who thinks it's too late, and save it.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSource: Wikipedia, Nisha Madhulika\n\n#indiancreators #contentcreator #youtubeindia #creatortips",
+ "carousel_alt": "Carousel: how Indian food creator Nisha Madhulika started YouTube after 50 and reached 10 million subscribers, with a simple plan to start at any age."
+}
