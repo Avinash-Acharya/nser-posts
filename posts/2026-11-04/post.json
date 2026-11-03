@@ -15,13 +15,24 @@
    "nib": {
     "pose": "shrug",
     "mood": "worried"
-   }
+   },
+   "photo": "photos/channel-name.png"
   },
   {
    "kind": "statement",
    "text": "If you feel **too old** to start, this one is for you.",
    "sub": "We've been there too. Here's a creator who started past 50, and what happened next.",
    "subTop": 640
+  },
+  {
+   "kind": "proof",
+   "title": "Meet **Nisha Madhulika**.",
+   "photo": "photos/channel.png",
+   "maxH": 420,
+   "sub": "Vegetarian recipes in Hindi. She started on YouTube after **50**.",
+   "w": 940,
+   "photo2": "photos/stats.png",
+   "subBottom": 90
   },
   {
    "kind": "timeline",
@@ -75,7 +86,7 @@
   },
   {
    "kind": "chart",
-   "title": "Same channel. **9 years** apart.",
+   "title": "Same channel. From **0** to 15.2M.",
    "bars": [
     {
      "label": "2011",
@@ -84,13 +95,13 @@
      "note": "Day one. Everyone starts here."
     },
     {
-     "label": "2020",
-     "value": 10000000,
-     "display": "10M",
+     "label": "Today",
+     "value": 15200000,
+     "display": "15.2M",
      "hot": true
     }
    ],
-   "source": "Subscribers. Source: Wikipedia, Nisha Madhulika"
+   "source": "Subscribers. Wikipedia; YouTube, Nov 2026"
   },
   {
    "kind": "checklist",
@@ -124,7 +135,8 @@
    "scene": "relate",
    "say": "You're not too late. Nisha Madhulika started YouTube after 50.",
    "card": "when she **started**.",
-   "big": "50+"
+   "big": "50+",
+   "photo": "photos/channel-name.png"
   },
   {
    "scene": "relate",
@@ -157,6 +169,11 @@
    "scene": "trust",
    "say": "In 2020, she crossed 10 million subscribers.",
    "node": 3
+  },
+  {
+   "scene": "trust",
+   "say": "Today, 15.2 million people subscribe. Over 2,600 videos.",
+   "node": 4
   },
   {
    "scene": "value",
@@ -213,9 +230,14 @@
      "10M"
     ]
    ]
+  },
+  {
+   "year": "Today",
+   "text": "**15.2M** subscribers",
+   "photo": "photos/stats.png"
   }
  ],
- "carousel_caption": "Nisha Madhulika started her YouTube channel after 50. In 2020, she crossed 10 million subscribers.\n\nShe began in 2007, in her late forties, with a blog of Indian vegetarian recipes. By 2011 she had written over 100 recipes, and that year she launched her YouTube channel. In 2017 she won the Top YouTube Cooking content creator award at the Social Media Summit & Awards. In 2020 she crossed 10 million subscribers and got YouTube's Diamond Play Button.\n\nThe lesson: you don't need to be young. Start with what you know, and keep going.\n\nSend this to someone who thinks it's too late to start, and save it for the day you doubt your own timing.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSource: Wikipedia, Nisha Madhulika\n\n#indiancreators #contentcreator #youtubeindia #creatortips #foodcreator",
- "reel_caption": "You're not too late. Nisha Madhulika started YouTube after 50, and crossed 10 million subscribers in 2020.\n\nFull story in today's carousel. Send this to someone who thinks it's too late, and save it.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSource: Wikipedia, Nisha Madhulika\n\n#indiancreators #contentcreator #youtubeindia #creatortips",
+ "carousel_caption": "Nisha Madhulika started her YouTube channel after 50. In 2020, she crossed 10 million subscribers.\n\nShe began in 2007, in her late forties, with a blog of Indian vegetarian recipes. By 2011 she had written over 100 recipes, and that year she launched her YouTube channel. In 2017 she won the Top YouTube Cooking content creator award at the Social Media Summit & Awards. In 2020 she crossed 10 million subscribers and got YouTube's Diamond Play Button. Today her channel has 15.2 million subscribers and over 2,600 videos.\n\nThe lesson: you don't need to be young. Start with what you know, and keep going.\n\nSend this to someone who thinks it's too late to start, and save it for the day you doubt your own timing.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSources: Wikipedia, Nisha Madhulika; her YouTube channel\n\n#indiancreators #contentcreator #youtubeindia #creatortips #foodcreator",
+ "reel_caption": "You're not too late. Nisha Madhulika started YouTube after 50, and crossed 10 million subscribers in 2020.\n\nFull story in today's carousel. Send this to someone who thinks it's too late, and save it.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSources: Wikipedia, Nisha Madhulika; her YouTube channel\n\n#indiancreators #contentcreator #youtubeindia #creatortips",
  "carousel_alt": "Carousel: how Indian food creator Nisha Madhulika started YouTube after 50 and reached 10 million subscribers, with a simple plan to start at any age."
 }

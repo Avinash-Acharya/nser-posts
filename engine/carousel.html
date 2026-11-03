@@ -30,7 +30,7 @@ const nib=(o,d)=>{const m=Object.assign({},d,o||{});
 // MIT-licensed 3D graphics (Microsoft Fluent Emoji) in assets/3d
 const img=(n,size,css='')=>n?`<img src="assets/3d/${n}_3d.png" style="width:${size}px;height:${size}px;${css}" alt="">`:'';
 // real photos / screenshots that live in the post folder (posts/<date>/photos/...)
-const photo=(src,maxW,maxH,css='')=>src?`<img src="${window.BASE||''}${src}" style="display:block;max-width:${maxW}px;max-height:${maxH}px;border:10px solid #fff;border-radius:28px;box-shadow:0 18px 50px rgba(28,26,23,.18),0 0 0 3px #1C1A17;${css}" alt="">`:'';
+const photo=(src,maxW,maxH,css='',w=0)=>src?`<img src="${window.BASE||''}${src}" style="display:block;${w?`width:${w}px;`:''}max-width:${maxW}px;max-height:${maxH}px;object-fit:contain;border:10px solid #fff;border-radius:28px;box-shadow:0 18px 50px rgba(28,26,23,.18),0 0 0 3px #1C1A17;${css}" alt="">`:'';
 const glow=(x,y,r)=>`<div class="abs" style="left:${x-r}px;top:${y-r}px;width:${2*r}px;height:${2*r}px;border-radius:50%;background:var(--soft)"></div>`;
 
 const L = {
@@ -41,7 +41,7 @@ const L = {
     ${s.title2?`<div class="abs serif" style="left:60px;right:60px;top:${s.title.length>12?420:460}px;text-align:center;font-size:96px;line-height:1">${rich(s.title2)}</div>`:''}
     <div class="abs" style="left:50%;bottom:-10px;width:900px;height:640px;transform:translateX(-50%);border-radius:50% 50% 0 0;background:var(--soft)"></div>
     ${s.img?`<div class="abs" style="left:110px;bottom:120px;transform:rotate(-12deg)">${img(s.img,300)}</div>`:''}
-    ${s.photo?`<div class="abs" style="left:70px;right:70px;top:${s.title.length>12?680:720}px;display:flex;justify-content:center;z-index:2"><div style="transform:rotate(-2deg)">${photo(s.photo,900,300)}</div></div>`:''}
+    ${s.photo?`<div class="abs" style="left:70px;right:70px;top:${s.title.length>12?680:720}px;display:flex;justify-content:center;z-index:2"><div style="transform:rotate(-2deg)">${photo(s.photo,900,300,'',s.w||620)}</div></div>`:''}
     <div class="abs" style="left:50%;bottom:${s.photo?-30:30}px;transform:translateX(${s.img?'-18%':s.photo?'10%':'-46%'})">${nib(s.nib,{pose:'shrug',mood:'worried',size:s.photo?380:470})}</div>`,
 
   // 2 · big statement, Nib peeking in from the edge
@@ -132,7 +132,7 @@ const L = {
   // real screenshot as proof: title, framed photo, one line under it, Nib pointing
   proof: s => `
     <div class="abs serif" style="left:88px;right:88px;top:160px;font-size:${(s.title||'').length>30?84:96}px;line-height:1.04">${rich(s.title||'')}</div>
-    <div class="abs" style="left:60px;right:60px;top:${(s.title||'').length>30?420:380}px;display:flex;justify-content:center"><div style="transform:rotate(${s.rot??-1.5}deg)">${photo(s.photo,940,s.maxH||620)}</div></div>
+    <div class="abs" style="left:60px;right:60px;top:${(s.title||'').length>30?420:380}px;display:flex;justify-content:center"><div style="display:grid;gap:34px;justify-items:center"><div style="transform:rotate(${s.rot??-1.5}deg)">${photo(s.photo,940,s.maxH||620,'',s.w||0)}</div>${s.photo2?`<div style="transform:rotate(1.5deg);margin-left:-260px">${photo(s.photo2,600,320,'',s.w2||440)}</div>`:''}</div></div>
     ${s.sub?`<p class="abs body" style="left:88px;width:620px;bottom:${s.subBottom||110}px">${rich(s.sub)}</p>`:''}
     <div class="abs" style="right:40px;bottom:30px">${nib(s.nib,{pose:'point',mood:'happy',size:260})}</div>`,
 
