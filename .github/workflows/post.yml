@@ -18,6 +18,10 @@ on:
         description: "Post even if Notion is not Approved (yes/no)"
         required: false
         default: "no"
+      dry:
+        description: "Test only: upload and process, but do NOT publish (yes/no)"
+        required: false
+        default: "no"
 
 concurrency:
   group: instagram-post
@@ -49,8 +53,10 @@ jobs:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_DB: ${{ secrets.NOTION_DB }}
           AUTO_APPROVE: ${{ vars.AUTO_APPROVE }}
+          EVENT: ${{ github.event_name }}
         run: |
           ARGS="${{ steps.what.outputs.kind }}"
           if [ -n "${{ inputs.date }}" ]; then ARGS="$ARGS --date ${{ inputs.date }}"; fi
           if [ "${{ inputs.force }}" = "yes" ]; then ARGS="$ARGS --force"; fi
+          if [ "${{ inputs.dry }}" = "yes" ]; then ARGS="$ARGS --dry"; fi
           python poster/post_ig.py $ARGS

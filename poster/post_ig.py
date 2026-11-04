@@ -15,6 +15,9 @@ import datetime as dt, glob, json, os, sys, time, urllib.parse, urllib.request
 
 GRAPH = "https://graph.facebook.com"
 IST = dt.timezone(dt.timedelta(hours=5, minutes=30))
+DRY = False
+# GitHub's own timer can fire hours late; a late scheduled run must not post at 2am.
+WINDOW = {"carousel": (10, 14), "reel": (18, 22)}   # IST hours, [start, end)
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -77,6 +80,7 @@ def publish_carousel(day, user):
     for k in kids: wait_ready(k, "slide")
     parent = ig("POST", f"{user}/media", media_type="CAROUSEL", children=",".join(kids), caption=caption)["id"]
     wait_ready(parent, "carousel")
+    if DRY: return "dry run OK: uploaded and processed, NOT published"
     mid = ig("POST", f"{user}/media_publish", creation_id=parent)["id"]
     return permalink(mid) or mid
 
@@ -98,6 +102,7 @@ def publish_reel(day, user):
                                         "offset": "0", "file_size": str(len(data))})
     print(f"  uploaded {len(data)//1024} KB")
     wait_ready(cid, "reel", timeout=900)
+    if DRY: return "dry run OK: uploaded and processed, NOT published"
     mid = ig("POST", f"{user}/media_publish", creation_id=cid)["id"]
     return permalink(mid) or mid
 
@@ -155,6 +160,11 @@ def main():
     kind = args[0]
     day = args[args.index("--date") + 1] if "--date" in args else dt.datetime.now(IST).strftime("%Y-%m-%d")
     force = "--force" in args
+    global DRY; DRY = "--dry" in args
+    if os.environ.get("EVENT") == "schedule" and kind in WINDOW:
+        h = dt.datetime.now(IST).hour; a, b = WINDOW[kind]
+        if not a <= h < b:
+            print(f"Scheduled run fired late ({h}:xx IST), outside the {kind} window. Not posting."); return
     for v in ("IG_USER_ID", "IG_TOKEN", "NOTION_TOKEN", "NOTION_DB"):
         if not os.environ.get(v): die(f"missing secret {v}")
     user = os.environ["IG_USER_ID"]
@@ -191,9 +201,10 @@ def main():
     try:
         link = publish_carousel(day, user) if kind == "carousel" else publish_reel(day, user)
     except Exception as e:
-        set_props(row, Status="Failed", Notes=f"{kind} failed {dt.datetime.now(IST):%d %b %H:%M}: {e}")
+        if not DRY: set_props(row, Status="Failed", Notes=f"{kind} failed {dt.datetime.now(IST):%d %b %H:%M}: {e}")
         raise
     print(f"Published {kind}: {link}")
+    if DRY: return
     other = prop_text(row, "Reel post" if kind == "carousel" else "Carousel post")
     upd = {done_field: link if link.startswith("http") else None}
     if other: upd["Status"] = "Posted"
