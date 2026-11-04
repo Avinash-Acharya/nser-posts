@@ -1,0 +1,229 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- UI-motion reel: one shape that morphs (size, radius, colour) through UI states, cursor-driven.
+     Everything is a pure function of time: window.render(t). Springs are closed-form step responses. -->
+<style>
+  @font-face{font-family:"Geist";src:url(fonts/Geist-Variable.woff2) format("woff2");font-weight:100 900}
+  :root{--bg:#ECEAE6;--ink:#0B0B0B;--mut:#8C8983;--line:#D9D6D0;--acc:#FFD23F}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1080px;height:1920px;background:var(--bg);overflow:hidden}
+  body{font-family:"Geist",sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;font-feature-settings:"tnum" 1}
+  .abs{position:absolute}
+  #wm{left:80px;top:200px;font:500 32px/1 Geist;color:var(--mut);letter-spacing:-.01em}
+  .head{left:80px;right:80px;top:290px;font:650 86px/1.04 Geist;letter-spacing:-.045em}
+  .head .w{display:inline-block;margin-right:.2em;background-image:linear-gradient(var(--acc),var(--acc));background-repeat:no-repeat;background-position:0 88%;background-size:0% 34%}
+  #cam{left:0;top:0;width:1080px;height:1920px;transform-origin:540px 990px}
+  #shape{left:540px;top:990px;overflow:hidden}
+  .layer{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+  #cap{left:80px;right:80px;top:1365px;font:500 44px/1.28 Geist;letter-spacing:-.02em}
+  #cur{left:0;top:0;width:60px;height:60px;z-index:50}
+  .lbl{font:600 34px/1 Geist;letter-spacing:-.02em}
+  .foot{font:500 26px/1.2 Geist;color:var(--mut);letter-spacing:-.01em}
+  .pill{border-radius:999px}
+</style>
+<script src="mascot.js"></script></head>
+<body>
+<div id="wm" class="abs">@nser.in_officials</div>
+<div id="heads"></div>
+<div id="cam" class="abs"><div id="shape" class="abs"></div></div>
+<div id="cap" class="abs"></div>
+<svg id="cur" class="abs" viewBox="0 0 60 60"><path d="M8 4 L8 46 L19 36 L27 54 L35 50 L27 33 L42 33 Z" fill="#0B0B0B" stroke="#fff" stroke-width="3.5" stroke-linejoin="round"/></svg>
+<script>
+// ---------------- math ----------------
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const P=(t,a,b)=>clamp((t-a)/(b-a));
+const lerp=(a,b,k)=>a+(b-a)*k;
+const eo=x=>1-Math.pow(1-clamp(x),3);
+// closed-form damped spring step response (0 -> 1). w = natural freq, z = damping (0.86 = tiny overshoot)
+function spr(dt,w=15,z=.86){ if(dt<=0) return 0; if(z>=.999) return 1-Math.exp(-w*dt)*(1+w*dt); const wd=w*Math.sqrt(1-z*z);
+  return 1-Math.exp(-z*w*dt)*(Math.cos(wd*dt)+(z*w/wd)*Math.sin(wd*dt)); }
+// a value that changes target many times = sum of one spring per change. keys: [[t, v, w?], ...] sorted
+function track(t,keys,w,z){ let v=keys[0][1]; for(let i=1;i<keys.length;i++){ v+=(keys[i][1]-keys[i-1][1])*spr(t-keys[i][0],keys[i][2]||w,z);} return v; }
+const hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const $=id=>document.getElementById(id);
+const C={ink:'#0B0B0B',white:'#FFFFFF',acc:'#FFD23F',bg:'#ECEAE6',gray:'#D9D6D0',mut:'#8C8983'};
+
+// ---------------- icons (one stroke weight: 4px, round) ----------------
+const ic={
+  reel:`<svg width="64" height="64" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="24" height="24" rx="6"/><path d="M4 11h24M11 4l4 7M19 4l4 7"/><path d="M14 16.5v6l5-3z" fill="currentColor"/></svg>`,
+  car:`<svg width="64" height="64" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="6" width="18" height="20" rx="4"/><path d="M3 9v14M29 9v14"/></svg>`,
+  both:`<svg width="64" height="64" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="13" height="18" rx="3.5"/><path d="M8 13.5v5l4-2.5z" fill="currentColor"/><rect x="18" y="7" width="11" height="18" rx="3.5"/></svg>`,
+  send:`<svg width="58" height="58" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M28 4L14 18M28 4l-9 24-5-10-10-5z"/></svg>`,
+  save:(f)=>`<svg width="58" height="58" viewBox="0 0 32 32" fill="${f?'currentColor':'none'}" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h16v24l-8-6-8 6z"/></svg>`,
+  check:`<svg width="40" height="40" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16.5l6 6 12-13"/></svg>`,
+  play:`<svg width="34" height="34" viewBox="0 0 32 32"><path d="M10 6v20l17-10z" fill="currentColor"/></svg>`,
+};
+
+// ---------------- state kinds ----------------
+// each: box {w,h,r,bg,cam}, html(st) -> inner, anim(st, lt, t, el) per frame, cursor(st) -> keys/presses
+const K={
+  button:{box:s=>({w:560,h:150,r:75,bg:C.ink,cam:1.45}),
+    html:s=>`<div style="width:560px;height:150px;display:flex;align-items:center;justify-content:center;color:#fff;font:600 50px/1 Geist;letter-spacing:-.03em">${esc(s.label)}</div>`},
+  stat:{box:s=>({w:880,h:620,r:60,bg:C.white,cam:1}),
+    html:s=>`<div style="width:880px;height:620px;padding:70px 76px;display:flex;flex-direction:column;justify-content:space-between">
+      <div class="foot" style="font-size:30px">${esc(s.pre||'')}</div>
+      <div><div class="num" style="font:700 300px/0.82 Geist;letter-spacing:-.07em">${esc(s.num)}</div>
+      <div style="font:600 58px/1.05 Geist;letter-spacing:-.04em;margin-top:26px">${esc(s.label)}</div></div>
+      <div class="foot">${esc(s.foot||'')}</div></div>`,
+    anim:(s,lt,t,el)=>{const n=el.querySelector('.num'); if(s.from!=null){const v=lerp(s.from,s.to,spr(lt-.35,7,1)); n.textContent=(s.prefix||'')+Math.round(v)+(s.suffix||'');}}},
+  toggle:{box:s=>({w:780,h:156,r:78,bg:C.white,cam:1.2}),
+    html:s=>`<div style="width:780px;height:156px;position:relative">
+      <div class="knob abs pill" style="top:14px;height:128px;background:${C.ink}"></div>
+      ${s.opts.map((o,i)=>`<div class="opt abs" style="left:${i*390}px;top:0;width:390px;height:156px;display:flex;align-items:center;justify-content:center;font:600 50px/1 Geist;letter-spacing:-.03em">${esc(o)}</div>`).join('')}</div>`,
+    anim:(s,lt,t,el)=>{ // two edges, two springs: the leading edge runs ahead
+      const L=[[0,14]],R=[[0,376]]; let cur=0;
+      s.flips.forEach(f=>{const to=1-cur, right=to>cur; L.push([f,to?404:14,right?11:20]); R.push([f,to?766:376,right?20:11]); cur=to;});
+      const l=track(lt,L), r=track(lt,R), kn=el.querySelector('.knob'); kn.style.left=l+'px'; kn.style.width=(r-l)+'px';
+      const mid=(l+r)/2; el.querySelectorAll('.opt').forEach((o,i)=>{const c=i*390+195, on=clamp(1-Math.abs(mid-c)/220); o.style.color=on>.5?'#fff':C.ink;});}},
+  phone:{box:s=>({w:430,h:700,r:96,bg:C.acc,cam:1}),
+    html:s=>`<div style="width:430px;height:700px;position:relative"><div class="nib abs" style="left:50%;top:50%;transform:translate(-50%,-50%)">${mascotSVG({pose:'wave',mood:'happy',size:600})}</div></div>`,
+    anim:(s,lt,t,el)=>{const n=el.querySelector('.nib'); n.style.transform=`translate(-50%,-50%) translateY(${Math.sin(t*2.6)*8}px) rotate(${Math.sin(t*1.7)*2}deg)`;}},
+  feed:{box:s=>({w:860,h:680,r:60,bg:C.white,cam:1}),
+    html:s=>`<div style="width:860px;height:680px;padding:48px 60px">
+      <div style="display:flex;align-items:center;gap:14px;font:600 34px/1 Geist;letter-spacing:-.02em">${ic.play}<span>Reels for you</span></div>
+      ${[0,1,2,3].map(i=>{const fol=i===2; return `<div class="row" style="display:flex;align-items:center;gap:26px;margin-top:${i?22:34}px">
+        <div style="width:88px;height:88px;border-radius:50%;background:${['#CFCBC4','#B9B5AE','#DAD7D1','#C4C0B9'][i]};flex:none"></div>
+        <div style="flex:1"><div style="height:22px;width:${[300,250,280,220][i]}px;border-radius:11px;background:#1F1F1F"></div><div style="height:18px;width:${[190,230,160,200][i]}px;border-radius:9px;background:#DAD7D1;margin-top:14px"></div></div>
+        <div class="pill" style="padding:20px 30px;font:600 30px/1 Geist;${fol?'background:#ECEAE6;color:#0B0B0B':'background:#0B0B0B;color:#fff'}">${fol?'Following':'Follow'}</div></div>`}).join('')}
+      <div class="foot" style="margin-top:30px">${esc(s.foot||'')}</div></div>`,
+    anim:(s,lt,t,el)=>{el.querySelectorAll('.row').forEach((r,i)=>{const p=spr(lt-.25-i*.12,13,.9); r.style.opacity=clamp(p); r.style.transform=`translateY(${(1-p)*40}px)`;});}},
+  counter:{box:s=>({w:880,h:560,r:60,bg:C.ink,cam:1}),
+    html:s=>`<div style="width:880px;height:560px;padding:64px 70px;color:#fff;display:flex;flex-direction:column;justify-content:space-between">
+      <div class="grid" style="display:grid;grid-template-columns:repeat(20,1fr);gap:8px">${Array.from({length:60},()=>`<i style="display:block;height:18px;border-radius:5px;background:#fff"></i>`).join('')}</div>
+      <div><div class="num" style="font:700 132px/0.9 Geist;letter-spacing:-.06em">0</div>
+      <div style="font:600 48px/1 Geist;letter-spacing:-.03em;margin-top:18px">${esc(s.label)}</div></div>
+      <div class="foot" style="color:#9A978F">${esc(s.foot||'')}</div></div>`,
+    anim:(s,lt,t,el)=>{const p=spr(lt-.3,4.2,1); el.querySelector('.num').textContent=Math.round(p*s.value).toLocaleString('en-US')+(p>.995?'+':'');
+      el.querySelectorAll('.grid i').forEach((c,k)=>{c.style.opacity=.14+.86*clamp((p*60-k));});}},
+  chart:{box:s=>({w:880,h:680,r:60,bg:C.white,cam:1}),
+    html:s=>{const max=Math.max(...s.bars.map(b=>b.value));return `<div style="width:880px;height:680px;padding:56px 70px;position:relative">
+      <div class="lbl">${esc(s.title)}</div>
+      <div style="position:absolute;left:70px;right:70px;bottom:150px;height:360px;border-bottom:3px solid #0B0B0B;display:flex;align-items:flex-end;justify-content:space-around">
+      ${s.bars.map((b,i)=>`<div style="width:240px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
+        <div class="val" style="font:700 64px/1 Geist;letter-spacing:-.04em;margin-bottom:18px">${esc(b.display)}</div>
+        <div class="bar" data-h="${360*0.8*b.value/max}" style="width:200px;border-radius:24px 24px 0 0;background:${b.hot?C.ink:C.gray}"></div></div>`).join('')}</div>
+      <div style="position:absolute;left:70px;right:70px;bottom:88px;display:flex;justify-content:space-around">${s.bars.map(b=>`<div style="width:240px;text-align:center" class="lbl">${esc(b.label)}</div>`).join('')}</div>
+      <div class="foot" style="position:absolute;left:70px;bottom:34px">${esc(s.foot||'')}</div>
+      <div class="tip abs pill" style="padding:18px 26px;box-shadow:0 0 0 5px #fff;background:${C.ink};color:#fff;font:600 30px/1 Geist;white-space:nowrap;opacity:0"></div></div>`},
+    anim:(s,lt,t,el,cx,cy)=>{el.querySelectorAll('.bar').forEach((b,i)=>{const p=spr(lt-.35-i*.18,9,.92); b.style.height=(+b.dataset.h*p)+'px'; b.parentNode.querySelector('.val').style.opacity=clamp(p*1.4-.3);});
+      // tooltip = pure function of the cursor position (local coords)
+      const tip=el.querySelector('.tip'); let on=-1; const cols=[70+(740/4)-120, 70+3*(740/4)-120];
+      cols.forEach((x0,i)=>{if(cx>x0&&cx<x0+240&&cy>150&&cy<540) on=i;});
+      if(on>=0){tip.textContent=s.bars[on].tip; tip.style.opacity=1; tip.style.left=(cx>440?cx-tip.offsetWidth-30:cx+38)+'px'; tip.style.top=(on===0?cy+34:cy-70)+'px';} else tip.style.opacity=0;}},
+  slider:{box:s=>({w:880,h:470,r:60,bg:C.white,cam:1}),
+    html:s=>`<div style="width:880px;height:470px;padding:60px 70px;position:relative">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><div class="lbl">${esc(s.title)}</div><div class="v" style="font:700 64px/1 Geist;letter-spacing:-.04em">1x</div></div>
+      ${['Reels','Carousels'].map((n,i)=>`<div style="position:absolute;left:70px;right:70px;top:${190+i*120}px">
+        <div class="foot" style="color:#0B0B0B;font-weight:600;font-size:28px">${n}</div>
+        <div style="position:relative;height:20px;margin-top:22px;background:#ECEAE6;border-radius:10px">
+          <div class="fill${i}" style="position:absolute;left:0;top:0;height:20px;border-radius:10px;background:${i?C.gray:C.ink}"></div>
+          <div class="kn${i} pill" style="position:absolute;top:-22px;height:64px;background:#fff;border:5px solid ${i?C.gray:C.ink}"></div></div></div>`).join('')}
+      <div class="foot" style="position:absolute;left:70px;right:70px;bottom:34px;display:flex;justify-content:space-between"><span>1x</span><span>2x</span><span>3x</span></div></div>`,
+    anim:(s,lt,t,el,cx,cy,held,rel)=>{const W=740; // reels knob: direct manipulation while held, springs back on release
+      let v; const v0=1/3;
+      if(held!=null) v=(cx-70)/W; else if(rel!=null) v=lerp(rel.v,1,spr(lt-rel.lt,16,.8)); else v=v0;
+      v=Math.max(v,0); const over=Math.max(0,v-1)*W, vc=Math.min(v,1);
+      const kw=64+over*.45, kx=vc*W-32-over*.1;
+      el.querySelector('.fill0').style.width=(vc*W)+'px'; const k0=el.querySelector('.kn0'); k0.style.left=kx+'px'; k0.style.width=kw+'px';
+      el.querySelector('.fill1').style.width=(W/3)+'px'; const k1=el.querySelector('.kn1'); k1.style.left=(W/3-32)+'px'; k1.style.width='64px';
+      const x=Math.max(1,Math.round(vc*3)); el.querySelector('.v').textContent=(rel&&lt>rel.lt+.25?'~':'')+x+'x';}},
+  tabs:{box:s=>({w:880,h:560,r:60,bg:C.white,cam:1}),
+    html:s=>`<div style="width:880px;height:560px;padding:50px;position:relative">
+      <div style="position:relative;height:110px;background:#ECEAE6;border-radius:55px">
+        <div class="ind abs pill" style="top:10px;height:90px;background:${C.ink}"></div>
+        ${s.tabs.map((o,i)=>`<div class="tb abs" style="left:${i*260}px;top:0;width:260px;height:110px;display:flex;align-items:center;justify-content:center;font:600 34px/1 Geist;letter-spacing:-.02em">${esc(o.tab)}</div>`).join('')}</div>
+      ${s.tabs.map((o,i)=>`<div class="pane abs" style="left:50px;right:50px;top:200px;bottom:50px;display:flex;align-items:center;gap:36px;padding:0 30px">
+        <div style="width:150px;height:150px;border-radius:40px;background:#ECEAE6;display:flex;align-items:center;justify-content:center;transform:scale(1.25)">${ic[o.icon]}</div>
+        <div style="font:650 66px/1.02 Geist;letter-spacing:-.045em">${esc(o.text)}</div></div>`).join('')}</div>`,
+    anim:(s,lt,t,el)=>{const L=[[0,10]],R=[[0,250]]; let cur=0;
+      s.sw.forEach(a=>{const to=cur+1, x0=10+to*260; L.push([a,x0,11]); R.push([a,x0+240,21]); cur=to;}); // leading (right) edge stiffer
+      const l=track(lt,L), r=track(lt,R), ind=el.querySelector('.ind'); ind.style.left=l+'px'; ind.style.width=(r-l)+'px';
+      const mid=(l+r)/2; el.querySelectorAll('.tb').forEach((o,i)=>o.style.color=Math.abs(mid-(i*260+130))<130?'#fff':C.ink);
+      const sw=[0,...s.sw]; el.querySelectorAll('.pane').forEach((p,i)=>{const a=sw[i], b=sw[i+1]??1e9;
+        const pin=i===0?1:spr(lt-a-.06,16,1), pout=spr(lt-b,22,1); const o=pin*(1-pout);
+        p.style.opacity=o; p.style.filter=`blur(${(1-o)*14}px)`; p.style.transform=`translateY(${(1-pin)*24-pout*16}px)`;});}},
+  follow:{box:s=>s.on?({w:760,h:170,r:85,bg:C.white,cam:1.2}):({w:760,h:170,r:85,bg:C.ink,cam:1.2}),
+    html:s=>`<div style="width:760px;height:170px;display:flex;align-items:center;justify-content:center;gap:18px;font:600 48px/1 Geist;letter-spacing:-.03em;color:${s.on?C.ink:'#fff'}">${s.on?ic.check+'Following':'Follow <span style="opacity:.55;font-weight:500">@nser.in_officials</span>'}</div>`},
+  share:{box:s=>({w:860,h:330,r:60,bg:C.white,cam:1.05}),
+    html:s=>`<div style="width:860px;height:330px;padding:44px;display:flex;gap:28px">
+      ${['Send','Save'].map((n,i)=>`<div class="b${i}" style="flex:1;border-radius:40px;background:#ECEAE6;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px">
+        <div class="i${i}">${i?ic.save(0):ic.send}</div><div style="font:600 44px/1 Geist;letter-spacing:-.03em">${n}</div></div>`).join('')}</div>`,
+    anim:(s,lt,t,el)=>{s.taps.forEach((a,i)=>{const p=spr(lt-a,18,.9); const b=el.querySelector('.b'+i);
+        const on=p>.5; b.style.background=on?C.ink:'#ECEAE6'; b.style.color=on?'#fff':C.ink;
+        const ii=el.querySelector('.i'+i); if(i===1){const f=on?'1':'0'; if(ii.dataset.f!==f){ii.dataset.f=f; ii.innerHTML=ic.save(on);}}
+        ii.style.transform=i===0?`translate(${p*10}px,${-p*10}px)`:`scale(${1+.12*Math.sin(clamp(p)*Math.PI)})`;});}},
+};
+
+// ---------------- timeline ----------------
+let T=null, POST=null, ST=[], HEADS=[], CUR=null, PRESS=[];
+window.setTimeline=(tl,post)=>{T=tl; POST=post; const B=tl.beats; ST=[];
+  post.reel.forEach((b,i)=>{(b.ui||[]).forEach(u=>{ST.push(Object.assign({},u,{t:B[i].start+(u.at||0),beat:i}));});});
+  {const lb=Object.assign({},ST[0],{t:tl.total-.62,beat:B.length,loopback:true}); delete lb.cur; delete lb.press; ST.push(lb);}
+  ST.sort((a,b)=>a.t-b.t);
+  // shape: content layers
+  const sh=$('shape'); sh.innerHTML=ST.map((s,i)=>`<div class="layer" id="L${i}">${K[s.kind].html(s)}</div>`).join('');
+  // headlines
+  const heads=B.map((b,i)=>({t:b.start,text:(post.reel[i].ui_head||b.card||'')}));
+  heads.push({t:tl.total-.62,text:heads[0].text}); HEADS=heads;
+  $('heads').innerHTML=heads.map((h,i)=>`<div class="head abs" id="H${i}">${h.text.split(' ').map(w=>`<span class="w" data-m="${/\*\*/.test(w)?1:0}">${esc(w.replace(/\*\*/g,''))}</span>`).join('')}</div>`).join('');
+  // cursor keys (stage coords) and presses, from each state's "cur": [[dt,x,y],...] and "press": [dt,...] / "drag": [dt0,dt1]
+  const keys=[[0,820,1250]]; PRESS=[];
+  ST.forEach(s=>{(s.cur||[]).forEach(k=>keys.push([s.t+k[0],k[1],k[2]])); (s.press||[]).forEach(p=>PRESS.push([s.t+p,s.t+p+.12])); if(s.drag) PRESS.push([s.t+s.drag[0],s.t+s.drag[1],'drag',s]);});
+  keys.push([tl.total-.6,820,1250]); keys.sort((a,b)=>a[0]-b[0]); CUR=keys;
+  window.CLICKS=PRESS.map(p=>p[0]);
+};
+const curAt=t=>{ // cursor position: one spring per waypoint (stiff, no overshoot)
+  const kx=CUR.map(k=>[k[0],k[1]]), ky=CUR.map(k=>[k[0],k[2]]); return [track(t,kx,9,1),track(t,ky,9,1)]; };
+
+window.render=t=>{
+  // which state is live
+  let si=0; ST.forEach((s,i)=>{if(t>=s.t) si=i;});
+  // shape geometry: sum of springs over state changes
+  const bx=ST.map(s=>K[s.kind].box(s));
+  const kk=f=>ST.map((s,i)=>[s.t,f(bx[i])]);
+  const w=track(t,kk(b=>b.w),15,.86), h=track(t,kk(b=>b.h),15,.86), r=track(t,kk(b=>b.r),15,.9), cam=track(t,kk(b=>b.cam),8,.95);
+  const col=[0,1,2].map(c=>track(t,ST.map((s,i)=>[s.t,hex(bx[i].bg)[c]]),18,1));
+  const sh=$('shape'); sh.style.width=w+'px'; sh.style.height=h+'px'; sh.style.marginLeft=(-w/2)+'px'; sh.style.marginTop=(-h/2)+'px';
+  sh.style.borderRadius=r+'px'; sh.style.background=`rgb(${col.map(Math.round)})`;
+  const isPhone=ST[si].kind==='phone'; const shadowA=isPhone?0:.07;
+  sh.style.boxShadow=`0 30px 70px rgba(20,18,15,${shadowA}), 0 2px 0 rgba(20,18,15,.03)`;
+  const phoneFade=ST.reduce((a,s,i)=>s.kind==='phone'?a+spr(t-s.t-.35,14,1)-(ST[i+1]?spr(t-ST[i+1].t,22,1):0):a,0);
+  sh.style.background=`rgba(${col.map(Math.round)},${1-clamp(phoneFade)})`; sh.style.overflow=phoneFade>.02?'visible':'hidden';
+  // camera: zoom so each state fills the frame, tiny drift
+  $('cam').style.transform=`scale(${cam*(1+.012*Math.sin(t*.7))})`;
+  // cursor
+  const [cx,cy]=curAt(t); let down=0, held=null;
+  PRESS.forEach(p=>{if(t>=p[0]&&t<p[1]){down=1; if(p[2]) held=p;} });
+  const phoneOn=clamp(phoneFade);
+  const sx=540+(cx-540)*cam, sy=990+(cy-990)*cam;
+  const cu=$('cur'); cu.style.transform=`translate(${sx-8}px,${sy-4}px) scale(${down?.86:1})`; cu.style.transformOrigin='8px 4px'; cu.style.opacity=1-phoneOn;
+  // content layers: own exit and enter timing (exit fast, enter after) so swapped text never overlaps
+  ST.forEach((s,i)=>{const L=$('L'+i), nx=ST[i+1];
+    const pin=i===0?1:spr(t-s.t-.1,16,1), pout=nx?spr(t-nx.t,26,1):0;
+    let o=clamp(pin)*(1-clamp(pout));
+    L.style.opacity=o; L.style.display=o<.003?'none':'block';
+    if(o<.003) return;
+    L.style.filter=o>.995?'none':`blur(${(1-o)*16}px)`;
+    L.style.transform=`translate(-50%,-50%) scale(${.96+.04*o})`;
+    const an=K[s.kind].anim; if(an){
+      const b=bx[i]; const lx=cx-(540-b.w/2), ly=cy-(990-b.h/2); // cursor in layer coords
+      let rel=null; PRESS.forEach(p=>{if(p[2]==='drag'&&p[3]===s&&t>=p[1]){rel={lt:p[1]-s.t,v:(curAt(p[1])[0]-(540-b.w/2)-70)/740};}});
+      an(s,t-s.t,t,L.firstElementChild,lx,ly,held&&held[3]===s?held:null,rel);}
+  });
+  // headlines
+  HEADS.forEach((hd,i)=>{const el=$('H'+i), nx=HEADS[i+1];
+    const pout=nx?spr(t-nx.t,24,1):0; const vis=t>=hd.t-.001&&(pout<.999);
+    el.style.display=vis?'block':'none'; if(!vis) return;
+    el.querySelectorAll('.w').forEach((wd,k)=>{const pin=i===0?1:spr(t-hd.t-.08-k*.035,15,.92);
+      const o=clamp(pin)*(1-pout); wd.style.opacity=o; wd.style.filter=o>.995?'none':`blur(${(1-o)*12}px)`;
+      wd.style.transform=`translateY(${(1-pin)*30-pout*18}px)`;
+      wd.style.backgroundSize=wd.dataset.m==='1'?`${clamp(i===0?1:spr(t-hd.t-.45-k*.035,10,1))*100}% 34%`:'0% 34%';});});
+  // captions: words light up as spoken
+  const B=T.beats; let bi=0; B.forEach((b,i)=>{if(t>=b.start) bi=i;});
+  const cap=$('cap'); if(cap.dataset.k!==String(bi)){cap.dataset.k=bi; cap.innerHTML=B[bi].say.split(' ').map(w=>`<span>${esc(w)} </span>`).join('');}
+  const ws=cap.querySelectorAll('span'), sp=P(t,B[bi].start,B[bi].start+B[bi].dur*.92);
+  ws.forEach((w,j)=>{w.style.color=j/ws.length<=sp?C.ink:'#B3AFA8';});
+  cap.style.opacity=t>T.total-.62?1-P(t,T.total-.62,T.total-.3):1;
+};
+</script></body></html>

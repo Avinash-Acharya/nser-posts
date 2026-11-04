@@ -115,39 +115,241 @@
    "scene": "relate",
    "say": "Stop guessing. For small accounts, reels reach nearly 3 times more new people.",
    "card": "more **new people**.",
-   "big": "3x"
+   "big": "3x",
+   "ui_head": "Stop **guessing**.",
+   "ui": [
+    {
+     "kind": "button",
+     "label": "Reel or carousel?",
+     "at": 0,
+     "cur": [
+      [
+       0.15,
+       560,
+       1000
+      ]
+     ],
+     "press": [
+      0.75
+     ]
+    },
+    {
+     "kind": "stat",
+     "at": 0.9,
+     "pre": "For accounts under 10K followers, reels reach nearly",
+     "num": "3x",
+     "from": 1,
+     "to": 3,
+     "suffix": "x",
+     "label": "more new people than carousels.",
+     "foot": "Source: Fanpage Karma, 2026",
+     "cur": [
+      [
+       0.3,
+       900,
+       1230
+      ]
+     ]
+    }
+   ]
   },
   {
    "scene": "relate",
    "say": "Reel or carousel? If you never know, this one's for you.",
    "card": "Reel or **carousel**?",
-   "views": 12
+   "views": 12,
+   "ui_head": "Reel or **carousel**?",
+   "ui": [
+    {
+     "kind": "toggle",
+     "at": 0,
+     "opts": [
+      "Reel",
+      "Carousel"
+     ],
+     "flips": [
+      0.55,
+      1.2,
+      1.85,
+      2.5
+     ],
+     "cur": [
+      [
+       0.1,
+       735,
+       1000
+      ],
+      [
+       1.0,
+       345,
+       1000
+      ],
+      [
+       1.6,
+       735,
+       1000
+      ],
+      [
+       2.25,
+       345,
+       1000
+      ]
+     ],
+     "press": [
+      0.5,
+      1.15,
+      1.8,
+      2.45
+     ]
+    }
+   ]
   },
   {
    "scene": "friend",
    "say": "We've been there. Guessing every single time.",
    "card": "We've been **there**.",
-   "sub": "Every time."
+   "sub": "Every time.",
+   "ui_head": "We've been **there**.",
+   "ui": [
+    {
+     "kind": "phone",
+     "at": 0,
+     "cur": [
+      [
+       0.2,
+       820,
+       1250
+      ]
+     ]
+    }
+   ]
   },
   {
    "scene": "trust",
    "say": "Instagram says most reels you see come from accounts you don't follow.",
-   "node": 0
+   "node": 0,
+   "ui_head": "Most reels: accounts you **don't follow**.",
+   "ui": [
+    {
+     "kind": "feed",
+     "at": 0,
+     "foot": "Source: Instagram, “Instagram Ranking Explained”",
+     "cur": [
+      [
+       1.2,
+       840,
+       905
+      ],
+      [
+       2.6,
+       840,
+       1135
+      ]
+     ]
+    }
+   ]
   },
   {
    "scene": "trust",
    "say": "In 2026, a study looked at over 3 million posts.",
-   "node": 1
+   "node": 1,
+   "ui_head": "A study of **3 million+** posts.",
+   "ui": [
+    {
+     "kind": "counter",
+     "at": 0,
+     "value": 3000000,
+     "label": "posts studied",
+     "foot": "Jan to Apr 2026 · Fanpage Karma",
+     "cur": [
+      [
+       0.3,
+       900,
+       1230
+      ]
+     ]
+    }
+   ]
   },
   {
    "scene": "trust",
    "say": "Under 10,000 followers, reels reached 4.9 percent. Carousels, 2.6.",
-   "node": 2
+   "node": 2,
+   "ui_head": "Reach per post, under **10K**.",
+   "ui": [
+    {
+     "kind": "chart",
+     "at": 0,
+     "title": "Median reach per follower",
+     "bars": [
+      {
+       "label": "Reels",
+       "value": 4.9,
+       "display": "4.9%",
+       "hot": true,
+       "tip": "Reels: 4.9% of followers"
+      },
+      {
+       "label": "Carousels",
+       "value": 2.6,
+       "display": "2.6%",
+       "tip": "Carousels: 2.6% of followers"
+      }
+     ],
+     "foot": "Accounts under 10K followers · Fanpage Karma, 2026",
+     "cur": [
+      [
+       1.2,
+       355,
+       1050
+      ],
+      [
+       3.0,
+       725,
+       1150
+      ],
+      [
+       5.2,
+       900,
+       1310
+      ]
+     ]
+    }
+   ]
   },
   {
    "scene": "trust",
    "say": "And reels reached nearly 3 times more non-followers.",
-   "node": 3
+   "node": 3,
+   "ui_head": "Reels: **~3x** more non-followers.",
+   "ui": [
+    {
+     "kind": "slider",
+     "at": 0,
+     "title": "Non-followers reached",
+     "cur": [
+      [
+       0.0,
+       417,
+       1005
+      ],
+      [
+       0.75,
+       1010,
+       1005
+      ],
+      [
+       2.4,
+       960,
+       1240
+      ]
+     ],
+     "drag": [
+      0.6,
+      2.2
+     ]
+    }
+   ]
   },
   {
    "scene": "value",
@@ -157,18 +359,118 @@
     "New people? Make a reel",
     "Teaching steps? Make a carousel",
     "Good idea? Make both"
+   ],
+   "ui_head": "Reels to get **found**.",
+   "ui": [
+    {
+     "kind": "tabs",
+     "at": 0,
+     "tabs": [
+      {
+       "tab": "New people",
+       "icon": "reel",
+       "text": "Make a reel"
+      },
+      {
+       "tab": "Teaching",
+       "icon": "car",
+       "text": "Make a carousel"
+      },
+      {
+       "tab": "Good idea",
+       "icon": "both",
+       "text": "Make both"
+      }
+     ],
+     "cur": [
+      [
+       0.4,
+       540,
+       830
+      ],
+      [
+       1.5,
+       800,
+       830
+      ]
+     ],
+     "press": [
+      1.2,
+      2.4
+     ],
+     "sw": [
+      1.25,
+      2.45
+     ]
+    }
    ]
   },
   {
    "scene": "product",
    "say": "Follow us for more on creator growth and monetisation.",
-   "card": "More on **growth** and **monetisation**."
+   "card": "More on **growth** and **monetisation**.",
+   "ui_head": "More on **growth** and **monetisation**.",
+   "ui": [
+    {
+     "kind": "follow",
+     "at": 0,
+     "cur": [
+      [
+       0.3,
+       600,
+       1000
+      ]
+     ],
+     "press": [
+      1.3
+     ]
+    },
+    {
+     "kind": "follow",
+     "on": true,
+     "at": 1.4,
+     "cur": [
+      [
+       0.4,
+       900,
+       1150
+      ]
+     ]
+    }
+   ]
   },
   {
    "scene": "product",
    "say": "Send this to a creator who's stuck, and save it.",
    "card": "**Send** it. **Save** it.",
-   "cta": true
+   "cta": true,
+   "ui_head": "**Send** it. **Save** it.",
+   "ui": [
+    {
+     "kind": "share",
+     "at": 0,
+     "taps": [
+      0.85,
+      1.75
+     ],
+     "cur": [
+      [
+       0.2,
+       340,
+       1000
+      ],
+      [
+       1.1,
+       740,
+       1000
+      ]
+     ],
+     "press": [
+      0.8,
+      1.7
+     ]
+    }
+   ]
   }
  ],
  "mascot": "phone",
@@ -200,5 +502,6 @@
  ],
  "carousel_caption": "Reel or carousel? Reels reached nearly 3x more non-followers than carousels for small accounts.\n\nInstagram says most reels you see come from accounts you don't follow. Your feed is mostly people you already follow. A 2026 study of more than 3 million posts backs this up: for accounts under 10,000 followers, reels reached 4.9% of followers per post, photos 3.5% and carousels 2.6%. And reels reached nearly three times as many non-followers as carousels.\n\nThe lesson: use reels to get found by new people. Use carousels to teach the people who already follow you. Got a good idea? Make both.\n\nSend this to a creator friend who's stuck choosing, and save it for the next time you plan a post.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSources: Instagram, \"Instagram Ranking Explained\"; Fanpage Karma, Instagram format reach study (2026)\n\n#indiancreators #contentcreator #instagramgrowth #reelstips #creatortips",
  "reel_caption": "For accounts under 10,000 followers, reels reach nearly 3 times more new people than carousels.\n\nFull breakdown in today's carousel. Send this to a creator who's stuck choosing, and save it.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSources: Instagram, \"Instagram Ranking Explained\"; Fanpage Karma, Instagram format reach study (2026)\n\n#indiancreators #contentcreator #reelstips #creatortips",
- "carousel_alt": "Carousel: when to use a reel and when to use a carousel on Instagram, with reach data from a 2026 study of 3 million posts and a simple 5-second checklist."
+ "carousel_alt": "Carousel: when to use a reel and when to use a carousel on Instagram, with reach data from a 2026 study of 3 million posts and a simple 5-second checklist.",
+ "reel_style": "ui"
 }
