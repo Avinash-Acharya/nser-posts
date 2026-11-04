@@ -1,0 +1,204 @@
+{
+ "topic": "Carousel or reel? When to use which",
+ "pillar": "Growth",
+ "handle": "@nser.in_officials",
+ "voice": "hf_alpha:0.4+af_heart:0.6",
+ "sources": [
+  "https://about.instagram.com/blog/announcements/instagram-ranking-explained",
+  "https://www.fanpagekarma.com/insights/instagram-format-reach/"
+ ],
+ "carousel": [
+  {
+   "kind": "thumb",
+   "tag": "Reel or carousel?",
+   "title": "Low reach?",
+   "title2": "You may be using the **wrong** one.",
+   "nib": {
+    "pose": "shrug",
+    "mood": "worried"
+   }
+  },
+  {
+   "kind": "statement",
+   "text": "If you never know: **reel** or **carousel**? This one is for you.",
+   "sub": "We've been there too, guessing every time. Here's what Instagram and a study of 3 million posts say.",
+   "subTop": 640
+  },
+  {
+   "kind": "quote",
+   "quote": "The majority of what you see is from accounts you **don't follow**.",
+   "who": "Instagram, on how Reels work",
+   "whoTop": 760
+  },
+  {
+   "kind": "bignum",
+   "pre": "reels reach nearly",
+   "num": "3x",
+   "label": "more non-followers.",
+   "line": "Than carousels, for accounts under **10K**. Study of 3M+ posts, 2026."
+  },
+  {
+   "kind": "chart",
+   "title": "Reach per post, accounts **under 10K**",
+   "bars": [
+    {
+     "label": "Reels",
+     "value": 4.9,
+     "display": "4.9%",
+     "hot": true
+    },
+    {
+     "label": "Photos",
+     "value": 3.5,
+     "display": "3.5%"
+    },
+    {
+     "label": "Carousels",
+     "value": 2.6,
+     "display": "2.6%"
+    }
+   ],
+   "source": "Median reach per follower. Fanpage Karma, 2026",
+   "nib": {
+    "size": 190
+   }
+  },
+  {
+   "kind": "split",
+   "title": "Guessing vs **picking**",
+   "left": {
+    "head": "Guessing",
+    "items": [
+     "Same format for every idea",
+     "Hope it reaches someone",
+     "Wonder why it didn't"
+    ]
+   },
+   "right": {
+    "head": "Picking on purpose",
+    "items": [
+     "Reel to reach **new** people",
+     "Carousel to teach followers",
+     "Check Insights after"
+    ]
+   }
+  },
+  {
+   "kind": "checklist",
+   "title": "Pick in **5 seconds**",
+   "items": [
+    "Want new people? Make a **reel**",
+    "Teaching steps? Make a **carousel**",
+    "Good idea? Make **both**",
+    "Check Insights: followers vs non-followers",
+    "Do more of what works for you"
+   ]
+  },
+  {
+   "kind": "ask",
+   "title": "What do you make **more**: reels or carousels?",
+   "placeholder": "Reels, carousels, both…",
+   "sub": "Tell us in the comments."
+  },
+  {
+   "kind": "share",
+   "title": "Know a creator stuck on **reel or carousel**?",
+   "send": "Send them this.",
+   "sendSub": "It'll save them the guessing.",
+   "save": "Save it for yourself.",
+   "saveSub": "For the next time you plan a post.",
+   "product": "Follow for more on creator growth & monetisation"
+  }
+ ],
+ "reel": [
+  {
+   "scene": "relate",
+   "say": "Stop guessing. For small accounts, reels reach nearly 3 times more new people.",
+   "card": "more **new people**.",
+   "big": "3x"
+  },
+  {
+   "scene": "relate",
+   "say": "Reel or carousel? If you never know, this one's for you.",
+   "card": "Reel or **carousel**?",
+   "views": 12
+  },
+  {
+   "scene": "friend",
+   "say": "We've been there. Guessing every single time.",
+   "card": "We've been **there**.",
+   "sub": "Every time."
+  },
+  {
+   "scene": "trust",
+   "say": "Instagram says most reels you see come from accounts you don't follow.",
+   "node": 0
+  },
+  {
+   "scene": "trust",
+   "say": "In 2026, a study looked at over 3 million posts.",
+   "node": 1
+  },
+  {
+   "scene": "trust",
+   "say": "Under 10,000 followers, reels reached 4.9 percent. Carousels, 2.6.",
+   "node": 2
+  },
+  {
+   "scene": "trust",
+   "say": "And reels reached nearly 3 times more non-followers.",
+   "node": 3
+  },
+  {
+   "scene": "value",
+   "say": "So use reels to get found, and carousels to teach your followers.",
+   "card": "Reels to get **found**.",
+   "items": [
+    "New people? Make a reel",
+    "Teaching steps? Make a carousel",
+    "Good idea? Make both"
+   ]
+  },
+  {
+   "scene": "product",
+   "say": "Follow us for more on creator growth and monetisation.",
+   "card": "More on **growth** and **monetisation**."
+  },
+  {
+   "scene": "product",
+   "say": "Send this to a creator who's stuck, and save it.",
+   "card": "**Send** it. **Save** it.",
+   "cta": true
+  }
+ ],
+ "mascot": "phone",
+ "reel_nodes": [
+  {
+   "year": "Instagram",
+   "text": "Most reels come from accounts you **don't follow**",
+   "widget": "camera"
+  },
+  {
+   "year": "2026",
+   "text": "A study of 3 million+ posts",
+   "widget": "counter",
+   "value": 3,
+   "label": "million+ posts studied"
+  },
+  {
+   "year": "Under 10K",
+   "text": "Reels **4.9%** reach. Carousels 2.6%.",
+   "widget": "magnifier"
+  },
+  {
+   "year": "New people",
+   "text": "Reels reach ~**3x** more non-followers",
+   "widget": "counter",
+   "value": 3,
+   "label": "times, vs carousels"
+  }
+ ],
+ "carousel_caption": "Reel or carousel? Reels reached nearly 3x more non-followers than carousels for small accounts.\n\nInstagram says most reels you see come from accounts you don't follow. Your feed is mostly people you already follow. A 2026 study of more than 3 million posts backs this up: for accounts under 10,000 followers, reels reached 4.9% of followers per post, photos 3.5% and carousels 2.6%. And reels reached nearly three times as many non-followers as carousels.\n\nThe lesson: use reels to get found by new people. Use carousels to teach the people who already follow you. Got a good idea? Make both.\n\nSend this to a creator friend who's stuck choosing, and save it for the next time you plan a post.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSources: Instagram, \"Instagram Ranking Explained\"; Fanpage Karma, Instagram format reach study (2026)\n\n#indiancreators #contentcreator #instagramgrowth #reelstips #creatortips",
+ "reel_caption": "For accounts under 10,000 followers, reels reach nearly 3 times more new people than carousels.\n\nFull breakdown in today's carousel. Send this to a creator who's stuck choosing, and save it.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSources: Instagram, \"Instagram Ranking Explained\"; Fanpage Karma, Instagram format reach study (2026)\n\n#indiancreators #contentcreator #reelstips #creatortips",
+ "carousel_alt": "Carousel: when to use a reel and when to use a carousel on Instagram, with reach data from a 2026 study of 3 million posts and a simple 5-second checklist."
+}
