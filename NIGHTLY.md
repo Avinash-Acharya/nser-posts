@@ -29,7 +29,7 @@ Playwright + Chromium + ffmpeg are pre-installed in Claude's cloud workspace.
 ## 2. Research and write
 - Every fact needs a source you actually opened (Wikipedia page, interview, official site). Put the
   source in the caption ("Source: ..."). No invented numbers, quotes, people or testimonials.
-  Never use real people's photos, thumbnails or video frames.
+  Images and faces are OK (Avinash, 5 Nov): cover the eyes if unsure. No video thumbnails or video frames.
 - Follow the 5 sales steps in BOTH carousel and reel, in order:
   1) Relate (their situation, in their shoes)  2) Be a friend ("we've been there")
   3) Build trust (sourced facts, story)  4) Sell the value (the method they can use)
@@ -57,6 +57,22 @@ Playwright + Chromium + ffmpeg are pre-installed in Claude's cloud workspace.
 - Hook must score ≥ 70 with `python3 tools/hookscore.py --hook "..."`.
 - Voice: `"voice": "hf_alpha:0.4+af_heart:0.6"` in post.json (Indian-accent blend: 40% Alpha, 60% Heart).
 
+### Reel style: UI motion (since 5 Nov, Avinash's choice; reference: `posts/2026-11-05/post.json`)
+- Engine: `engine/reel3.html` + `engine/render_reel3.py` (60 fps). One shape that never cuts: it morphs size, radius
+  and colour from one UI state to the next, and its content swaps with a short blur. A cursor drives the changes
+  with real clicks and drags. Warm-gray canvas, black and white, yellow only for highlights, Geist font, springs.
+  The last state goes back to the first, so the reel loops.
+- Each reel beat gets `ui_head` (the headline at the top, `**word**` = yellow marker) and `ui`: a list of states
+  `{kind, at (s after the beat starts), cur: [[dt,x,y]...], press: [dt...]}`. Kinds: `button`, `stat`, `toggle`,
+  `phone` (Phone Nib, use it in the friend beat), `feed`, `counter`, `chart` (bars to scale, tooltip on hover),
+  `slider` (`drag: [dt0, dt1]`), `tabs` (`sw` switch times), `follow` (`on`), `share` (`taps`),
+  `photo` (`src`, `w`, `h`, `bw`, `label`, `eyes: [[x,y,w,h]]` black bars over the eyes, as fractions of the box).
+  Cursor x/y are page coords; the shape is centred at (540, 990).
+- Keep each state's box under 680 px tall (or 620 for wide cards) so nothing reaches the captions at y 1365.
+- Use images or faces where the story has them (a creator, a person on camera). Cover the eyes with `eyes` bars if
+  you're unsure. Put them in `posts/<date>/photos/`. This workspace can't download from stock-photo sites,
+  so images come from Avinash's inbox uploads. No grey placeholder blocks: if there's no real image, use a text UI.
+
 ### Captions
 - `carousel_caption`: first line ≤ 125 chars and concrete; story; one ask (send + save); then the line
   "Follow @nser.in_officials for more on creator growth and monetisation."; source; 3–5 hashtags.
@@ -69,8 +85,8 @@ Playwright + Chromium + ffmpeg are pre-installed in Claude's cloud workspace.
 D=posts/<YYYY-MM-DD>   # tomorrow, IST
 python3 engine/make_carousel.py $D                       # -> $D/carousel/01.jpg ...
 ~/kvenv/bin/python engine/tts.py $D ~/kmodel             # -> $D/reel/narration.wav + timeline.json
-python3 engine/render_reel2.py $D --frames 0.03,10,20,30 # look at these stills first, fix overlaps
-python3 engine/render_reel2.py $D                        # -> $D/reel/reel.mp4
+python3 engine/render_reel3.py $D --frames 0.03,<one per state> # look at every state first, fix overlaps
+python3 engine/render_reel3.py $D                        # -> $D/reel/reel.mp4 (with soft UI clicks)
 mv $D/reel/reel.mp4 $D/reel.mp4 && rm -rf $D/reel
 ```
 Write `$D/caption.txt` and `$D/reel-caption.txt` from post.json. Look at every slide and the stills
@@ -84,8 +100,8 @@ before pushing: no text overlapping Nib, nothing in the bottom caption zone of t
 
 ## Real screenshots in case studies (added 3 Nov)
 Pure motion graphics feel detached; case studies need real proof of who the creator is.
-- NEVER use photos of real people, their faces, video thumbnails or video frames. Screenshots of a creator's public
-  channel/profile page are OK, cropped (not covered) so no face shows: cut out the avatar, banner and any thumbnails.
+- Faces are OK now (Avinash, 5 Nov; cover the eyes if unsure). Never use video thumbnails or video frames. Screenshots of a creator's public
+  channel/profile page are OK; crop out the banner and any video thumbnails.
 - Screenshots come from Avinash, so plan case studies ONE DAY AHEAD. Each night, if the day after tomorrow should be a
   case study, add that row to Notion (Post date = day after tomorrow, Status = Idea) with Notes listing the exact links
   to screenshot: the YouTube channel page (top part: name, @handle, subscribers) and its "...more" panel (joined date,

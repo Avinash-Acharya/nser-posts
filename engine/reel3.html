@@ -83,11 +83,17 @@ const K={
     html:s=>`<div style="width:860px;height:680px;padding:48px 60px">
       <div style="display:flex;align-items:center;gap:14px;font:600 34px/1 Geist;letter-spacing:-.02em">${ic.play}<span>Reels for you</span></div>
       ${[0,1,2,3].map(i=>{const fol=i===2; return `<div class="row" style="display:flex;align-items:center;gap:26px;margin-top:${i?22:34}px">
-        <div style="width:88px;height:88px;border-radius:50%;background:${['#CFCBC4','#B9B5AE','#DAD7D1','#C4C0B9'][i]};flex:none"></div>
-        <div style="flex:1"><div style="height:22px;width:${[300,250,280,220][i]}px;border-radius:11px;background:#1F1F1F"></div><div style="height:18px;width:${[190,230,160,200][i]}px;border-radius:9px;background:#DAD7D1;margin-top:14px"></div></div>
+        <div style="width:88px;height:88px;border-radius:24px;background:${fol?'#ECEAE6':'#0B0B0B'};color:${fol?'#0B0B0B':'#fff'};flex:none;display:flex;align-items:center;justify-content:center">${ic.play}</div>
+        <div style="flex:1"><div style="font:600 34px/1.1 Geist;letter-spacing:-.025em">${fol?'From someone you follow':'Suggested for you'}</div><div class="foot" style="margin-top:8px">${fol?'You follow them':'You don\'t follow them'}</div></div>
         <div class="pill" style="padding:20px 30px;font:600 30px/1 Geist;${fol?'background:#ECEAE6;color:#0B0B0B':'background:#0B0B0B;color:#fff'}">${fol?'Following':'Follow'}</div></div>`}).join('')}
       <div class="foot" style="margin-top:30px">${esc(s.foot||'')}</div></div>`,
     anim:(s,lt,t,el)=>{el.querySelectorAll('.row').forEach((r,i)=>{const p=spr(lt-.25-i*.12,13,.9); r.style.opacity=clamp(p); r.style.transform=`translateY(${(1-p)*40}px)`;});}},
+  photo:{box:s=>({w:s.w||760,h:s.h||900,r:s.r||56,bg:C.ink,cam:s.cam||1}),
+    html:s=>{const w=s.w||760,h=s.h||900;return `<div style="width:${w}px;height:${h}px;position:relative">
+      <img src="${(POST&&POST._dir)||''}${s.src}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;${s.bw?'filter:grayscale(1)':''}">
+      ${(s.eyes||[]).map(e=>`<div class="eye abs" style="left:${e[0]*w}px;top:${e[1]*h}px;width:${e[2]*w}px;height:${e[3]*h}px;background:#0B0B0B;border-radius:6px;transform-origin:0 50%"></div>`).join('')}
+      ${s.label?`<div class="abs pill" style="left:28px;bottom:28px;padding:16px 26px;background:#fff;font:600 30px/1 Geist">${esc(s.label)}</div>`:''}</div>`},
+    anim:(s,lt,t,el)=>{el.querySelectorAll('.eye').forEach(e=>e.style.transform=`scaleX(${spr(lt-.2,16,.95)})`); const im=el.querySelector('img'); im.style.transform=`scale(${1.06-.06*spr(lt,4,1)})`;}},
   counter:{box:s=>({w:880,h:560,r:60,bg:C.ink,cam:1}),
     html:s=>`<div style="width:880px;height:560px;padding:64px 70px;color:#fff;display:flex;flex-direction:column;justify-content:space-between">
       <div class="grid" style="display:grid;grid-template-columns:repeat(20,1fr);gap:8px">${Array.from({length:60},()=>`<i style="display:block;height:18px;border-radius:5px;background:#fff"></i>`).join('')}</div>
