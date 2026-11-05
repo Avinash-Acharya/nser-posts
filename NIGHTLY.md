@@ -71,10 +71,12 @@ Playwright + Chromium + ffmpeg are pre-installed in Claude's cloud workspace.
 - Keep each state's box under 680 px tall (or 620 for wide cards) so nothing reaches the captions at y 1365.
 - Use images or faces where the story has them (a creator, a person on camera). Cover the eyes with `eyes` bars if
   you're unsure. Put them in `posts/<date>/photos/`. No grey placeholder blocks: if there's no real image, use a text UI.
-- Getting images: first look in `inbox/<date>/`. If it's empty, try free-licence sites (Unsplash, Pexels, Pixabay,
-  Wikimedia Commons) with curl or WebFetch. On 4 Nov the proxy blocked all of them (403). If they're still blocked,
-  don't look for a way around it: make the reel without photos, and say in the nightly message "Couldn't download
-  images: <site> blocked". From then on Avinash uploads photos to the inbox.
+- Getting images: first look in `inbox/<date>/`. If it's empty, search the web for pictures that fit the beat
+  (any site, Avinash's call, 5 Nov). Rules: never download a photo of a real, named or famous person (the creator in
+  a case study included): those come only from Avinash's uploads/screenshots. Skip watermarked stock-agency images
+  (Getty, Shutterstock, Adobe Stock): they chase takedowns. Prefer images with no people, or anonymous people with eyes covered.
+  If the image sites are blocked from this workspace (on 4 Nov the proxy returned 403 for all of them), don't look for a
+  way around it: make the reel without photos and say in the nightly message "Couldn't download images: <site> blocked".
 
 ### Captions
 - `carousel_caption`: first line ≤ 125 chars and concrete; story; one ask (send + save); then the line
