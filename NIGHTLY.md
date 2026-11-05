@@ -55,6 +55,15 @@ Playwright + Chromium + ffmpeg are pre-installed in Claude's cloud workspace.
   magnifier, clock, bars), `value` (1 beat with 3 `items`), `product` (2 beats: first = "Follow us for more on creator growth and
   monetisation.", card "More on **growth** and **monetisation**."; last = send + save, has `"cta": true`).
 - Hook must score ≥ 70 with `python3 tools/hookscore.py --hook "..."`.
+- Hook formula (Martin Wang's "story question", added 5 Nov). The reel's first 2 beats, spoken, in this order:
+  1) RELATE + CONTRAST: what most people do or believe ("Most creators quit after a few months of no views.")
+  2) CONDENSED PROOF: the story's real number vs that ("MrBeast posted for 5 years before his first hit.")
+  3) EXCLUSIVE PROMISE: "Here's the one thing he did differently." (the case study's method, never "what I do")
+  4) OPEN LOOP: a question the post answers at the end ("Would you last 5 years?")
+  Every number must be real and sourced: no invented timeframes ("in 60 seconds") or exaggerations.
+  The carousel cover is too small for all four: cover = 1 + a teaser of 2, written as a question that stays open
+  (e.g. "Too late at 50?" / "She started past 50. Then **15.2M**."); slide 2 delivers 3 and 4.
+  The value scene must actually answer the open loop; never bait and not pay off.
 - Voice: `"voice": "hf_alpha:0.4+af_heart:0.6"` in post.json (Indian-accent blend: 40% Alpha, 60% Heart).
 
 ### Reel style: UI motion (since 5 Nov, Avinash's choice; reference: `posts/2026-11-05/post.json`)
