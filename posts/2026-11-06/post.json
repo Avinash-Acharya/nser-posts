@@ -1,0 +1,513 @@
+{
+ "topic": "Post in your mother tongue: the regional creator playbook",
+ "pillar": "Growth",
+ "handle": "@nser.in_officials",
+ "voice": "hf_alpha:0.4+af_heart:0.6",
+ "sources": [
+  "https://en.wikipedia.org/wiki/Gaurav_Chaudhary",
+  "https://www.exchange4media.com/digital-news/net-surfers-in-vernacular-languages-grew-from-42-million-in-2011-to-234-million-in-2016report-68691.html"
+ ],
+ "carousel": [
+  {
+   "kind": "thumb",
+   "tag": "Your language is a niche",
+   "title": "No English?",
+   "title2": "He chose Hindi. Then came **10M**.",
+   "nib": {
+    "pose": "shrug",
+    "mood": "worried"
+   }
+  },
+  {
+   "kind": "statement",
+   "text": "If you think better in **your own language**, this one is for you.",
+   "sub": "We've been there too, trying to sound perfect in English. Here's what one Hindi tech creator did instead. Could your language be your niche?",
+   "subTop": 640
+  },
+  {
+   "kind": "quote",
+   "quote": "Known for creating technology-related content in **Hindi**.",
+   "who": "Wikipedia, on Gaurav Chaudhary (Technical Guruji)",
+   "whoTop": 760
+  },
+  {
+   "kind": "timeline",
+   "title": "How it **actually** went",
+   "items": [
+    {
+     "when": "Oct 2015",
+     "what": "Starts **Technical Guruji**: tech, in Hindi"
+    },
+    {
+     "when": "Sept 2018",
+     "what": "9th most subscribed tech channel"
+    },
+    {
+     "when": "Nov 2018",
+     "what": "First tech YouTuber past **10M** subscribers",
+     "hot": true
+    },
+    {
+     "when": "2020",
+     "what": "Named in Forbes India 30 Under 30"
+    }
+   ]
+  },
+  {
+   "kind": "bignum",
+   "pre": "in 2016, India had online",
+   "num": "234M",
+   "label": "Indian-language users.",
+   "line": "English had **175M**. Report by KPMG and Google, 2017."
+  },
+  {
+   "kind": "chart",
+   "title": "Online in 2016: **Indian languages** vs English",
+   "bars": [
+    {
+     "label": "Indian languages",
+     "value": 234,
+     "display": "234M",
+     "hot": true
+    },
+    {
+     "label": "English",
+     "value": 175,
+     "display": "175M"
+    }
+   ],
+   "source": "Internet users. KPMG and Google report, 2017",
+   "nib": {
+    "size": 190
+   }
+  },
+  {
+   "kind": "split",
+   "title": "Forcing English vs **your language**",
+   "left": {
+    "head": "Forcing English",
+    "items": [
+     "Stiff on camera",
+     "Sounds like everyone",
+     "Hard to be yourself"
+    ]
+   },
+   "right": {
+    "head": "Your language",
+    "items": [
+     "You talk **naturally**",
+     "Fewer creators to beat",
+     "**88%** respond more to ads in it"
+    ]
+   }
+  },
+  {
+   "kind": "checklist",
+   "title": "Test **your** language this week",
+   "items": [
+    "Check Insights: your audience's top cities",
+    "Pick the language most of them speak",
+    "Make one post fully in it",
+    "Compare saves and sends with your usual",
+    "Do more of what works"
+   ]
+  },
+  {
+   "kind": "ask",
+   "title": "Which language do you **think** in?",
+   "placeholder": "Hindi, Tamil, Kannada, Marathi…",
+   "sub": "Tell us in the comments."
+  },
+  {
+   "kind": "share",
+   "title": "Know a creator hiding behind **English**?",
+   "send": "Send them this.",
+   "sendSub": "It might be the push they need.",
+   "save": "Save it for yourself.",
+   "saveSub": "For when you plan your next post.",
+   "product": "Follow for more on creator growth & monetisation"
+  }
+ ],
+ "reel": [
+  {
+   "scene": "relate",
+   "say": "You don't need English. Indian languages beat it online, 234 million to 175.",
+   "card": "You don't need **English**.",
+   "big": "234M",
+   "ui_head": "You don't need **English**.",
+   "ui": [
+    {
+     "kind": "button",
+     "label": "English only?",
+     "at": 0,
+     "cur": [
+      [
+       0.15,
+       560,
+       1000
+      ]
+     ],
+     "press": [
+      0.75
+     ]
+    },
+    {
+     "kind": "stat",
+     "at": 0.9,
+     "pre": "Indian-language internet users in 2016",
+     "num": "234M",
+     "from": 0,
+     "to": 234,
+     "suffix": "M",
+     "label": "English had 175M.",
+     "foot": "Source: KPMG and Google report, 2017",
+     "cur": [
+      [
+       0.3,
+       900,
+       1230
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "scene": "relate",
+   "say": "Think in Hindi, Tamil or Kannada? Watch what one creator did.",
+   "card": "Your **language**?",
+   "views": 12,
+   "ui_head": "Think in your **own language**?",
+   "ui": [
+    {
+     "kind": "toggle",
+     "at": 0,
+     "opts": [
+      "English",
+      "My language"
+     ],
+     "flips": [
+      0.6,
+      1.3,
+      2.0
+     ],
+     "cur": [
+      [
+       0.1,
+       735,
+       1000
+      ],
+      [
+       1.05,
+       345,
+       1000
+      ],
+      [
+       1.7,
+       735,
+       1000
+      ]
+     ],
+     "press": [
+      0.55,
+      1.25,
+      1.95
+     ]
+    }
+   ]
+  },
+  {
+   "scene": "friend",
+   "say": "We've been there, trying to sound perfect in English.",
+   "card": "We've been **there**.",
+   "sub": "Every time.",
+   "ui_head": "We've been **there**.",
+   "ui": [
+    {
+     "kind": "phone",
+     "at": 0,
+     "cur": [
+      [
+       0.2,
+       820,
+       1250
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "scene": "trust",
+   "say": "In 2015, Gaurav Chaudhary started Technical Guruji. Tech, in Hindi.",
+   "node": 0,
+   "ui_head": "Tech videos, in **Hindi**.",
+   "ui": [
+    {
+     "kind": "button",
+     "label": "Technical Guruji",
+     "at": 0,
+     "cur": [
+      [
+       0.2,
+       560,
+       1000
+      ]
+     ],
+     "press": [
+      0.9
+     ]
+    },
+    {
+     "kind": "stat",
+     "at": 1.05,
+     "pre": "Started on YouTube",
+     "num": "2015",
+     "label": "Tech reviews and advice. In Hindi.",
+     "foot": "Source: Wikipedia, Gaurav Chaudhary",
+     "cur": [
+      [
+       0.3,
+       900,
+       1230
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "scene": "trust",
+   "say": "By 2018, it was the ninth most subscribed tech channel.",
+   "node": 1,
+   "ui_head": "Top **10** in tech.",
+   "ui": [
+    {
+     "kind": "stat",
+     "at": 0,
+     "pre": "September 2018",
+     "num": "#9",
+     "label": "most subscribed tech channel.",
+     "foot": "Source: Wikipedia, Gaurav Chaudhary",
+     "cur": [
+      [
+       0.3,
+       900,
+       1230
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "scene": "trust",
+   "say": "Then, the first tech YouTuber past 10 million subscribers.",
+   "node": 2,
+   "ui_head": "The **first** tech YouTuber past 10M.",
+   "ui": [
+    {
+     "kind": "counter",
+     "at": 0,
+     "value": 10000000,
+     "label": "subscribers",
+     "foot": "November 2018 · Wikipedia",
+     "cur": [
+      [
+       0.3,
+       900,
+       1230
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "scene": "trust",
+   "say": "And 88 percent of Indian-language users respond more to ads in their language.",
+   "node": 3,
+   "ui_head": "Ads work **better** in it.",
+   "ui": [
+    {
+     "kind": "stat",
+     "at": 0,
+     "pre": "Indian-language internet users",
+     "num": "88%",
+     "from": 0,
+     "to": 88,
+     "suffix": "%",
+     "label": "respond more to ads in their language.",
+     "foot": "KPMG and Google report, 2017",
+     "cur": [
+      [
+       0.3,
+       900,
+       1230
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "scene": "value",
+   "say": "So yes, your language can be a niche. Test one post, and compare.",
+   "card": "Your language is a **niche**.",
+   "items": [
+    "Check your top cities",
+    "Post one in that language",
+    "Compare saves and sends"
+   ],
+   "ui_head": "Your language is a **niche**.",
+   "ui": [
+    {
+     "kind": "tabs",
+     "at": 0,
+     "tabs": [
+      {
+       "tab": "Check",
+       "icon": "check",
+       "text": "Your top cities"
+      },
+      {
+       "tab": "Post",
+       "icon": "reel",
+       "text": "One in that language"
+      },
+      {
+       "tab": "Compare",
+       "icon": "both",
+       "text": "Saves and sends"
+      }
+     ],
+     "cur": [
+      [
+       0.4,
+       540,
+       830
+      ],
+      [
+       1.5,
+       800,
+       830
+      ]
+     ],
+     "press": [
+      1.2,
+      2.4
+     ],
+     "sw": [
+      1.25,
+      2.45
+     ]
+    }
+   ]
+  },
+  {
+   "scene": "product",
+   "say": "Follow us for more on creator growth and monetisation.",
+   "card": "More on **growth** and **monetisation**.",
+   "ui_head": "More on **growth** and **monetisation**.",
+   "ui": [
+    {
+     "kind": "follow",
+     "at": 0,
+     "cur": [
+      [
+       0.3,
+       600,
+       1000
+      ]
+     ],
+     "press": [
+      1.3
+     ]
+    },
+    {
+     "kind": "follow",
+     "on": true,
+     "at": 1.4,
+     "cur": [
+      [
+       0.4,
+       900,
+       1150
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "scene": "product",
+   "say": "Send this to a creator hiding behind English, and save it.",
+   "card": "**Send** it. **Save** it.",
+   "cta": true,
+   "ui_head": "**Send** it. **Save** it.",
+   "ui": [
+    {
+     "kind": "share",
+     "at": 0,
+     "taps": [
+      0.85,
+      1.75
+     ],
+     "cur": [
+      [
+       0.2,
+       340,
+       1000
+      ],
+      [
+       1.1,
+       740,
+       1000
+      ]
+     ],
+     "press": [
+      0.8,
+      1.7
+     ]
+    },
+    {
+     "kind": "button",
+     "label": "English only?",
+     "at": 2.6,
+     "cur": [
+      [
+       0.2,
+       560,
+       1000
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "mascot": "phone",
+ "reel_nodes": [
+  {
+   "year": "2015",
+   "text": "Starts **Technical Guruji**, in Hindi",
+   "widget": "camera"
+  },
+  {
+   "year": "2018",
+   "text": "9th most subscribed tech channel",
+   "widget": "magnifier"
+  },
+  {
+   "year": "Nov 2018",
+   "text": "First tech YouTuber past **10M**",
+   "widget": "counter",
+   "value": 10,
+   "label": "million subscribers"
+  },
+  {
+   "year": "Brands",
+   "text": "**88%** respond more to ads in their language",
+   "widget": "counter",
+   "value": 88,
+   "label": "percent"
+  }
+ ],
+ "carousel_caption": "You don't need English to grow. In 2016, India had 234 million Indian-language internet users and 175 million English ones.\n\nGaurav Chaudhary started Technical Guruji in October 2015, making tech reviews and advice in Hindi. By September 2018 it was the 9th most subscribed tech channel on YouTube. That November, he was reported as the first tech YouTuber to pass 10 million subscribers.\n\nThe same report that counted those users found 88% of Indian-language users are more likely to respond to an ad in their own language. That matters when brands come looking.\n\nTry it: check your top cities in Insights, make one post fully in the language most of them speak, and compare its saves and sends with your usual.\n\nSend this to a creator who's hiding behind English, and save it for your next post.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSources: Wikipedia, \"Gaurav Chaudhary\"; KPMG and Google, \"Indian Languages: Defining India's Internet\" (2017), as reported by exchange4media\n\n#indiancreators #regionalcreators #contentcreator #creatortips #instagramgrowth",
+ "reel_caption": "You don't need English to grow. In 2016, Indian-language internet users beat English ones, 234 million to 175 million.\n\nHow a Hindi tech creator used this is in today's carousel. Send this to a creator who's hiding behind English, and save it.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSources: Wikipedia, \"Gaurav Chaudhary\"; KPMG and Google report (2017), via exchange4media\n\n#indiancreators #regionalcreators #creatortips #reelstips",
+ "carousel_alt": "Carousel: why your own language can be your niche, with the story of Hindi tech creator Technical Guruji and 2016 data on Indian-language internet users, plus a simple test to try.",
+ "reel_style": "ui",
+ "speed": 1.15
+}
