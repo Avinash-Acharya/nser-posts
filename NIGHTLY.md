@@ -70,8 +70,11 @@ Playwright + Chromium + ffmpeg are pre-installed in Claude's cloud workspace.
   Cursor x/y are page coords; the shape is centred at (540, 990).
 - Keep each state's box under 680 px tall (or 620 for wide cards) so nothing reaches the captions at y 1365.
 - Use images or faces where the story has them (a creator, a person on camera). Cover the eyes with `eyes` bars if
-  you're unsure. Put them in `posts/<date>/photos/`. This workspace can't download from stock-photo sites,
-  so images come from Avinash's inbox uploads. No grey placeholder blocks: if there's no real image, use a text UI.
+  you're unsure. Put them in `posts/<date>/photos/`. No grey placeholder blocks: if there's no real image, use a text UI.
+- Getting images: first look in `inbox/<date>/`. If it's empty, try free-licence sites (Unsplash, Pexels, Pixabay,
+  Wikimedia Commons) with curl or WebFetch. On 4 Nov the proxy blocked all of them (403). If they're still blocked,
+  don't look for a way around it: make the reel without photos, and say in the nightly message "Couldn't download
+  images: <site> blocked". From then on Avinash uploads photos to the inbox.
 
 ### Captions
 - `carousel_caption`: first line ≤ 125 chars and concrete; story; one ask (send + save); then the line
