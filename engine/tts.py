@@ -11,7 +11,7 @@ post_dir, model_dir = os.path.abspath(sys.argv[1]), os.path.abspath(sys.argv[2])
 post = json.load(open(os.path.join(post_dir, "post.json"), encoding="utf-8"))
 out = os.path.join(post_dir, "reel"); os.makedirs(out, exist_ok=True)
 
-GAP, LEAD, TAIL = 0.22, 0.15, 0.6
+GAP, LEAD, TAIL = 0.16, 0.12, 0.6
 k = Kokoro(os.path.join(model_dir, "kokoro-v1.0.onnx"), os.path.join(model_dir, "voices-v1.0.bin"))
 VOICE_DEFAULT = "hf_alpha:0.4+af_heart:0.6"   # Indian-accent blend, chosen 2 Nov 2026
 spec = post.get("voice", VOICE_DEFAULT)
@@ -20,7 +20,7 @@ if "+" in spec or ":" in spec:   # blend, e.g. "hf_alpha:0.4+af_heart:0.6"
     voice = sum(k.get_voice_style(n) * float(w) for n, w in (part.split(":") for part in spec.split("+")))
 else:
     voice = spec
-speed = float(post.get("speed", 1.08))
+speed = float(post.get("speed", 1.22))   # a touch quicker for short attention spans (6 Nov)
 
 chunks, beats, t, SR = [], [], 0.0, 24000
 BEATS = post.get("explainer") or post["reel"]

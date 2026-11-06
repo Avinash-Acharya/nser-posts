@@ -80,6 +80,7 @@ a soft music bed under the voice, -14 LUFS). Replaces the UI-motion (reel3) and 
   Keep every subject between y 560 and y 1400 (label above, captions at y 1470). Check its stills before rendering.
 - Never draw real logos (YouTube, Instagram) or real people; invented thumbnails and generic people only.
 - Voice: `"voice": "hf_alpha:0.4+af_heart:0.6"` in post.json (Kokoro, Indian-accent blend). Music bed stays on.
+  Don't set `"speed"` in post.json: tts.py's default (1.22x, tight pauses) is Avinash's pace for short attention spans.
 
 ### Captions
 - `carousel_caption`: first line ≤ 125 chars and concrete; story; one ask (send + save); then the line

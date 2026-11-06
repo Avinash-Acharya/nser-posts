@@ -54,6 +54,7 @@ def music(total, SR):
         ch = prog[k % 4]
         for j, m in enumerate(ch):
             s = ep(f(m), bar * 1.1) * .16; a = int(tt * SR); e = min(n, a + len(s)); pan = (j - 1.5) * .25
+            if a >= n: continue
             out[a:e, 0] += s[:e - a] * (1 - pan); out[a:e, 1] += s[:e - a] * (1 + pan)
         for q in range(8):                                   # eighth-note arpeggio
             m = ch[[0, 2, 1, 3, 2, 1, 3, 2][q]] + 12; s = pluck(f(m)) * (.07 if q % 2 else .1)
