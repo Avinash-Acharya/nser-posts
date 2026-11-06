@@ -1,0 +1,46 @@
+name: Make narration (Google voices)
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "post or samples"
+        required: true
+        default: post
+      date:
+        description: "YYYY-MM-DD (for mode=post)"
+        required: false
+        default: ""
+
+concurrency:
+  group: voice
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install ffmpeg
+        run: sudo apt-get install -y -qq ffmpeg >/dev/null
+      - name: Synthesize
+        env:
+          GOOGLE_TTS_KEY: ${{ secrets.GOOGLE_TTS_KEY }}
+        run: |
+          if [ "${{ inputs.mode }}" = "samples" ]; then python poster/voice_google.py samples
+          else python poster/voice_google.py post "${{ inputs.date }}"; fi
+      - name: Commit the audio
+        run: |
+          git config user.name "nser voice bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A posts samples 2>/dev/null || true
+          git diff --cached --quiet && echo "nothing new" && exit 0
+          git commit -m "Narration: ${{ inputs.mode }} ${{ inputs.date }}"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done

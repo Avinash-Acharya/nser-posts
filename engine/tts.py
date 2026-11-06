@@ -15,7 +15,7 @@ GAP, LEAD, TAIL = 0.22, 0.15, 0.6
 k = Kokoro(os.path.join(model_dir, "kokoro-v1.0.onnx"), os.path.join(model_dir, "voices-v1.0.bin"))
 VOICE_DEFAULT = "hf_alpha:0.4+af_heart:0.6"   # Indian-accent blend, chosen 2 Nov 2026
 spec = post.get("voice", VOICE_DEFAULT)
-lang = "en-gb" if spec.startswith("b") else "en-us"
+lang = post.get("lang") or ("en-gb" if spec.startswith("b") else "en-us")
 if "+" in spec or ":" in spec:   # blend, e.g. "hf_alpha:0.4+af_heart:0.6"
     voice = sum(k.get_voice_style(n) * float(w) for n, w in (part.split(":") for part in spec.split("+")))
 else:
@@ -23,16 +23,28 @@ else:
 speed = float(post.get("speed", 1.08))
 
 chunks, beats, t, SR = [], [], 0.0, 24000
-for b in post["reel"]:
-    say = b["say"].replace("%", " percent").replace("₹", "rupees ")
-    a, SR = k.create(say, voice=voice, speed=speed, lang=lang)
+BEATS = post.get("explainer") or post["reel"]
+# Google voices made on GitHub (poster/voice_google.py) win over Kokoro when they're there
+vdir = os.path.join(post_dir, "voice"); MAN = None
+if os.path.exists(os.path.join(vdir, "manifest.json")):
+    MAN = {m["i"]: m["file"] for m in json.load(open(os.path.join(vdir, "manifest.json")))["lines"]}
+    print("using Google narration from", vdir)
+for bi, b in enumerate(BEATS):
+    if MAN and bi in MAN:
+        a, sr0 = sf.read(os.path.join(vdir, MAN[bi]), dtype="float32")
+        if a.ndim > 1: a = a.mean(axis=1)
+        if sr0 != SR: a = np.interp(np.arange(0, len(a), sr0 / SR), np.arange(len(a)), a).astype(np.float32)
+    else:
+        say = (b.get("speak") or b["say"]).replace("%", " percent").replace("₹", "rupees ")
+        a, SR = k.create(say, voice=voice, speed=speed, lang=lang)
     a = np.asarray(a, dtype=np.float32)
     if not chunks:
         chunks.append(np.zeros(int(LEAD * SR), dtype=np.float32)); t = LEAD
     hl = [i for i, w in enumerate(b.get("card", "").split()) if re.search(r"\d", w)]
-    beats.append({**b, "start": 0.0 if not beats else round(t, 3), "dur": 0, "hl": hl})
-    chunks += [a, np.zeros(int(GAP * SR), dtype=np.float32)]
-    t += len(a) / SR + GAP
+    beats.append({**b, "start": 0.0 if not beats else round(t, 3), "dur": 0, "hl": hl, "speech": round(len(a) / SR, 3)})
+    gap = GAP + float(b.get("pause", 0))
+    chunks += [a, np.zeros(int(gap * SR), dtype=np.float32)]
+    t += len(a) / SR + gap
 chunks.append(np.zeros(int(TAIL * SR), dtype=np.float32))
 total = t + TAIL
 for i, b in enumerate(beats):  # each beat lasts until the next one starts
