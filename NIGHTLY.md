@@ -16,6 +16,7 @@ mkdir -p ~/kmodel && cd ~/kmodel
 curl -sSLO https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/kokoro-v1.0.onnx
 curl -sSLO https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin
 ```
+pip install -q --break-system-packages soundfile scipy   # for the reel's sound mix
 Playwright + Chromium + ffmpeg are pre-installed in Claude's cloud workspace.
 
 ## 1. Pick the topic
@@ -48,44 +49,37 @@ Playwright + Chromium + ffmpeg are pre-installed in Claude's cloud workspace.
 - Last slide is always `share`: ask people to SEND it to a friend and SAVE it, with
   `product` = "Follow for more on creator growth & monetisation".
 
-### Reel (`reel` + `reel_nodes` in post.json)
-- 30–40 s of narration, beats of one short sentence each. Scenes, in order:
-  `relate` (2 beats: hook with a number, then "if you…"), `friend` (1 beat),
-  `trust` (4–5 beats; each has `node` index into `reel_nodes`; widgets: camera, counter,
-  magnifier, clock, bars), `value` (1 beat with 3 `items`), `product` (2 beats: first = "Follow us for more on creator growth and
-  monetisation.", card "More on **growth** and **monetisation**."; last = send + save, has `"cta": true`).
-- Hook must score ≥ 70 with `python3 tools/hookscore.py --hook "..."`.
-- Hook formula (Martin Wang's "story question", added 5 Nov). The reel's first 2 beats, spoken, in this order:
-  1) RELATE + CONTRAST: what most people do or believe ("Most creators quit after a few months of no views.")
-  2) CONDENSED PROOF: the story's real number vs that ("MrBeast posted for 5 years before his first hit.")
+### Reel: illustrated EXPLAINER (since 6 Nov, Avinash's choice; reference: `samples/explainer-mrbeast/post.json`)
+Like the big Indian explainer pages: every spoken line gets its own drawn scene that SHOWS the idea (a visual metaphor),
+not words on screen. Engine: `engine/explainer.html` + `engine/render_explainer.py` (narration + timed sound effects +
+a soft music bed under the voice, -14 LUFS). Replaces the UI-motion (reel3) and reel2 styles for new posts.
+- 60–90 s, 12–16 beats, ONE short sentence each, written in `"explainer": [...]` in post.json. English only.
+- Story = hook → build-up → payoff. Hook formula (Martin Wang's "story question"), the first 3–4 beats:
+  1) RELATE + CONTRAST: what most people do or believe ("Most creators quit after a few months of posting to nobody.")
+  2) CONDENSED PROOF: the story's real number vs that ("MrBeast posted for five years before his first real hit.")
   3) EXCLUSIVE PROMISE: "Here's the one thing he did differently." (the case study's method, never "what I do")
-  4) OPEN LOOP: a question the post answers at the end ("Would you last 5 years?")
-  Every number must be real and sourced: no invented timeframes ("in 60 seconds") or exaggerations.
-  The carousel cover is too small for all four: cover = 1 + a teaser of 2, written as a question that stays open
-  (e.g. "Too late at 50?" / "She started past 50. Then **15.2M**."); slide 2 delivers 3 and 4.
-  The value scene must actually answer the open loop; never bait and not pay off.
-- Voice: `"voice": "hf_alpha:0.4+af_heart:0.6"` in post.json (Indian-accent blend: 40% Alpha, 60% Heart).
-
-### Reel style: UI motion (since 5 Nov, Avinash's choice; reference: `posts/2026-11-05/post.json`)
-- Engine: `engine/reel3.html` + `engine/render_reel3.py` (60 fps). One shape that never cuts: it morphs size, radius
-  and colour from one UI state to the next, and its content swaps with a short blur. A cursor drives the changes
-  with real clicks and drags. Warm-gray canvas, black and white, yellow only for highlights, Geist font, springs.
-  The last state goes back to the first, so the reel loops.
-- Each reel beat gets `ui_head` (the headline at the top, `**word**` = yellow marker) and `ui`: a list of states
-  `{kind, at (s after the beat starts), cur: [[dt,x,y]...], press: [dt...]}`. Kinds: `button`, `stat`, `toggle`,
-  `phone` (Phone Nib, use it in the friend beat), `feed`, `counter`, `chart` (bars to scale, tooltip on hover),
-  `slider` (`drag: [dt0, dt1]`), `tabs` (`sw` switch times), `follow` (`on`), `share` (`taps`),
-  `photo` (`src`, `w`, `h`, `bw`, `label`, `eyes: [[x,y,w,h]]` black bars over the eyes, as fractions of the box).
-  Cursor x/y are page coords; the shape is centred at (540, 990).
-- Keep each state's box under 680 px tall (or 620 for wide cards) so nothing reaches the captions at y 1365.
-- Use images or faces where the story has them (a creator, a person on camera). Cover the eyes with `eyes` bars if
-  you're unsure. Put them in `posts/<date>/photos/`. No grey placeholder blocks: if there's no real image, use a text UI.
-- Getting images: first look in `inbox/<date>/`. If it's empty, search the web for pictures that fit the beat
-  (any site, Avinash's call, 5 Nov). Rules: never download a photo of a real, named or famous person (the creator in
-  a case study included): those come only from Avinash's uploads/screenshots. Skip watermarked stock-agency images
-  (Getty, Shutterstock, Adobe Stock): they chase takedowns. Prefer images with no people, or anonymous people with eyes covered.
-  If the image sites are blocked from this workspace (on 4 Nov the proxy returned 403 for all of them), don't look for a
-  way around it: make the reel without photos and say in the nightly message "Couldn't download images: <site> blocked".
+  4) OPEN LOOP: a question the post answers at the end ("Would you have lasted five years?")
+  Every number must be real and sourced: no invented timeframes or exaggerations. The payoff beat must answer the
+  open loop. Then the method (a `steps` beat), then `follow`, then `send` as the last two beats.
+- Keep the 5 sales steps inside this: relate (hook), be a friend (a "we've been there" line is fine), trust (the
+  sourced story), value (the method), product (follow).
+- Each beat: `{"scene": ..., "label": "2–3 words, **word** = yellow marker", "say": "...", "pause": 0.3 (optional
+  silence after the line, use on the turn and the punchline)}` + the scene's own fields. Scenes available:
+  `walkaway` (row of creators, most walk off, one stays: `stay` index) · `calendar` (`from`, `to` years flip, an
+  upload arrow per year) · `counter` (`value`, `unit`: a number rolls up over a rising line) · `question` (Nib thinking
+  + big "?": the open loop) · `desk` (a kid at a laptop, `views` tiny counter) · `jar` (`fill` 0–1: a jar that barely
+  fills, "not life-changing") · `door` (exit door + footprints: people stopping) · `magnify` (magnifier circling the
+  winners in a grid of invented thumbnails: studying) · `notebook` (`notes`: study notes around a thumbnail) · `clock`
+  (`hours`, `value`: time spent + a count) · `rocket` (flat line that shoots up + confetti: breakthrough) · `split`
+  (`left`, `right`: wrong way vs right way) · `steps` (`items`: 3 numbered cards, the method) · `follow` (Nib presses
+  Follow) · `send` (paper plane to a sad creator who cheers up) · `photo` (`src`, `w`, `top`: a real screenshot from
+  posts/<date>/photos/, see the screenshot rules below).
+- If a line needs a picture no scene has, ADD a scene to `SC` in engine/explainer.html (same pattern: `draw(b, lt)`
+  returns `{svg, html}` drawn in Nib's ink style, pure function of time; `ev(b)` returns sound cues
+  `[[t, 'pop'|'whoosh'|'click'|'tick'|'ding'|'step'|'thump'|'clink'|'scribble'|'whoosh_up'|'creak', gain]]`).
+  Keep every subject between y 560 and y 1400 (label above, captions at y 1470). Check its stills before rendering.
+- Never draw real logos (YouTube, Instagram) or real people; invented thumbnails and generic people only.
+- Voice: `"voice": "hf_alpha:0.4+af_heart:0.6"` in post.json (Kokoro, Indian-accent blend). Music bed stays on.
 
 ### Captions
 - `carousel_caption`: first line ≤ 125 chars and concrete; story; one ask (send + save); then the line
@@ -99,8 +93,8 @@ Playwright + Chromium + ffmpeg are pre-installed in Claude's cloud workspace.
 D=posts/<YYYY-MM-DD>   # tomorrow, IST
 python3 engine/make_carousel.py $D                       # -> $D/carousel/01.jpg ...
 ~/kvenv/bin/python engine/tts.py $D ~/kmodel             # -> $D/reel/narration.wav + timeline.json
-python3 engine/render_reel3.py $D --frames 0.03,<one per state> # look at every state first, fix overlaps
-python3 engine/render_reel3.py $D                        # -> $D/reel/reel.mp4 (with soft UI clicks)
+python3 engine/render_explainer.py $D --frames <one time per beat, ~75% into it>   # look at EVERY scene first
+python3 engine/render_explainer.py $D                    # -> $D/reel/reel.mp4 (~4 min for 70 s)
 mv $D/reel/reel.mp4 $D/reel.mp4 && rm -rf $D/reel
 ```
 Write `$D/caption.txt` and `$D/reel-caption.txt` from post.json. Look at every slide and the stills
@@ -125,8 +119,9 @@ Pure motion graphics feel detached; case studies need real proof of who the crea
   background colour), then `git rm -r inbox/<date>`. Look at every crop: no face anywhere.
 - Where they go (engine already supports it, see posts/2026-11-04/post.json):
   cover `photo` = tight crop of name + handle + subscribers; a `proof` slide right after the relate statement
-  ("Meet **Name**.", `photo` = channel crop, `photo2` = stats crop); reel beat 0 `photo` = the tight crop; a last trust
-  node {"year":"Today","text":"**15.2M** subscribers","photo":"photos/stats.png"} with its own beat.
+  ("Meet **Name**.", `photo` = channel crop, `photo2` = stats crop); in the explainer reel, a `photo` beat right
+  after the hook with the tight crop (`"scene":"photo","src":"photos/channel-name.png"`), and a `photo` beat with the
+  stats crop where the story reaches "today".
 - Check every fact against the screenshots. If a screenshot conflicts with your source (e.g. joined date), don't show
   the conflicting part. Add "her YouTube channel" to the caption sources.
 - No screenshots in the inbox when it's time? Make a growth-topic post instead and move the case study to a later date.
