@@ -70,7 +70,7 @@ def music(total, SR):
 
 
 with sync_playwright() as p:
-    b = p.chromium.launch(); pg = b.new_page(viewport={"width": 1080, "height": 1920})
+    b = p.chromium.launch(); pg = b.new_page(viewport={"width": 1080, "height": 1920}, device_scale_factor=2)   # 2x supersampling: smooth ink edges
     errs = []; pg.on("pageerror", lambda e: errs.append(str(e)))
     pg.goto("file://" + os.path.join(HERE, "explainer.html"))
     pg.evaluate("([t,p]) => window.setTimeline(t,p)", [tl, post]); pg.evaluate("document.fonts.ready")
@@ -86,14 +86,16 @@ with sync_playwright() as p:
     vid = os.path.join(rd, "video.tmp.mp4")
     if not SKIP:
       events = pg.evaluate("window.EV")
-      ff = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", str(FPS), "-c:v", "mjpeg", "-i", "-",
-                           "-c:v", "libx264", "-preset", "veryfast", "-crf", "19", "-pix_fmt", "yuv420p", vid], stdin=subprocess.PIPE)
+      # lossless PNG frames + a high-quality encode: Instagram re-compresses everything, so give it a clean, high-bitrate source
+      ff = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", str(FPS), "-c:v", "mjpeg", "-i", "-", "-vf", "scale=1080:1920:flags=lanczos",
+                           "-c:v", "libx264", "-preset", "slow", "-tune", "animation", "-b:v", "12M", "-maxrate", "16M", "-bufsize", "32M", "-profile:v", "high", "-level", "4.2",
+                           "-x264-params", "keyint=60:min-keyint=30:nal-hrd=vbr", "-pix_fmt", "yuv420p", vid], stdin=subprocess.PIPE)
       for fr in range(n):
-          pg.evaluate(f"window.render({fr / FPS})"); ff.stdin.write(pg.screenshot(type="jpeg", quality=90))
+          pg.evaluate(f"window.render({fr / FPS})"); ff.stdin.write(pg.screenshot(type="jpeg", quality=95))
       b.close(); ff.stdin.close(); ff.wait()
 mixw = os.path.join(rd, "mix.wav"); mix(events, total, mixw)
 out = os.path.join(rd, "reel.mp4")
 r = subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", vid, "-i", mixw, "-c:v", "copy", "-af", "loudnorm=I=-14:TP=-1.5:LRA=11",
-                    "-c:a", "aac", "-b:a", "160k", "-ar", "48000", "-t", str(total), "-movflags", "+faststart", out])
+                    "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-t", str(total), "-movflags", "+faststart", out])
 os.remove(vid)
 print(f"{n} frames -> {out}" if r.returncode == 0 else "ffmpeg mux failed", "errors:", errs)
