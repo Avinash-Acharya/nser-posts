@@ -509,5 +509,99 @@
  "reel_caption": "You don't need English to grow. In 2016, Indian-language internet users beat English ones, 234 million to 175 million.\n\nHow a Hindi tech creator used this is in today's carousel. Send this to a creator who's hiding behind English, and save it.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSources: Wikipedia, \"Gaurav Chaudhary\"; KPMG and Google report (2017), via exchange4media\n\n#indiancreators #regionalcreators #creatortips #reelstips",
  "carousel_alt": "Carousel: why your own language can be your niche, with the story of Hindi tech creator Technical Guruji and 2016 data on Indian-language internet users, plus a simple test to try.",
  "reel_style": "ui",
- "speed": 1.15
+ "speed": 1.15,
+ "explainer": [
+  {
+   "scene": "bubbles",
+   "mode": "nervous",
+   "label": "**English** only?",
+   "say": "Most Indian creators think they need perfect English to grow online."
+  },
+  {
+   "scene": "versus",
+   "a": {
+    "label": "English users",
+    "value": 175000000.0
+   },
+   "b": {
+    "label": "Indian-language users",
+    "value": 234000000.0
+   },
+   "label": "**234M** vs 175M",
+   "say": "But back in 2016, India already had more internet users in Indian languages than in English."
+  },
+  {
+   "scene": "question",
+   "label": "Your **language**?",
+   "say": "One creator made tech videos only in Hindi. Here's what happened. Could it work in your language?",
+   "pause": 0.3
+  },
+  {
+   "scene": "desk",
+   "views": 120,
+   "label": "2015",
+   "say": "In 2015, Gaurav Chaudhary started Technical Guruji. Tech reviews, in Hindi."
+  },
+  {
+   "scene": "rank",
+   "place": 9,
+   "tag": "in Hindi!",
+   "label": "**#9** in tech",
+   "say": "By 2018, it was the ninth most subscribed tech channel on YouTube."
+  },
+  {
+   "scene": "counter",
+   "value": 10000000,
+   "unit": "subscribers",
+   "label": "First to **10M**",
+   "say": "Then he became the first tech YouTuber past ten million subscribers.",
+   "pause": 0.3
+  },
+  {
+   "scene": "bubbles",
+   "mode": "happy",
+   "word": "हिंदी",
+   "label": "Their **language**",
+   "say": "Not because of perfect English. Because people heard their own language."
+  },
+  {
+   "scene": "donut",
+   "pct": 88,
+   "unit": "respond more to ads in their language",
+   "label": "Brands **notice**",
+   "say": "And brands notice. Eighty eight percent of Indian-language users respond more to ads in their own language."
+  },
+  {
+   "scene": "bubbles",
+   "mode": "many",
+   "words": [
+    "हिंदी",
+    "मराठी",
+    "English",
+    "भोजपुरी"
+   ],
+   "label": "Speak **theirs**",
+   "say": "So, could it work for you? Yes, if it's the language your viewers speak."
+  },
+  {
+   "scene": "steps",
+   "items": [
+    "Check your top cities",
+    "Post once in their language",
+    "Compare saves and sends"
+   ],
+   "label": "Try **this**",
+   "say": "Try this. Check your top cities in Insights. Make one post in the language most of them speak. Then compare its saves and sends."
+  },
+  {
+   "scene": "follow",
+   "label": "**Follow** for more",
+   "say": "Follow us for more on creator growth and monetisation."
+  },
+  {
+   "scene": "send",
+   "label": "**Send** it",
+   "say": "And send this to a creator who's hiding behind English."
+  }
+ ]
 }

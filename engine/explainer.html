@@ -101,7 +101,7 @@ function thumbCard(x,y,w,h,k,o={}){ // a generic video thumbnail (invented shape
 // ---------------- scenes ----------------
 // each scene: draw(b, lt) -> {svg, html}; ev(b) -> [[t, sound, gain]] relative to scene start
 const SC = {};
-const ZOOM={calendar:1.25,counter:1.15,desk:1.3,jar:1.15,door:1.25,clock:1.2,send:1.3,question:1.1};
+const ZOOM={bubbles:1,versus:1,calendar:1.25,counter:1.15,desk:1.3,jar:1.15,door:1.25,clock:1.2,send:1.3,question:1.1};
 
 // many small creators; most walk away, one stays (yellow)
 SC.walkaway = {
@@ -290,6 +290,56 @@ SC.send = {
       <g transform="translate(380 1150) scale(${pop(lt,2.0)})"><path d="M-50 -70 L50 -70 L50 70 L0 36 L-50 70Z" fill="${Y}" ${ST}/></g>`};
   },
   ev:b=>[[.3,'whoosh',.45],[1.6,'pop',.4],[2.0,'thump',.4]]
+};
+
+
+// a person talking: speech bubbles. mode: 'nervous' (one English bubble, sweat), 'happy' (own-language bubble, hearts), 'many' (bubbles in several languages)
+SC.bubbles = {
+  draw(b,lt){ const mode=b.mode||'happy'; let s=person(330,1340,1.7,{color:mode==='nervous'?BLUE:TEAL,face:mode==='nervous'?'sad':'smile',pose:mode==='many'?'cheer':'stand'});
+    const bub=(x,y,w,h,str,c,p,f)=>`<g transform="translate(${x} ${y}) scale(${p})"><path d="M${-w/2} ${-h/2} h${w} v${h} h${-w*.55} l-46 52 l6 -52 h${-w*.45}Z" fill="${c}" ${ST}/>${txt(0,h*.16,f||76,str,{f:'Inter, Deva',w:800})}</g>`;
+    if(mode==='nervous'){ s+=bub(700,860,420,200,'ABC...',CREAM,pop(lt,.3));
+      s+=`<path d="M380 960 q-10 24 0 34 q12 -10 0 -34Z" fill="#7CC3F0" opacity="${fade(lt,.9)}" ${ST} stroke-width="4"/>`;
+      if(lt>1.2) s+=`<g opacity="${fade(lt,1.2)}"><path d="M560 760 L840 960 M840 760 L560 960" stroke="${CORAL}" stroke-width="14" stroke-linecap="round" opacity=".85"/></g>`;
+    } else if(mode==='happy'){ s+=bub(700,860,420,200,b.word||'हिंदी',Y,pop(lt,.3),84);
+      for(let k=0;k<5;k++){const a=.8+k*.25, tt=lt-a; if(tt>0) s+=`<path transform="translate(${600+k*70+Math.sin(tt*3+k)*20} ${760-Math.min(tt,1.4)*90}) scale(${.9+k%2*.3})" d="M0 8 C-18 -10 -34 6 0 30 C34 6 18 -10 0 8Z" fill="${CORAL}" opacity="${1-P(tt,1.0,1.6)}" ${ST} stroke-width="3"/>`;}
+    } else { const ws=b.words||['हिंदी','मराठी','English','भोजपुरी'], cs=[Y,'#BFE3D0','#CFE0F5',PINK];
+      ws.forEach((w,k)=>{ s+=bub([640,860,620,860][k%4],[760,860,1010,1110][k%4],280,130,w,cs[k%4],pop(lt,.3+k*.35),54); }); }
+    return {svg:s};
+  },
+  ev(b){ const m=b.mode||'happy'; return m==='many'?[...Array(4)].map((_,k)=>[.3+k*.35,'pop',.4]):[[.3,'pop',.45],[1.2,m==='nervous'?'thump':'ding',.3]]; }
+};
+
+// two bars drawn to scale, racing: who is bigger
+SC.versus = {
+  draw(b,lt){ const a=b.a||{label:'A',value:1}, c=b.b||{label:'B',value:2}, mx=Math.max(a.value,c.value), p=eo(P(lt,.4,2.0));
+    const bar=(y,o,col,hot)=>`${txt(140,y-26,52,o.label,{a:'start',w:700})}
+      <rect x="140" y="${y}" width="${Math.max(8,800*o.value/mx*p)}" height="120" rx="20" fill="${col}" ${ST}/>
+      ${txt(150+Math.max(8,800*o.value/mx*p)-20,y+82,64,(o.show||big(o.value*p)),{a:'end',f:'Fraunces',w:600,c:hot?INK:'#fff'})}`;
+    return {svg:bar(860,a,BLUE,false)+bar(1130,c,Y,true)+(lt>2.1?sparkle(960,1100,1.4,fade(lt,2.1)):'')};
+  },
+  ev:b=>[[.4,'whoosh',.3],[2.1,'ding',.35]]
+};
+
+// a ranking list; one row slides up to its place and lights up
+SC.rank = {
+  draw(b,lt){ const n=10, me=(b.place||9)-1; let s='';
+    for(let k=0;k<n;k++){ const y=700+k*66-0, isMe=k===me, rise=isMe?(1-eio(P(lt,.5,1.8)))*260:0, p=fade(lt,.1+k*.05);
+      s+=`<g opacity="${p}" transform="translate(0 ${rise})"><rect x="160" y="${y}" width="660" height="54" rx="14" fill="${isMe&&lt>1.8?Y:'#fff'}" ${ST} stroke-width="${isMe?7:4}"/>
+        ${txt(200,y+40,34,'#'+(k+1),{a:'start',w:800})}<rect x="280" y="${y+20}" width="${isMe?300:160+((k*53)%180)}" height="14" rx="7" fill="${isMe?INK:'#D8D0C0'}"/></g>`; }
+    if(lt>1.8) s+=`<g transform="translate(905 ${700+me*66+27}) scale(${pop(lt,1.8)})">${txt(0,14,48,b.tag||'Hindi!',{f:'Caveat',c:CORAL})}</g>`;
+    return {svg:s};
+  },
+  ev:b=>[[.5,'whoosh_up',.35],[1.8,'pop',.45]]
+};
+
+// a donut chart filling to a percentage
+SC.donut = {
+  draw(b,lt){ const pct=(b.pct||50)*eo(P(lt,.3,2.0)), r=230, C=2*Math.PI*r;
+    return {svg:`<g transform="translate(540 1020) rotate(-90)"><circle r="${r}" fill="none" stroke="#fff" stroke-width="90"/><circle r="${r}" fill="none" stroke="${INK}" stroke-width="96" opacity=".08"/>
+      <circle r="${r}" fill="none" stroke="${CORAL}" stroke-width="80" stroke-dasharray="${C*pct/100} ${C}"/></g>
+      ${txt(540,1060,150,Math.round(pct)+'%',{f:'Fraunces',w:600})}${txt(540,1370,52,b.unit||'',{f:'Caveat',c:'#6B665D'})}`};
+  },
+  ev:b=>[[.3,'whoosh',.3],[2.0,'ding',.35]]
 };
 
 // a real photo or screenshot (from the post folder)
