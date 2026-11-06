@@ -4,7 +4,7 @@ Usage:  python poster/post_ig.py carousel|reel|check [--date YYYY-MM-DD] [--forc
 
 Reads   posts/<date>/  (carousel/*.jpg + caption.txt, reel.mp4 + reel-caption.txt)
 Checks  the Notion "Content Queue" row whose Post date = <date>:
-        posts only if Status is Approved (or Ready when AUTO_APPROVE=true). Skipped = never.
+        posts only if Status is Approved or Failed (= approved, retry) (or Ready when AUTO_APPROVE=true). Skipped = never.
 Writes  the post link back to Notion, and Status = Posted once both are out.
 
 Env:    IG_USER_ID, IG_TOKEN            (Instagram professional account id + page access token)
@@ -92,15 +92,33 @@ def publish_reel(day, user):
     caption = open(os.path.join(folder, "reel-caption.txt"), encoding="utf-8").read().strip()
     params = dict(media_type="REELS", upload_type="resumable", caption=caption, share_to_feed="true",
                   thumb_offset="1500", is_ai_generated="true")   # AI voice -> Instagram's AI label
-    try: c = ig("POST", f"{user}/media", **params)
-    except RuntimeError as e:
-        if "is_ai_generated" in str(e): params.pop("is_ai_generated"); c = ig("POST", f"{user}/media", **params)
-        else: raise
-    cid, uri = c["id"], c.get("uri") or f"https://rupload.facebook.com/ig-api-upload/{c['id']}"
     data = open(path, "rb").read()
-    http("POST", uri, raw=data, headers={"Authorization": "OAuth " + os.environ["IG_TOKEN"],
-                                        "offset": "0", "file_size": str(len(data))})
-    print(f"  uploaded {len(data)//1024} KB")
+    repo = os.environ.get("GITHUB_REPOSITORY", "Avinash-Acharya/nser-posts")
+    video_url = f"https://raw.githubusercontent.com/{repo}/main/posts/{day}/reel.mp4"
+    # Meta's upload server sometimes answers 400 ProcessingFailedError at random.
+    # So: try the direct upload 3 times (fresh container each time), then let Instagram fetch the file itself.
+    for attempt in range(1, 5):
+        url_mode = attempt == 4
+        p = dict(params, video_url=video_url) if url_mode else params
+        if url_mode: p.pop("upload_type", None)
+        try:
+            try: c = ig("POST", f"{user}/media", **p)
+            except RuntimeError as e:
+                if "is_ai_generated" not in str(e): raise
+                params.pop("is_ai_generated", None); p.pop("is_ai_generated", None); c = ig("POST", f"{user}/media", **p)
+            cid = c["id"]
+            if url_mode:
+                print("  direct upload kept failing; Instagram is fetching the file from GitHub instead")
+                break
+            uri = c.get("uri") or f"https://rupload.facebook.com/ig-api-upload/{cid}"
+            http("POST", uri, raw=data, headers={"Authorization": "OAuth " + os.environ["IG_TOKEN"],
+                                                "offset": "0", "file_size": str(len(data))})
+            print(f"  uploaded {len(data)//1024} KB")
+            break
+        except RuntimeError as e:
+            if url_mode: raise
+            print(f"  upload attempt {attempt} failed: {str(e)[:200]}. Retrying in 20s...")
+            time.sleep(20)
     wait_ready(cid, "reel", timeout=900)
     if DRY: return "dry run OK: uploaded and processed, NOT published"
     mid = ig("POST", f"{user}/media_publish", creation_id=cid)["id"]
@@ -192,7 +210,8 @@ def main():
     status = prop_text(row, "Status")
     auto = os.environ.get("AUTO_APPROVE", "false").lower() == "true"
     if status == "Skipped": print("Row is Skipped. Not posting."); return
-    if not force and not (status == "Approved" or (auto and status in ("Ready", "Approved"))):
+    # 'Failed' means it was approved but Instagram errored, so a re-run may try again.
+    if not force and not (status in ("Approved", "Failed") or (auto and status in ("Ready", "Approved"))):
         print(f"Row status is '{status}', not Approved. Not posting."); return
     done_field = "Carousel post" if kind == "carousel" else "Reel post"
     if prop_text(row, done_field) and not force:
