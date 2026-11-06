@@ -1,0 +1,112 @@
+{
+ "topic": "Explainer sample: MrBeast's 5 years",
+ "handle": "@nser.in_officials",
+ "voice": "hf_alpha:0.4+af_heart:0.6",
+ "tts": {
+  "lang": "en-IN",
+  "voice": "Kore"
+ },
+ "sources": [
+  "https://en.wikipedia.org/wiki/MrBeast"
+ ],
+ "explainer": [
+  {
+   "scene": "walkaway",
+   "label": "**Most** quit",
+   "say": "Most creators quit after a few months of posting to nobody."
+  },
+  {
+   "scene": "calendar",
+   "from": 2012,
+   "to": 2017,
+   "label": "**5** years",
+   "say": "MrBeast posted for five years before his first real hit."
+  },
+  {
+   "scene": "counter",
+   "value": 500000000,
+   "unit": "subscribers",
+   "label": "Then **500M**",
+   "say": "Today, he is the most subscribed YouTuber in the world."
+  },
+  {
+   "scene": "question",
+   "label": "Would **you** last?",
+   "say": "Here's the one thing he did differently. And would you have lasted five years?",
+   "pause": 0.3
+  },
+  {
+   "scene": "desk",
+   "views": 12,
+   "label": "2012",
+   "say": "In 2012, at thirteen, he uploaded his first video."
+  },
+  {
+   "scene": "jar",
+   "fill": 0.2,
+   "label": "**30,000**",
+   "say": "Four years later, he had about thirty thousand subscribers."
+  },
+  {
+   "scene": "door",
+   "label": "Most **stop**",
+   "say": "Good, but not life changing. This is where most people stop.",
+   "pause": 0.5
+  },
+  {
+   "scene": "magnify",
+   "label": "He **studied**",
+   "say": "He didn't just post more. He studied what was working."
+  },
+  {
+   "scene": "notebook",
+   "notes": [
+    "the hook?",
+    "how long?",
+    "the title"
+   ],
+   "label": "**Obsessed**",
+   "say": "In his own words, he was relentlessly, unhealthily obsessed with studying virality."
+  },
+  {
+   "scene": "clock",
+   "hours": 40,
+   "value": 100000,
+   "label": "**40** hours",
+   "say": "Then, in January 2017, he counted to one hundred thousand on camera. It took about forty hours."
+  },
+  {
+   "scene": "rocket",
+   "label": "**Breakthrough**",
+   "say": "That video blew up. It was his breakthrough.",
+   "pause": 0.3
+  },
+  {
+   "scene": "split",
+   "left": "post and hope",
+   "right": "study, test, post",
+   "label": "Learn, don't **just post**",
+   "say": "So, would you last five years? Only if every post teaches you something."
+  },
+  {
+   "scene": "steps",
+   "items": [
+    "Pick 3 creators in your niche",
+    "Find posts that did 5x",
+    "Copy the structure, not words"
+   ],
+   "label": "Try **this**",
+   "say": "Try this. Pick three creators in your niche. Find their posts that did five times their usual views. Copy the structure, not the words."
+  },
+  {
+   "scene": "follow",
+   "label": "**Follow** for more",
+   "say": "Follow us for more on creator growth and monetisation."
+  },
+  {
+   "scene": "send",
+   "label": "**Send** it",
+   "say": "And send this to a creator who's about to quit."
+  }
+ ]
+}

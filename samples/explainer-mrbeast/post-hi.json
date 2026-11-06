@@ -1,0 +1,113 @@
+{
+ "topic": "Explainer sample: MrBeast's 5 years",
+ "handle": "@nser.in_officials",
+ "voice": "hf_beta:0.7+af_heart:0.3",
+ "tts": {
+  "lang": "hi-IN",
+  "voice": "Kore"
+ },
+ "sources": [
+  "https://en.wikipedia.org/wiki/MrBeast"
+ ],
+ "explainer": [
+  {
+   "scene": "walkaway",
+   "label": "**Most** quit",
+   "say": "ज़्यादातर क्रिएटर्स कुछ महीने पोस्ट करते हैं, व्यूज़ नहीं आते, और छोड़ देते हैं।"
+  },
+  {
+   "scene": "calendar",
+   "from": 2012,
+   "to": 2017,
+   "label": "**5** years",
+   "say": "मिस्टर बीस्ट ने पूरे पाँच साल वीडियो डाले, तब जाकर पहला बड़ा हिट आया।"
+  },
+  {
+   "scene": "counter",
+   "value": 500000000,
+   "unit": "subscribers",
+   "label": "Then **500M**",
+   "say": "और आज? दुनिया में सबसे ज़्यादा सब्सक्राइबर्स वाला यूट्यूबर।"
+  },
+  {
+   "scene": "question",
+   "label": "Would **you** last?",
+   "say": "तो उसने अलग क्या किया? और सच बताओ, क्या तुम पाँच साल टिक पाते?",
+   "pause": 0.3
+  },
+  {
+   "scene": "desk",
+   "views": 12,
+   "label": "2012",
+   "say": "दो हज़ार बारह। तेरह साल का लड़का, अपना पहला वीडियो अपलोड करता है।"
+  },
+  {
+   "scene": "jar",
+   "fill": 0.2,
+   "label": "**30,000**",
+   "say": "चार साल बाद? बस करीब तीस हज़ार सब्सक्राइबर्स।"
+  },
+  {
+   "scene": "door",
+   "label": "Most **stop**",
+   "say": "बुरा नहीं, पर लाइफ़ चेंजिंग भी नहीं। ज़्यादातर लोग यहीं रुक जाते हैं।",
+   "pause": 0.5
+  },
+  {
+   "scene": "magnify",
+   "label": "He **studied**",
+   "say": "पर उसने सिर्फ़ ज़्यादा पोस्ट नहीं किया। उसने स्टडी किया कि क्या चल रहा है।"
+  },
+  {
+   "scene": "notebook",
+   "notes": [
+    "the hook?",
+    "how long?",
+    "the title"
+   ],
+   "label": "**Obsessed**",
+   "say": "उसके अपने शब्दों में, वो वायरल होने की स्टडी के पीछे बुरी तरह पागल था।"
+  },
+  {
+   "scene": "clock",
+   "hours": 40,
+   "value": 100000,
+   "label": "**40** hours",
+   "say": "फिर जनवरी दो हज़ार सत्रह में, उसने कैमरे पर एक लाख तक गिनती की। करीब चालीस घंटे लगे।"
+  },
+  {
+   "scene": "rocket",
+   "label": "**Breakthrough**",
+   "say": "वो वीडियो फट गया। यही था उसका ब्रेकथ्रू।",
+   "pause": 0.3
+  },
+  {
+   "scene": "split",
+   "left": "post and hope",
+   "right": "study, test, post",
+   "label": "Learn, don't **just post**",
+   "say": "तो क्या तुम पाँच साल टिक पाते? हाँ, अगर हर पोस्ट से कुछ सीख रहे हो।"
+  },
+  {
+   "scene": "steps",
+   "items": [
+    "Pick 3 creators in your niche",
+    "Find posts that did 5x",
+    "Copy the structure, not words"
+   ],
+   "label": "Try **this**",
+   "say": "ये ट्राय करो। अपनी नीश के तीन क्रिएटर्स चुनो। उनकी वो पोस्ट ढूँढो जो नॉर्मल से पाँच गुना चली। स्ट्रक्चर कॉपी करो, शब्द नहीं।"
+  },
+  {
+   "scene": "follow",
+   "label": "**Follow** for more",
+   "say": "ऐसी ही क्रिएटर ग्रोथ और कमाई की बातों के लिए फॉलो करो।"
+  },
+  {
+   "scene": "send",
+   "label": "**Send** it",
+   "say": "और ये उस दोस्त को भेजो जो हार मानने वाला है।"
+  }
+ ],
+ "lang": "hi"
+}
