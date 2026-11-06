@@ -101,7 +101,7 @@ function thumbCard(x,y,w,h,k,o={}){ // a generic video thumbnail (invented shape
 // ---------------- scenes ----------------
 // each scene: draw(b, lt) -> {svg, html}; ev(b) -> [[t, sound, gain]] relative to scene start
 const SC = {};
-const ZOOM={bubbles:1,versus:1,calendar:1.25,counter:1.15,desk:1.3,jar:1.15,door:1.25,clock:1.2,send:1.3,question:1.1};
+const ZOOM={city:1,village:1,bubbles:1,versus:1,calendar:1.25,counter:1.15,desk:1.3,jar:1.15,door:1.25,clock:1.2,send:1.3,question:1.1};
 
 // many small creators; most walk away, one stays (yellow)
 SC.walkaway = {
@@ -251,7 +251,7 @@ SC.split = {
     const die=(x,y,r)=>`<g transform="translate(${x} ${y}) rotate(${r})"><rect x="-60" y="-60" width="120" height="120" rx="22" fill="#fff" ${ST}/><circle cx="-26" cy="-26" r="11" fill="${INK}"/><circle cx="26" cy="26" r="11" fill="${INK}"/><circle r="11" fill="${INK}"/></g>`;
     return {svg:`<rect x="0" y="720" width="${540*w}" height="720" fill="#EFE8DA"/><rect x="${1080-540*w}" y="720" width="540" height="720" fill="#DCEEDF"/>
       ${die(250,1060,lt*160)}${txt(270,1300,48,L,{f:'Caveat',c:'#6B665D'})}
-      <g opacity="${fade(lt,.8)}"><circle cx="780" cy="1070" r="120" fill="none" stroke="${TEAL}" stroke-width="10" stroke-dasharray="20 18"/>${arrows}${txt(780,1086,44,'learn',{f:'Caveat'})}${txt(800,1300,48,R,{f:'Caveat'})}</g>
+      <g opacity="${fade(lt,.8)}"><circle cx="780" cy="1070" r="120" fill="none" stroke="${TEAL}" stroke-width="10" stroke-dasharray="20 18"/>${arrows}${txt(780,1086,44,b.mid||'learn',{f:'Caveat'})}${txt(800,1300,48,R,{f:'Caveat'})}</g>
       <path d="M540 740 L540 1420" stroke="${INK}" stroke-width="6" stroke-dasharray="14 14" opacity="${w}"/>
       <g opacity="${fade(lt,1.2)}"><path d="M200 900 L300 1000 M300 900 L200 1000" stroke="${CORAL}" stroke-width="16" stroke-linecap="round" transform="translate(-40 -180)"/><path d="M720 760 L760 800 L840 700" stroke="${TEAL}" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>`};
   },
@@ -340,6 +340,45 @@ SC.donut = {
       ${txt(540,1060,150,Math.round(pct)+'%',{f:'Fraunces',w:600})}${txt(540,1370,52,b.unit||'',{f:'Caveat',c:'#6B665D'})}`};
   },
   ev:b=>[[.3,'whoosh',.3],[2.0,'ding',.35]]
+};
+
+// a crowded big-city skyline: many creators squeezed together at its feet
+SC.city = {
+  draw(b,lt){ let s=''; const bl=[[150,170,520],[330,150,640],[490,190,560],[690,140,700],[840,150,500]];
+    bl.forEach(([x,w,h],k)=>{ const p=eo(P(lt,.1+k*.12,.6+k*.12)), hh=h*p, top=1250-hh;
+      s+=`<rect x="${x}" y="${top}" width="${w}" height="${hh}" fill="${['#DDE3EA','#CFD8E3','#E4DCCF','#D6DEE8','#E1E6EC'][k]}" ${ST}/>`;
+      for(let r=0;r<Math.floor(hh/70)-1;r++) for(let c=0;c<Math.floor(w/50);c++) s+=`<rect x="${x+16+c*50}" y="${top+26+r*70}" width="26" height="34" rx="4" fill="${hash(k*31+r*7+c)>.5?Y:'#fff'}" stroke="${INK}" stroke-width="3"/>`; });
+    s+=`<rect x="60" y="1250" width="960" height="14" rx="7" fill="${INK}" opacity=".25"/>`;
+    for(let i=0;i<9;i++){ const x=150+i*98, ph=lt*7+i, a=.7+i*.08; if(lt>a) s+=person(x,1380+(i%2)*14,.78,{color:[BLUE,TEAL,CORAL,'#9B7BD1'][i%4],pose:'stand',phase:ph,face:i%3===1?'sad':'smile'}); }
+    return {svg:s};
+  },
+  ev:b=>[[.1,'whoosh_up',.3],[.7,'pop',.25],[1.1,'pop',.25]]
+};
+
+// a village: fields, a river, a big pot on firewood, a phone on a stand filming it
+SC.village = {
+  draw(b,lt){ const f=Math.sin(lt*14)*6, g=fade(lt,.2);
+    let s=`<g opacity="${g}"><path d="M0 900 Q270 860 540 900 T1080 890 L1080 1420 L0 1420Z" fill="#CFE6B8" ${ST}/>
+      <path d="M0 1010 Q300 980 560 1020 T1080 1000" fill="none" stroke="#9CCB86" stroke-width="10"/>
+      <path d="M0 1120 Q260 1090 520 1130 T1080 1110" fill="none" stroke="#9CCB86" stroke-width="10"/>
+      <path d="M-20 1300 Q250 1250 540 1300 T1100 1290 L1100 1430 L-20 1430Z" fill="#9FD3F0" ${ST}/>
+      <path d="M120 1350 q30 -12 60 0 M520 1360 q30 -12 60 0 M860 1345 q30 -12 60 0" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <path d="M150 900 Q160 760 140 640" stroke="#8A5A3A" stroke-width="16" fill="none" stroke-linecap="round"/>
+      ${[0,1,2,3,4].map(k=>`<path d="M140 640 q${-90+k*45} ${-30+Math.abs(k-2)*22} ${-140+k*70} ${30+Math.abs(k-2)*30}" stroke="#4E9A5B" stroke-width="22" fill="none" stroke-linecap="round"/>`).join('')}</g>`;
+    const pp=pop(lt,.5,.4);
+    s+=`<g transform="translate(560 1150) scale(${pp})">
+      <path d="M-120 60 L-150 120 M0 70 L0 130 M120 60 L150 120" stroke="#8A5A3A" stroke-width="20" stroke-linecap="round"/>
+      <path d="M-70 70 Q-50 ${10+f} -30 70 M-20 70 Q0 ${-5-f} 20 70 M30 70 Q50 ${12-f} 70 70" fill="${CORAL}" stroke="${Y2}" stroke-width="6"/>
+      <path d="M-190 -60 Q-200 80 0 80 Q200 80 190 -60Z" fill="#4A4642" ${ST}/>
+      <rect x="-210" y="-82" width="420" height="34" rx="17" fill="#6B665D" ${ST}/></g>`;
+    for(let k=0;k<3;k++){ const tt=(lt*0.8+k*.33)%1; s+=`<path d="M${500+k*60} ${1050-tt*220} q-20 -30 0 -60 q20 -30 0 -60" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round" opacity="${(1-tt)*g*.9}"/>`; }
+    const cp=pop(lt,1.0,.4);
+    s+=`<g transform="translate(880 1060) scale(${cp})"><path d="M0 60 L-50 230 M0 60 L50 230 M0 60 L0 230" ${ST}/>
+      ${phoneProp(0,-10,120,190,playBtn(0,-10,26))}
+      <circle cx="40" cy="-80" r="10" fill="${CORAL}" opacity="${Math.floor(lt*2)%2?1:.3}"/></g>`;
+    return {svg:s};
+  },
+  ev:b=>[[.5,'pop',.4],[1.0,'click',.4]]
 };
 
 // a real photo or screenshot (from the post folder)

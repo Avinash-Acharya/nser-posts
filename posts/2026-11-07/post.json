@@ -1,0 +1,232 @@
+{
+ "topic": "You don't need to live in Mumbai to grow",
+ "pillar": "Growth",
+ "handle": "@nser.in_officials",
+ "voice": "hf_alpha:0.4+af_heart:0.6",
+ "sources": [
+  "https://www.thenewsminute.com/tamil-nadu/much-loved-village-cooking-channel-now-has-1-crore-youtube-subscribers-151758",
+  "https://www.businesstoday.in/technology/news/story/indias-internet-user-base-tops-950-million-as-rural-growth-ai-drive-adoption-513353-2026-01-29"
+ ],
+ "mascot": "phone",
+ "carousel": [
+  {
+   "kind": "thumb",
+   "tag": "Your town is your edge",
+   "title": "Tiny town?",
+   "title2": "A village channel hit **1 crore**.",
+   "nib": {
+    "pose": "shrug",
+    "mood": "worried"
+   }
+  },
+  {
+   "kind": "statement",
+   "text": "Think you need a **big city** to grow?",
+   "sub": "We've been there too, thinking our town was too small to matter. Here's what one family from a Tamil Nadu village did instead. Could your town be your edge?",
+   "subTop": 640
+  },
+  {
+   "kind": "quote",
+   "quote": "The show is hosted by a family of **farmer-chefs** from Pudukkottai in Tamil Nadu.",
+   "who": "The News Minute, on Village Cooking Channel (2021)",
+   "whoTop": 760
+  },
+  {
+   "kind": "timeline",
+   "title": "How it **actually** went",
+   "items": [
+    {
+     "when": "Apr 2018",
+     "what": "Starts **Village Cooking Channel**"
+    },
+    {
+     "when": "Always",
+     "what": "Shot outdoors: fields and river banks"
+    },
+    {
+     "when": "Jan 2021",
+     "what": "Around **7M** subscribers"
+    },
+    {
+     "when": "Jul 2021",
+     "what": "First Tamil channel to **1 crore**",
+     "hot": true
+    }
+   ]
+  },
+  {
+   "kind": "bignum",
+   "pre": "in 2025, rural India had",
+   "num": "548M",
+   "label": "active internet users.",
+   "line": "That's **more than half** of India's 958M. IAMAI and Kantar, 2025."
+  },
+  {
+   "kind": "chart",
+   "title": "Internet users in 2025: **rural** vs the rest",
+   "bars": [
+    {
+     "label": "Rural India",
+     "value": 548,
+     "display": "548M",
+     "hot": true
+    },
+    {
+     "label": "Everyone else",
+     "value": 410,
+     "display": "410M"
+    }
+   ],
+   "source": "Active users. IAMAI and Kantar, Internet in India 2025",
+   "nib": {
+    "size": 190
+   }
+  },
+  {
+   "kind": "split",
+   "title": "Copying the city vs **showing your town**",
+   "left": {
+    "head": "Copying the city",
+    "items": [
+     "Same cafés as everyone",
+     "Hard to stand out",
+     "Easy to scroll past"
+    ]
+   },
+   "right": {
+    "head": "Showing your town",
+    "items": [
+     "Things **only you** can film",
+     "Your people, your food",
+     "Rural India is growing **~4x** faster"
+    ]
+   }
+  },
+  {
+   "kind": "checklist",
+   "title": "Use **your** town this week",
+   "items": [
+    "List 5 things only your town has",
+    "Film one post right there, outdoors",
+    "Talk the way you talk at home",
+    "Ask before you film people or shops",
+    "Compare saves and sends with your usual"
+   ]
+  },
+  {
+   "kind": "ask",
+   "title": "What's one thing only **your town** has?",
+   "placeholder": "A dish, a market, a river…",
+   "sub": "Tell us in the comments."
+  },
+  {
+   "kind": "share",
+   "title": "Know a creator who thinks their **town** is too small?",
+   "send": "Send them this.",
+   "sendSub": "It might be the push they need.",
+   "save": "Save it for yourself.",
+   "saveSub": "For when you plan your next post.",
+   "product": "Follow for more on creator growth & monetisation"
+  }
+ ],
+ "explainer": [
+  {
+   "scene": "city",
+   "label": "Big **city**?",
+   "say": "Most creators think you need a big city like Mumbai to grow."
+  },
+  {
+   "scene": "versus",
+   "a": {
+    "label": "Everyone else",
+    "value": 410000000.0
+   },
+   "b": {
+    "label": "Rural India",
+    "value": 548000000.0
+   },
+   "label": "**548M** rural",
+   "say": "But in 2025, more than half of India's internet users were in rural India."
+  },
+  {
+   "scene": "question",
+   "label": "Your **town**?",
+   "say": "One family from a Tamil Nadu village proved it. Here's what they did. Could your town be your edge?",
+   "pause": 0.3
+  },
+  {
+   "scene": "desk",
+   "views": 9,
+   "label": "We've been **there**",
+   "say": "We've been there too, thinking our town was too small to matter."
+  },
+  {
+   "scene": "village",
+   "label": "Pudukkottai, **2018**",
+   "say": "In April 2018, a former caterer and his grandchildren started Village Cooking Channel."
+  },
+  {
+   "scene": "village",
+   "label": "No **studio**",
+   "say": "No studio. They cook outdoors, in the fields and along the river banks, in huge pots, for the people around them."
+  },
+  {
+   "scene": "counter",
+   "value": 7000000,
+   "unit": "subscribers by January 2021",
+   "label": "**7M** fans",
+   "say": "By January 2021, they had around seven million subscribers."
+  },
+  {
+   "scene": "rocket",
+   "label": "**1 crore**",
+   "say": "Then they hit one crore. The first Tamil YouTube channel to get there.",
+   "pause": 0.3
+  },
+  {
+   "scene": "split",
+   "left": "Copy the city",
+   "right": "Show your town",
+   "mid": "only you",
+   "label": "Their **edge**",
+   "say": "They didn't try to look like city creators. They showed what only their village had: its food, its fields, its river."
+  },
+  {
+   "scene": "counter",
+   "value": 4,
+   "unit": "times faster than urban India",
+   "label": "**4x** faster",
+   "say": "And rural India is growing nearly four times faster than urban India."
+  },
+  {
+   "scene": "bubbles",
+   "mode": "happy",
+   "word": "My town!",
+   "label": "Your **edge**",
+   "say": "So yes, your town can be your edge. If you show it."
+  },
+  {
+   "scene": "steps",
+   "items": [
+    "List 5 things only you have",
+    "Film one post right there",
+    "Compare saves and sends"
+   ],
+   "label": "Try **this**",
+   "say": "Try this. List five things only your town has. Film one post right there. Then compare its saves and sends."
+  },
+  {
+   "scene": "follow",
+   "label": "**Follow** for more",
+   "say": "Follow us for more on creator growth and monetisation."
+  },
+  {
+   "scene": "send",
+   "label": "**Send** it",
+   "say": "And send this to a creator who thinks their town is too small."
+  }
+ ],
+ "carousel_caption": "You don't need a big city to grow. A family from a Tamil Nadu village built the first Tamil channel to 1 crore subscribers.\n\nVillage Cooking Channel started in April 2018 in Pudukkottai. A former caterer, Periyathambi, and his grandchildren cook outdoors, in the fields and along the river banks. By January 2021 they had around 7 million subscribers. By July 2021, they passed 1 crore, the first Tamil YouTube channel to do it.\n\nAnd the audience is there. In 2025, rural India had about 548 million active internet users, more than half of India's 958 million, and it is growing nearly four times faster than urban India.\n\nTry it: list five things only your town has, film one post right there, and compare its saves and sends with your usual.\n\nSend this to a creator who thinks their town is too small, and save it for your next post.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSources: The News Minute, \"Much-loved Village Cooking Channel now has 1 crore YouTube subscribers\" (July 2021); IAMAI and Kantar, Internet in India Report 2025, as reported by Business Today (January 2026)\n\n#indiancreators #smalltowncreators #contentcreator #creatortips #instagramgrowth",
+ "reel_caption": "You don't need a big city to grow. A family from a Tamil Nadu village became the first Tamil channel to 1 crore subscribers.\n\nThe full story and a simple test are in today's carousel. Send this to a creator who thinks their town is too small, and save it.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSources: The News Minute (July 2021); IAMAI and Kantar, Internet in India Report 2025, via Business Today\n\n#indiancreators #smalltowncreators #creatortips #reelstips",
+ "carousel_alt": "Carousel: you don't need a big city to grow as a creator, with the story of Village Cooking Channel from Pudukkottai, Tamil Nadu, 2025 data on rural internet users in India, and a simple test to try."
+}
