@@ -35,11 +35,12 @@ def key(text, lang, voice, rate):
     return hashlib.sha1(f"{lang}|{voice}|{rate}|{text}".encode()).hexdigest()[:12]
 
 
-def do_post(day):
-    pd = os.path.join(ROOT, "posts", day); post = json.load(open(os.path.join(pd, "post.json"), encoding="utf-8"))
+def do_post(day, fname="post.json"):
+    pd = os.path.join(ROOT, day) if "/" in day else os.path.join(ROOT, "posts", day)   # a date, or a folder like samples/x
+    post = json.load(open(os.path.join(pd, fname), encoding="utf-8"))
     cfg = post.get("tts", {}); lang, voice, rate = cfg.get("lang", "en-IN"), cfg.get("voice", "Kore"), cfg.get("rate", 1.0)
     beats = post.get("explainer") or post.get("reel") or []
-    out = os.path.join(pd, "voice"); os.makedirs(out, exist_ok=True)
+    out = os.path.join(pd, "voice" if fname == "post.json" else "voice-" + fname[5:-5]); os.makedirs(out, exist_ok=True)
     manifest = []
     for i, b in enumerate(beats):
         text = b.get("speak") or b["say"]; k = key(text, lang, voice, rate); fn = f"{i:02d}-{k}.wav"
@@ -67,5 +68,5 @@ def do_samples():
 
 if __name__ == "__main__":
     if not os.environ.get("GOOGLE_TTS_KEY"): sys.exit("missing secret GOOGLE_TTS_KEY")
-    if sys.argv[1] == "post": do_post(sys.argv[2])
+    if sys.argv[1] == "post": do_post(sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else "post.json")
     else: do_samples()

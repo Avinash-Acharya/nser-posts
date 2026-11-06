@@ -8,9 +8,13 @@ on:
         required: true
         default: post
       date:
-        description: "YYYY-MM-DD (for mode=post)"
+        description: "YYYY-MM-DD or a folder like samples/explainer-mrbeast (for mode=post)"
         required: false
         default: ""
+      file:
+        description: "post.json, or e.g. post-hi.json"
+        required: false
+        default: "post.json"
 
 concurrency:
   group: voice
@@ -35,7 +39,7 @@ jobs:
           GOOGLE_TTS_KEY: ${{ secrets.GOOGLE_TTS_KEY }}
         run: |
           if [ "${{ inputs.mode }}" = "samples" ]; then python poster/voice_google.py samples
-          else python poster/voice_google.py post "${{ inputs.date }}"; fi
+          else python poster/voice_google.py post "${{ inputs.date }}" "${{ inputs.file }}"; fi
       - name: Commit the audio
         run: |
           git config user.name "nser voice bot"
