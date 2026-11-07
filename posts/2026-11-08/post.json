@@ -1,0 +1,213 @@
+{
+ "topic": "Hooks that stop the scroll (and why they work)",
+ "pillar": "Growth",
+ "handle": "@nser.in_officials",
+ "voice": "hf_alpha:0.4+af_heart:0.6",
+ "sources": [
+  "https://www.socialsamosa.com/news-2/instagram-retention-chart-skip-rate-new-performance-metrics-reels-9730992",
+  "https://www.socialmediatoday.com/news/instagram-adds-retention-insights-reels/758464/",
+  "https://www.socialmediatoday.com/news/instagram-shares-algorithm-insights-2025/738034/"
+ ],
+ "mascot": "phone",
+ "carousel": [
+  {
+   "kind": "thumb",
+   "tag": "Hooks that stop the scroll",
+   "title": "Skipped?",
+   "title2": "You get **3 seconds**. Use them.",
+   "nib": {
+    "pose": "shrug",
+    "mood": "worried"
+   }
+  },
+  {
+   "kind": "statement",
+   "text": "People scroll past your reel **before it even starts**?",
+   "sub": "We've been there too: hours of editing, gone in one flick. The good news? Instagram itself told creators where to look. Here's what it said.",
+   "subTop": 640
+  },
+  {
+   "kind": "quote",
+   "quote": "Skip rate is the percentage of views from people who decided to skip your reel during those **first 3 seconds**.",
+   "who": "Instagram, Reels insights (Aug 2025)",
+   "whoTop": 900
+  },
+  {
+   "kind": "timeline",
+   "title": "What Instagram **told** creators",
+   "items": [
+    {
+     "when": "Jan 2025",
+     "what": "Top signals: **watch time**, likes, sends"
+    },
+    {
+     "when": "Aug 2025",
+     "what": "A **retention chart** for every reel"
+    },
+    {
+     "when": "Aug 2025",
+     "what": "**Skip rate**: who leaves in 3 seconds",
+     "hot": true
+    },
+    {
+     "when": "Your turn",
+     "what": "Open Insights and check yours"
+    }
+   ]
+  },
+  {
+   "kind": "bignum",
+   "pre": "Instagram measures your opening in",
+   "num": "3 sec",
+   "label": "the skip rate window.",
+   "line": "Retention: **the flatter the line**, the more engaged your audience. Instagram, Aug 2025."
+  },
+  {
+   "kind": "split",
+   "title": "Weak start vs **strong hook**",
+   "left": {
+    "head": "Weak start",
+    "items": [
+     "\"Hi guys, welcome back\"",
+     "A long logo intro",
+     "Best part saved for the end"
+    ]
+   },
+   "right": {
+    "head": "Strong hook",
+    "items": [
+     "Their **problem**, first second",
+     "Show the result first",
+     "A question you answer at the end"
+    ]
+   }
+  },
+  {
+   "kind": "checklist",
+   "title": "Your **hook** checklist",
+   "items": [
+    "Say what most people do (and get wrong)",
+    "Add one true proof: a real number or story",
+    "Promise the one thing that changes it",
+    "Ask a question you answer at the end",
+    "Compare skip rate with your last 5 reels"
+   ]
+  },
+  {
+   "kind": "ask",
+   "title": "What's the **first line** of your next reel?",
+   "placeholder": "Most people make chai wrong…",
+   "sub": "Write it in the comments."
+  },
+  {
+   "kind": "share",
+   "title": "Know a creator whose reels keep getting **skipped**?",
+   "send": "Send them this.",
+   "sendSub": "Three seconds can change their next reel.",
+   "save": "Save it for yourself.",
+   "saveSub": "For when you write your next hook.",
+   "product": "Follow for more on creator growth & monetisation"
+  }
+ ],
+ "explainer": [
+  {
+   "scene": "scroll",
+   "label": "**Skipped**?",
+   "say": "Most creators lose their viewers before the reel even starts."
+  },
+  {
+   "scene": "countdown",
+   "value": 3,
+   "unit": "seconds to stay or skip",
+   "label": "**3 seconds**",
+   "say": "Instagram now shows you how many people skip your reel in the first three seconds."
+  },
+  {
+   "scene": "question",
+   "label": "Your **hook**?",
+   "say": "Here's what Instagram told creators, and a simple way to fix it. Is your first line losing people?",
+   "pause": 0.3
+  },
+  {
+   "scene": "desk",
+   "views": 9,
+   "label": "We've been **there**",
+   "say": "We've been there too. Hours of editing, and people flick past in a second."
+  },
+  {
+   "scene": "bubbles",
+   "mode": "many",
+   "words": [
+    "Watch time",
+    "Likes",
+    "Sends"
+   ],
+   "label": "Top **3** signals",
+   "say": "In January 2025, Instagram's head Adam Mosseri said the top three ranking signals are watch time, likes and sends."
+  },
+  {
+   "scene": "retention",
+   "label": "**Flatter** line",
+   "say": "Then in August 2025, Instagram added a retention chart to every reel. The flatter the line, the more engaged your audience."
+  },
+  {
+   "scene": "door",
+   "label": "**Skip** rate",
+   "say": "And skip rate. The share of views from people who skip in the first three seconds."
+  },
+  {
+   "scene": "split",
+   "left": "Hi guys, welcome back",
+   "right": "Their problem, first",
+   "mid": "hook",
+   "label": "Their **problem**",
+   "say": "So don't open with hi guys. Open with the viewer's own problem.",
+   "pause": 0.3
+  },
+  {
+   "scene": "notebook",
+   "notes": [
+    "what most do",
+    "one true proof",
+    "a question"
+   ],
+   "label": "**4-line** hook",
+   "say": "Write it in four lines. Say what most people do. Add one true proof. Promise one thing. Then ask a question you answer at the end."
+  },
+  {
+   "scene": "scroll",
+   "stop": true,
+   "label": "They **stop**",
+   "say": "A question they need answered keeps them watching. And watch time is a top signal."
+  },
+  {
+   "scene": "magnify",
+   "label": "Check **yours**",
+   "say": "So, is your first line losing people? Open your Insights and check your skip rate.",
+   "pause": 0.3
+  },
+  {
+   "scene": "steps",
+   "items": [
+    "Open with their problem",
+    "Show the result first",
+    "Check your skip rate"
+   ],
+   "label": "Try **this**",
+   "say": "Try this on your next reel. Open with their problem. Show the result first. Then check your skip rate."
+  },
+  {
+   "scene": "follow",
+   "label": "**Follow** for more",
+   "say": "Follow us for more on creator growth and monetisation."
+  },
+  {
+   "scene": "send",
+   "label": "**Send** it",
+   "say": "And send this to a creator whose reels keep getting skipped."
+  }
+ ],
+ "carousel_caption": "Your reel gets judged in 3 seconds. Instagram now shows you how many people skip it in that time.\n\nIn January 2025, Instagram's head Adam Mosseri said the top three ranking signals are watch time, likes and sends. In August 2025, Instagram added two Reels insights: a retention chart (\"the flatter the line, the more engaged your audience is\") and skip rate, the share of views from people who skip your reel in the first 3 seconds.\n\nSo the first line matters most. Write it in four parts: say what most people do, add one true proof, promise one thing, and ask a question you answer at the end. Then compare your skip rate with your last 5 reels.\n\nSend this to a creator whose reels keep getting skipped, and save it for your next hook.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSources: Social Samosa, \"Instagram adds Retention chart & Skip Rate as new performance metrics for reels\" (Aug 2025); Social Media Today, \"Instagram Adds Retention Metrics for Reels\" (Aug 2025) and \"Instagram Shares Algorithm Insights To Inform Strategy\" (Jan 2025)\n\n#indiancreators #reelstips #contentcreator #creatortips #instagramgrowth",
+ "reel_caption": "Your reel gets judged in 3 seconds. Here's how to write a hook that stops the scroll.\n\nThe full 4-line hook method is in today's carousel. Send this to a creator whose reels keep getting skipped, and save it.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSources: Social Samosa (Aug 2025); Social Media Today (Jan and Aug 2025)\n\n#indiancreators #reelstips #creatortips #instagramgrowth",
+ "carousel_alt": "Carousel: why the first 3 seconds of a reel matter, what Instagram said about watch time, retention and skip rate in 2025, and a simple 4-line method to write a hook."
+}

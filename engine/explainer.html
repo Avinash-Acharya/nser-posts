@@ -390,6 +390,45 @@ SC.photo = {
   ev:b=>[[.2,'pop',.35]]
 };
 
+// a phone feed flying past under a flicking thumb (scrolling, skipping)
+SC.scroll = {
+  draw(b,lt){ const speed=b.stop?Math.max(0,1-P(lt,1.2,2.2)):1, off=(b.stop?eio(P(lt,0,2.2))*770:lt*620);
+    let cards=''; for(let k=0;k<9;k++){ const y=640+k*260-off%(b.stop?99999:260*3)-(b.stop?0:0);
+      const hot=b.stop&&k===4; cards+=G(0,0,1,thumbCard(380,y,320,220,k+(hot?0:1)));
+      if(hot&&lt>2.2) cards+=`<g transform="translate(540 ${y+110}) scale(${pop(lt,2.2)})"><rect x="-120" y="-44" width="240" height="88" rx="20" fill="${Y}" ${ST}/>${txt(0,18,52,'STOP',{w:800})}</g>`; }
+    const th=Math.sin(lt*7)*60*speed;
+    return {svg:`<defs><clipPath id="scr"><rect x="352" y="652" width="376" height="736" rx="44"/></clipPath></defs>
+      <rect x="330" y="630" width="420" height="780" rx="60" fill="${INK}"/><rect x="352" y="652" width="376" height="736" rx="44" fill="#fff"/>
+      <g clip-path="url(#scr)">${cards}</g>
+      <g transform="translate(860 ${1050+th*.6})" opacity="${.25+.75*speed}"><path d="M-36 30 L0 -10 L36 30 M-36 90 L0 50 L36 90" ${ST} fill="none" stroke-width="12"/></g>`};
+  },
+  ev:b=>b.stop?[[.2,'whoosh',.35],[2.2,'thump',.45]]:[[.2,'whoosh',.3],[.9,'whoosh',.3],[1.6,'whoosh',.3]]
+};
+
+// a ring that drains 3..2..1: the first three seconds
+SC.countdown = {
+  draw(b,lt){ const n=b.value||3, p=clamp(lt/n*1.4), r=230, C=2*Math.PI*r, k=Math.max(1,n-Math.floor(p*n));
+    return {svg:`<g transform="translate(540 1030) rotate(-90)"><circle r="${r}" fill="#fff" ${ST}/>
+      <circle r="${r}" fill="none" stroke="${CORAL}" stroke-width="60" stroke-dasharray="${C*(1-p)} ${C}"/></g>
+      ${txt(540,1100,220,p>=1?'0':k,{f:'Fraunces',w:600})}${txt(540,1370,58,b.unit||'seconds',{f:'Caveat',c:'#6B665D'})}`};
+  },
+  ev(b){ const n=b.value||3; return [...Array(n)].map((_,k)=>[k*n/1.4/n,'tick',.35]).concat([[n/1.4,'ding',.35]]); }
+};
+
+// a retention chart: a steep line vs a flat line
+SC.retention = {
+  draw(b,lt){ const p=eo(P(lt,.3,2.0)), q=eo(P(lt,1.2,2.6));
+    const line=(fn,pp)=>{let pts=[]; for(let k=0;k<=40;k++){const f=k/40; if(f>pp) break; pts.push(`${180+f*740},${820+fn(f)*480}`);} return pts.join(' ');};
+    const steep=f=>1-Math.pow(1-Math.min(1,f*2.2),2)*1+0, flat=f=>.08+f*.32;
+    return {svg:`<path d="M180 800 L180 1320 L940 1320" stroke="${INK}" stroke-width="6" stroke-linecap="round" fill="none" opacity=".4"/>
+      <polyline points="${line(f=>Math.min(.95,1-Math.pow(1-Math.min(1,f*1.6),3)),p)}" fill="none" stroke="${CORAL}" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+      <polyline points="${line(flat,q)}" fill="none" stroke="${TEAL}" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+      <g opacity="${fade(lt,2.0)}">${txt(600,1260,54,b.low||'they left',{f:'Caveat',c:CORAL})}</g>
+      <g opacity="${fade(lt,2.6)}">${txt(780,960,58,b.high||'flat = engaged',{f:'Caveat',c:TEAL})}</g>`};
+  },
+  ev:b=>[[.3,'whoosh',.3],[1.2,'scribble',.35],[2.6,'ding',.35]]
+};
+
 // ---------------- timeline ----------------
 window.setTimeline=(tl,post)=>{ T=tl; POST=post;
   SCN=T.beats.map((b,i)=>({...b, i, plane:b.plane||PLANES[i%PLANES.length]}));
