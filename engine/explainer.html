@@ -211,7 +211,7 @@ SC.notebook = {
     let s=`<rect x="130" y="760" width="820" height="620" rx="24" fill="#FFFDF7" ${ST}/>`;
     for(let k=0;k<9;k++) s+=`<path d="M170 ${830+k*62} L910 ${830+k*62}" stroke="#BFD4EA" stroke-width="3"/>`;
     s+=G(0,0,1,thumbCard(330,880,420,260,2));
-    const spots=[[330,900,170,800],[750,1010,880,1230],[540,1140,330,1290]];
+    const spots=[[330,900,250,836],[750,1010,880,1230],[540,1140,330,1290]];
     notes.forEach((n,k)=>{const a=.6+k*.7, p=P(lt,a,a+.4), [x1,y1,x2,y2]=spots[k%3];
       s+=`<path d="M${x1} ${y1} L${lerp(x1,x2,p)} ${lerp(y1,y2,p)}" stroke="${CORAL}" stroke-width="7" stroke-linecap="round"/>`;
       s+=`<g opacity="${fade(lt,a+.3)}">${txt(x2,y2+(y2>y1?44:-14),58,n,{f:'Caveat',c:CORAL})}</g>`;});
@@ -427,6 +427,43 @@ SC.retention = {
       <g opacity="${fade(lt,2.6)}">${txt(780,960,58,b.high||'flat = engaged',{f:'Caveat',c:TEAL})}</g>`};
   },
   ev:b=>[[.3,'whoosh',.3],[1.2,'scribble',.35],[2.6,'ding',.35]]
+};
+
+// a search bar: the query types itself in, results drop in, one match lights up (Instagram search matches text)
+SC.search = {
+  draw(b,lt){ const q=b.query||'bengaluru food', n=Math.floor(clamp(P(lt,.3,1.5))*q.length), rs=b.results||['@cafe_reviews','@bengaluru.food','@foodie_daily'], hit=b.hit??1;
+    let rows=''; rs.forEach((r,k)=>{ const p=pop(lt,1.6+k*.18,.35), on=k===hit&&lt>2.4;
+      rows+=`<g transform="translate(540 ${880+k*150}) scale(${p})"><rect x="-300" y="-58" width="600" height="116" rx="26" fill="${on?Y:'#fff'}" ${ST}/>
+        <circle cx="-230" cy="0" r="36" fill="${PLANES[k+1]}" ${ST}/>${txt(-170,16,44,r,{a:'start',w:on?800:600})}</g>`; });
+    const cur=(Math.floor(lt*3)%2&&n<q.length)?'|':'';
+    return {svg:`<rect x="210" y="620" width="660" height="120" rx="60" fill="#fff" ${ST}/>
+      <circle cx="285" cy="676" r="24" fill="none" ${ST}/><path d="M303 694 L322 713" ${ST}/>
+      ${txt(350,698,50,q.slice(0,n)+cur,{a:'start',w:600})}${rows}
+      ${lt>2.4?`<g transform="translate(880 ${880+hit*150-70}) scale(${pop(lt,2.4)})">${sparkle(0,0,1.6)}</g>`:''}`};
+  },
+  ev:b=>[[.35,'click',.2],[.7,'click',.2],[1.05,'click',.2],[1.6,'pop',.3],[2.4,'ding',.35]]
+};
+
+// a drawn profile page; `focus` = name | bio | links | pins | all lights one part up; `before`/`after` text swaps in
+SC.profile = {
+  draw(b,lt){ const f=b.focus||'all', sw=b.after&&lt>1.3, hi=k=>(f===k||f==='all')&&lt>.6;
+    const box=(x,y,w,h,k)=>hi(k)?`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="22" fill="${Y}" opacity="${.85*fade(lt,.6,.3)}"/>`:'';
+    const name=sw?b.after:(b.before||'Your Name');
+    const bio=b.bio||['What you post','Who it is for','Where you are'];
+    let pins=''; for(let k=0;k<3;k++){ const x=250+k*200, p=f==='pins'?pop(lt,.5+k*.2,.35):1;
+      pins+=`<g transform="translate(${x+90} 1275) scale(${p})">${thumbCard(-90,-90,180,180,k+2)}
+        ${f==='pins'||f==='all'?`<g transform="translate(62 -70) rotate(30)"><circle r="20" fill="${CORAL}" ${ST} stroke-width="5"/><path d="M0 18 L0 40" ${ST} stroke-width="5"/></g>`:''}</g>`; }
+    let hl=''; for(let k=0;k<4;k++) hl+=`<circle cx="${300+k*160}" cy="1110" r="44" fill="${PLANES[k]}" ${ST} stroke-width="5"/>`;
+    const nlen=Math.min(56,Math.floor(450/(name.length*.6)));
+    return {svg:`<rect x="190" y="580" width="700" height="820" rx="70" fill="${INK}"/><rect x="212" y="602" width="656" height="776" rx="52" fill="#fff"/>
+      ${box(228,640,624,120,'name')}${box(228,776,624,178,'bio')}${box(228,962,624,70,'links')}${box(228,1168,624,212,'pins')}
+      <circle cx="310" cy="700" r="52" fill="${PLANES[2]}" ${ST}/><ellipse cx="310" cy="706" rx="26" ry="30" fill="#E8B48A" ${ST} stroke-width="5"/><path d="M284 700 Q288 668 312 672 Q336 674 336 700 Q322 686 284 700Z" fill="${INK}"/><ellipse cx="301" cy="708" rx="3.5" ry="5" fill="${INK}"/><ellipse cx="319" cy="708" rx="3.5" ry="5" fill="${INK}"/><path d="M302 722 q8 7 16 0" stroke="${INK}" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <g opacity="${sw?fade(lt,1.3,.25):1}">${txt(385,712,nlen,name,{a:'start',w:800})}</g>
+      ${bio.map((l,k)=>txt(250,830+k*52,40,l,{a:'start',w:500,c:'#3a3631'})).join('')}
+      <g>${txt(250,1012,38,b.link||'your best link  +4 more',{a:'start',w:700,c:BLUE})}</g>
+      ${hl}${pins}`};
+  },
+  ev:b=>[[.6,'scribble',.3]].concat(b.after?[[1.3,'pop',.35]]:[]).concat(b.focus==='pins'?[[.5,'pop',.25],[.7,'pop',.25],[.9,'pop',.25]]:[])
 };
 
 // ---------------- timeline ----------------

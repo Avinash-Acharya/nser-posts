@@ -1,0 +1,268 @@
+{
+ "topic": "Fix your Instagram profile in 10 minutes",
+ "pillar": "Growth",
+ "handle": "@nser.in_officials",
+ "voice": "hf_alpha:0.4+af_heart:0.6",
+ "sources": [
+  "https://www.socialmediatoday.com/news/instagram-outlines-how-its-search-algorithms-work-and-how-you-can-optimize/605596",
+  "https://www.business-standard.com/technology/tech-news/instagram-adds-feature-to-allow-users-to-add-up-to-5-links-to-profile-bios-123041900587_1.html",
+  "https://www.engadget.com/instagram-grid-pinning-now-available-180201676.html"
+ ],
+ "mascot": "phone",
+ "carousel": [
+  {
+   "kind": "thumb",
+   "tag": "Fix your profile",
+   "title": "Not found?",
+   "title2": "Fix your profile in **10 minutes**.",
+   "nib": {
+    "pose": "shrug",
+    "mood": "worried"
+   }
+  },
+  {
+   "kind": "statement",
+   "text": "People tap your profile, look around, and **leave**?",
+   "sub": "We've been there too: a bio that says nothing, a grid nobody understands. Instagram itself has told creators what to fix. Here's the 10-minute version.",
+   "subTop": 640
+  },
+  {
+   "kind": "quote",
+   "quote": "We try to match what you type with relevant **usernames, bios**, captions, hashtags and places.",
+   "who": "Instagram, on how Search works (2021)",
+   "whoTop": 900
+  },
+  {
+   "kind": "timeline",
+   "title": "What Instagram **gave** your profile",
+   "items": [
+    {
+     "when": "Aug 2021",
+     "what": "Search reads your **name and bio**"
+    },
+    {
+     "when": "Jun 2022",
+     "what": "Pin up to **3 posts** above your grid"
+    },
+    {
+     "when": "Apr 2023",
+     "what": "Up to **5 links** in your bio",
+     "hot": true
+    },
+    {
+     "when": "Your turn",
+     "what": "Use all three, today"
+    }
+   ]
+  },
+  {
+   "kind": "bignum",
+   "pre": "links you can add to your bio",
+   "num": "5",
+   "label": "since April 2023.",
+   "line": "Visitors see your **first link** plus \"1 other\". Put your best one first."
+  },
+  {
+   "kind": "chart",
+   "title": "Links in your bio, **then vs now**",
+   "bars": [
+    {
+     "label": "Before",
+     "value": 1,
+     "display": "1"
+    },
+    {
+     "label": "Since Apr 2023",
+     "value": 5,
+     "display": "5",
+     "hot": true
+    }
+   ],
+   "source": "Source: Business Standard, Apr 2023"
+  },
+  {
+   "kind": "split",
+   "title": "Before vs **after**",
+   "left": {
+    "head": "Before",
+    "items": [
+     "Name: just your name",
+     "Bio: \"Living my best life\"",
+     "Pinned: nothing"
+    ]
+   },
+   "right": {
+    "head": "After",
+    "items": [
+     "Name: **what you post** + city",
+     "Bio: who it's for",
+     "Pinned: your 3 best posts"
+    ]
+   }
+  },
+  {
+   "kind": "checklist",
+   "title": "Your **10-minute** profile fix",
+   "items": [
+    "Name field: add what you post (\"Pune food\")",
+    "Bio: say who it's for",
+    "Local? Add your city",
+    "Best link first (up to 5)",
+    "Pin your 3 best posts"
+   ]
+  },
+  {
+   "kind": "ask",
+   "title": "What's in your **name field** right now?",
+   "placeholder": "Your Name | Pune food…",
+   "sub": "Write it in the comments."
+  },
+  {
+   "kind": "share",
+   "title": "Know a creator whose profile says **nothing**?",
+   "send": "Send them this.",
+   "sendSub": "Ten minutes could change who follows them.",
+   "save": "Save it for yourself.",
+   "saveSub": "For when you fix your own.",
+   "product": "Follow for more on creator growth & monetisation"
+  }
+ ],
+ "explainer": [
+  {
+   "scene": "door",
+   "label": "They **leave**",
+   "say": "Someone taps your profile. Then they leave without following."
+  },
+  {
+   "scene": "search",
+   "query": "pune food",
+   "results": [
+    "@pune.daily",
+    "@punefood.finds",
+    "@foodie.page"
+   ],
+   "hit": 1,
+   "label": "**Search** reads it",
+   "say": "Instagram says its search matches what you type with usernames, bios, captions, hashtags and places."
+  },
+  {
+   "scene": "profile",
+   "focus": "all",
+   "label": "**10-minute** fix",
+   "say": "Here's the ten-minute fix Instagram itself points to."
+  },
+  {
+   "scene": "question",
+   "label": "Your **profile**?",
+   "say": "So what is your profile saying right now?",
+   "pause": 0.3
+  },
+  {
+   "scene": "desk",
+   "views": 7,
+   "label": "We've been **there**",
+   "say": "We've been there too. A bio that says nothing, and a grid nobody understands."
+  },
+  {
+   "scene": "profile",
+   "focus": "name",
+   "before": "Your Name",
+   "after": "Your Name | Pune food",
+   "label": "**Name** field",
+   "say": "First, your name field. Instagram's tip is a name that fits your content."
+  },
+  {
+   "scene": "profile",
+   "focus": "bio",
+   "before": "Your Name | Pune food",
+   "bio": [
+    "Street food under 100 rupees",
+    "For students on a budget",
+    "Pune, India"
+   ],
+   "label": "Keywords + **city**",
+   "say": "Next, your bio. Add keywords and your location, so people nearby can find you."
+  },
+  {
+   "scene": "counter",
+   "value": 5,
+   "unit": "links in your bio",
+   "label": "**5** links",
+   "say": "Since April 2023, you can add up to five links to your bio."
+  },
+  {
+   "scene": "notebook",
+   "notes": [
+    "5 links",
+    "top request",
+    "creators"
+   ],
+   "label": "**Top** request",
+   "say": "Mark Zuckerberg called it a top request among creators."
+  },
+  {
+   "scene": "profile",
+   "focus": "links",
+   "before": "Your Name | Pune food",
+   "bio": [
+    "Street food under 100 rupees",
+    "For students on a budget",
+    "Pune, India"
+   ],
+   "link": "your best link  and 4 more",
+   "label": "Best link **first**",
+   "say": "But visitors see your first link first. So put your best one on top."
+  },
+  {
+   "scene": "profile",
+   "focus": "pins",
+   "before": "Your Name | Pune food",
+   "bio": [
+    "Street food under 100 rupees",
+    "For students on a budget",
+    "Pune, India"
+   ],
+   "link": "your best link  and 4 more",
+   "label": "Pin **3**",
+   "say": "Then pin three posts. Instagram lets you show up to three above your grid."
+  },
+  {
+   "scene": "split",
+   "left": "Living my best life",
+   "right": "Pune street food",
+   "mid": "bio",
+   "label": "**Clear** wins",
+   "say": "A clear profile tells a stranger, in one second, why to follow.",
+   "pause": 0.3
+  },
+  {
+   "scene": "magnify",
+   "label": "Check **yours**",
+   "say": "So, what is your profile saying? If it's not what you post and who it's for, fix it today.",
+   "pause": 0.3
+  },
+  {
+   "scene": "steps",
+   "items": [
+    "Name: what you post",
+    "Bio: who + where",
+    "Pin your 3 best"
+   ],
+   "label": "Try **this**",
+   "say": "Try this today. Name, what you post. Bio, who it's for and where. Then pin your three best."
+  },
+  {
+   "scene": "follow",
+   "label": "**Follow** for more",
+   "say": "Follow us for more on creator growth and monetisation."
+  },
+  {
+   "scene": "send",
+   "label": "**Send** it",
+   "say": "And send this to a creator whose profile says nothing."
+  }
+ ],
+ "carousel_caption": "People tap your profile and leave? Instagram Search reads your name and bio. Here's the 10-minute fix.\n\nInstagram has said its Search tries to \"match what you type with relevant usernames, bios, captions, hashtags and places.\" Its own tips: use a name that fits your content, and put keywords and your location in your bio.\n\nTwo more tools most creators don't use. Since April 2023 you can add up to 5 links to your bio (Mark Zuckerberg called it \"a top request among creators\"). Visitors see your first link plus \"1 other\", so put your best link first. And you can pin up to 3 posts or reels above your grid.\n\nThe 10-minute Instagram profile fix for Indian creators: name field = what you post + your city. Bio = who it's for. Best link first. Pin your 3 best posts.\n\nSend this to a creator whose profile says nothing, and save it for when you fix yours.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSources: Social Media Today, \"Instagram Outlines How its Search Algorithms Work\" (Aug 2021); Business Standard, \"Instagram adds feature to allow users to add up to 5 links to profile bios\" (Apr 2023); Engadget, \"Instagram's grid pinning feature is now rolling out to all users\" (Jun 2022)\n\n#indiancreators #instagramtips #creatortips #instagramgrowth #contentcreator",
+ "reel_caption": "People tap your profile and leave? Here's the 10-minute Instagram profile fix, from Instagram's own tips.\n\nThe full checklist for Indian creators is in today's carousel. Send this to a creator whose profile says nothing, and save it.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSources: Social Media Today (Aug 2021); Business Standard (Apr 2023); Engadget (Jun 2022)\n\n#indiancreators #instagramtips #creatortips #instagramgrowth",
+ "carousel_alt": "Carousel: how to fix your Instagram profile in 10 minutes. What Instagram Search reads (name and bio), up to 5 links in your bio, pinning 3 posts, and a simple checklist for Indian creators."
+}
