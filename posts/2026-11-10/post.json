@@ -1,0 +1,234 @@
+{
+ "topic": "From free products to paid deals with Indian brands",
+ "pillar": "Money",
+ "handle": "@nser.in_officials",
+ "voice": "hf_alpha:0.4+af_heart:0.6",
+ "sources": [
+  "https://www.afaqs.com/news/influencer-marketing/indias-influencer-marketing-industry-hits-rs-3600-cr-in-2024-report-9353766",
+  "https://www.ascionline.in/wp-content/uploads/2022/09/press-release-influencer-guidelines-2021.pdf",
+  "https://www.ascionline.in/social/wp-content/uploads/2024/03/ASCIs-Guide-For-Influencers-1.pdf",
+  "https://www.tribuneindia.com/news/business/indias-3-5-4-5-million-creator-economy-powers-3500-crore-influencer-marketing-industry-growth-kofluence-influencer-marketing-report-2025"
+ ],
+ "mascot": "phone",
+ "carousel": [
+  {
+   "kind": "thumb",
+   "tag": "Brand deals",
+   "title": "No money?",
+   "title2": "Brands spent **₹3,600 cr** in 2024.",
+   "nib": {
+    "pose": "shrug",
+    "mood": "worried"
+   }
+  },
+  {
+   "kind": "statement",
+   "text": "A brand sends a free product and asks for a reel. **No money.**",
+   "sub": "We've been there: saying no feels rude, so you say yes to everything. Here's how to move from freebies to paid deals.",
+   "subTop": 760
+  },
+  {
+   "kind": "chart",
+   "title": "What Indian brands spend on **influencers**",
+   "bars": [
+    {
+     "label": "2024",
+     "value": 3600,
+     "display": "₹3,600 cr"
+    },
+    {
+     "label": "2025 (forecast, +25%)",
+     "value": 4500,
+     "display": "₹4,500 cr",
+     "hot": true
+    }
+   ],
+   "source": "Source: The Goat Agency + Kantar, via afaqs"
+  },
+  {
+   "kind": "bignum",
+   "pre": "of marketers struggle to find",
+   "num": "83%",
+   "label": "the **right talent**.",
+   "line": "Brands are searching. A small creator with **proof** is what they want."
+  },
+  {
+   "kind": "quote",
+   "quote": "Material connection isn't limited to **monetary compensation**.",
+   "who": "ASCI, India's ad rules for influencers (2021)",
+   "whoTop": 860
+  },
+  {
+   "kind": "checklist",
+   "title": "Free product? The **ASCI** rules",
+   "items": [
+    "Label it: Ad, Collaboration or **Free gift**",
+    "Even if the brand didn't ask",
+    "Upfront, not buried in hashtags",
+    "On reels, put it on the video too",
+    "Only talk about what you've tried"
+   ]
+  },
+  {
+   "kind": "split",
+   "title": "Free product: **trap or deal?**",
+   "left": {
+    "head": "The trap",
+    "items": [
+     "You'd never buy it",
+     "Off your niche",
+     "3 reels + 5 stories"
+    ]
+   },
+   "right": {
+    "head": "The good deal",
+    "items": [
+     "You'd **buy it** anyway",
+     "Fits your niche",
+     "Small ask: 1 post"
+    ]
+   }
+  },
+  {
+   "kind": "timeline",
+   "title": "From freebie to **paid deal**",
+   "items": [
+    {
+     "when": "Yes",
+     "what": "One free product you'd buy anyway"
+    },
+    {
+     "when": "Post",
+     "what": "Your best work, labelled"
+    },
+    {
+     "when": "Proof",
+     "what": "Screenshot views, saves, DMs"
+    },
+    {
+     "when": "Ask",
+     "what": "Send your rate for the **next one**",
+     "hot": true
+    }
+   ]
+  },
+  {
+   "kind": "ask",
+   "title": "What did your **first brand deal** pay?",
+   "placeholder": "A free serum… ₹2,000…",
+   "sub": "Tell us in the comments."
+  },
+  {
+   "kind": "share",
+   "title": "Know a creator paid only in **freebies**?",
+   "send": "Send them this.",
+   "sendSub": "Free stuff doesn't pay rent.",
+   "save": "Save it for yourself.",
+   "saveSub": "For your next brand DM.",
+   "product": "Follow for more on creator growth & monetisation"
+  }
+ ],
+ "explainer": [
+  {
+   "scene": "gift",
+   "label": "**Free** product",
+   "say": "A brand sends you a free product and asks for a reel. No money."
+  },
+  {
+   "scene": "counter",
+   "value": 3600,
+   "unit": "crore rupees in 2024",
+   "label": "**₹3,600** crore",
+   "say": "Yet Indian brands spent three thousand six hundred crore rupees on influencer marketing in 2024."
+  },
+  {
+   "scene": "notebook",
+   "notes": [
+    "free product",
+    "great post",
+    "paid deal"
+   ],
+   "label": "Free to **paid**",
+   "say": "Here's how small creators move from free products to paid deals."
+  },
+  {
+   "scene": "question",
+   "label": "Deal or **trap**?",
+   "say": "So is free stuff a good deal, or a trap?",
+   "pause": 0.3
+  },
+  {
+   "scene": "desk",
+   "views": 9,
+   "label": "We've been **there**",
+   "say": "We've been there. Saying no feels rude, so you say yes to everything."
+  },
+  {
+   "scene": "donut",
+   "pct": 83,
+   "unit": "of marketers struggle to find the right talent",
+   "label": "Brands **search**",
+   "say": "Here's the twist. In one report, eighty-three percent of marketers said they struggle to find the right talent."
+  },
+  {
+   "scene": "split",
+   "left": "Hidden in hashtags",
+   "right": "Free gift, upfront",
+   "mid": "label",
+   "label": "Label it **upfront**",
+   "say": "And in India, a free product still counts. ASCI says label it upfront, even if the brand didn't ask."
+  },
+  {
+   "scene": "jar",
+   "fill": 0.12,
+   "label": "No **rent**",
+   "say": "But a free product doesn't pay your rent."
+  },
+  {
+   "scene": "counter",
+   "value": 5000,
+   "unit": "rupees a reel, under 10K followers",
+   "label": "Up to **₹5,000**",
+   "say": "One industry report puts reel rates for creators under ten thousand followers at five hundred to five thousand rupees."
+  },
+  {
+   "scene": "rocket",
+   "label": "Deal, **not trap**",
+   "say": "So free stuff is a good deal only when it gets you proof. Then you ask for money.",
+   "pause": 0.3
+  },
+  {
+   "scene": "notebook",
+   "notes": [
+    "Loved this!",
+    "results",
+    "my rate"
+   ],
+   "label": "The **message**",
+   "say": "Send this. Loved working on this. Here's what the post did. For the next one, my rate is this."
+  },
+  {
+   "scene": "steps",
+   "items": [
+    "Yes only if you'd buy it",
+    "Label it, post your best",
+    "Send results + rate"
+   ],
+   "label": "Try **this**",
+   "say": "Try this. Say yes only if you'd buy it. Label it and post your best. Then send your results and your rate."
+  },
+  {
+   "scene": "follow",
+   "label": "**Follow** for more",
+   "say": "Follow us for more on creator growth and monetisation."
+  },
+  {
+   "scene": "send",
+   "label": "**Send** it",
+   "say": "And send this to a creator who only gets paid in freebies."
+  }
+ ],
+ "carousel_caption": "A brand sent you a free product and wants a reel, for no money? Here's how Indian creators turn freebies into paid deals.\n\nIndian brands spent ₹3,600 crore on influencer marketing in 2024, and a WPP Media and Kantar report expects 25% growth in 2025. The same report says 83% of marketers struggle to find the right talent. Brands are looking.\n\nBut a free product is not \"just a gift\". ASCI's influencer rules say a material connection \"isn't limited to monetary compensation\": free products count, even if the brand didn't ask you to post. Label it (Ad, Collaboration or Free gift), upfront, not buried in hashtags.\n\nThe path from freebies to paid brand deals:\n1. Say yes only to free products you'd buy anyway, with a small ask.\n2. Make it your best work, labelled.\n3. Screenshot the results.\n4. Send this: \"Loved working on this. Here's what the post did. For the next one, my rate for a reel is ₹___.\"\n\nOne report (Kofluence, 2025) puts reel rates for creators under 10,000 followers at ₹500 to ₹5,000.\n\nSend this to a creator who only gets paid in freebies, and save it for your next brand DM.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSources: afaqs, \"India's influencer marketing industry hits Rs 3,600 cr in 2024\" (Jun 2025, on the India Influencer Marketing Report 2025 by WPP Media's The Goat Agency with Kantar); ASCI, Guidelines for Influencer Advertising in Digital Media (2021) and ASCI's Guide for Influencers (2024); Kofluence 2025 report, via The Tribune (Jul 2025)\n\n#indiancreators #branddeals #influencermarketing #creatoreconomy #contentcreator",
+ "reel_caption": "A brand sent you a free product and wants a reel, for no money? Here's how to turn freebies into paid brand deals.\n\nThe ASCI rules and the full freebie-to-paid path are in today's carousel. Send this to a creator who only gets paid in freebies, and save it.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSources: afaqs (Jun 2025, WPP Media's The Goat Agency + Kantar report); ASCI influencer guidelines (2021, 2024); Kofluence 2025 report via The Tribune (Jul 2025)\n\n#indiancreators #branddeals #influencermarketing #creatoreconomy",
+ "carousel_alt": "Carousel: how Indian creators move from free products to paid brand deals. India's influencer marketing spend, ASCI disclosure rules for free products, when to say yes to a freebie, and a 4-step path to asking for your rate."
+}

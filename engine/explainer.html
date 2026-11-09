@@ -467,6 +467,20 @@ SC.profile = {
 };
 
 // ---------------- timeline ----------------
+// a parcel arrives: lid pops, a free product rises, a price tag reads Rs 0
+SC.gift = {
+  draw(b,lt){ const o=eio(P(lt,.4,.8)), r=eo(P(lt,.7,1.3)), tg=pop(lt,1.5), bb=pop(lt,1.0), sw=Math.sin(lt*3)*8;
+    return {svg:`<ellipse cx="540" cy="1370" rx="300" ry="26" fill="${INK}" opacity=".12"/>
+      <g transform="translate(540 ${1170-260*r})"><rect x="-55" y="-150" width="110" height="200" rx="30" fill="${TEAL}" ${ST}/><rect x="-30" y="-190" width="60" height="50" rx="10" fill="#fff" ${ST}/><rect x="-40" y="-90" width="80" height="70" rx="10" fill="#fff" ${ST}/>${txt(0,-44,28,b.item||'NEW',{})}</g>
+      <g transform="translate(${340-250*o} ${1100+20*o}) rotate(${-18*o})"><rect x="0" y="-50" width="400" height="60" rx="12" fill="#B87A4C" ${ST}/><rect x="175" y="-50" width="50" height="60" fill="${CORAL}" stroke="${INK}" stroke-width="5"/></g>
+      <rect x="360" y="1100" width="360" height="250" rx="16" fill="#C98B5A" ${ST}/>
+      <rect x="515" y="1100" width="50" height="250" fill="${CORAL}" stroke="${INK}" stroke-width="5"/>
+      <g transform="translate(850 1170) scale(${tg}) rotate(${sw})"><path d="M-80 -55 L60 -55 L105 0 L60 55 L-80 55Z" fill="#fff" ${ST}/><circle cx="70" cy="0" r="10" fill="${INK}"/>${txt(-12,24,70,b.price||'₹0',{f:'Fraunces',w:600})}</g>
+      <g transform="translate(800 790) scale(${bb})"><path d="M-170 -70 Q-170 -110 -130 -110 L130 -110 Q170 -110 170 -70 L170 10 Q170 50 130 50 L-10 50 L-110 110 L-60 50 L-130 50 Q-170 50 -170 10Z" fill="#fff" ${ST}/>${txt(0,-12,56,b.ask||'Post a reel?',{f:'Caveat'})}</g>`};
+  },
+  ev:b=>[[.4,'pop',.4],[.8,'whoosh_up',.3],[1.0,'pop',.3],[1.5,'thump',.4]]
+};
+
 window.setTimeline=(tl,post)=>{ T=tl; POST=post;
   SCN=T.beats.map((b,i)=>({...b, i, plane:b.plane||PLANES[i%PLANES.length]}));
   const ev=[]; SCN.forEach(b=>{ if(b.i>0) ev.push([b.start,'whoosh',.3]); if(b.label) ev.push([b.start+.25,'pop',.25]);
