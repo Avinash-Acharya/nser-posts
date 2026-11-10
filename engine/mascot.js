@@ -95,10 +95,19 @@
     const limbs = arm(A.L) + arm(A.R);
     const front = pose === 'hold' || pose === 'think';
     const kind = o.kind || 'phone', tilt = kind === 'phone' ? 0 : TILT;
-    const body = kind === 'phone' ? PHONE_BODY : BANANA_BODY;
+    let body = kind === 'phone' ? PHONE_BODY : BANANA_BODY;
+    // soft: clay-like 3D look (gradient body, glossy highlight, no wobble), for the studio reels
+    const soft = !!o.soft;
+    if (soft && kind === 'phone') body = body
+      .replace(`<rect x="96" y="44" width="160" height="286" rx="36" fill="${Y}" ${st(7)}/>`,
+        `<rect x="96" y="44" width="160" height="286" rx="36" fill="url(#${id}g)" stroke="#B98200" stroke-width="5"/><rect x="96" y="44" width="160" height="286" rx="36" fill="url(#${id}r)"/>`)
+      .replace(`fill="#FFF8E6" ${st(4.5)}`, `fill="url(#${id}s)" stroke="#B98200" stroke-width="3.5"`);
     return `<svg viewBox="40 0 300 370" width="${size}" height="${size * 370 / 300}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible" role="img" aria-label="Nib the ${kind}, ${pose}, ${mood}">
-  <defs><filter id="${id}"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="3.6"/></filter></defs>
-  <ellipse cx="${kind === 'phone' ? 175 : 150}" cy="356" rx="70" ry="9" fill="${INK}" opacity=".12"/>
+  <defs><filter id="${id}"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="${soft ? 0 : 3.6}"/></filter>
+    <linearGradient id="${id}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFEA8A"/><stop offset=".45" stop-color="#FFD23F"/><stop offset="1" stop-color="#E9A800"/></linearGradient>
+    <radialGradient id="${id}r" cx=".3" cy=".18" r=".7"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".35" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#7A4E00" stop-opacity=".18"/></radialGradient>
+    <linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFDF5"/><stop offset="1" stop-color="#F3E7C8"/></linearGradient></defs>
+  <ellipse cx="${kind === 'phone' ? 175 : 150}" cy="356" rx="${soft ? 84 : 70}" ry="${soft ? 13 : 9}" fill="${INK}" opacity="${soft ? .2 : .12}" ${soft ? 'style="filter:blur(6px)"' : ''}/>
   <g filter="url(#${id})">
     ${kind === 'phone' ? `<path d="M146 320 v26 h-18" fill="none" ${st(8.5)}/><path d="M204 320 v26 h18" fill="none" ${st(8.5)}/>` : `<path d="M134 300 v46 h-18" fill="none" ${st(8.5)}/><path d="M168 296 v50 h18" fill="none" ${st(8.5)}/>`}
     <g transform="rotate(${tilt} 175 190)">

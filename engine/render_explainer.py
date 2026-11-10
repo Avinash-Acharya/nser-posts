@@ -14,6 +14,23 @@ post = json.load(open(os.path.join(pd, "post.json"), encoding="utf-8")); post["_
 FPS = 30
 stills = sys.argv[sys.argv.index("--frames") + 1].split(",") if "--frames" in sys.argv else None
 MUSIC = "--no-music" not in sys.argv and post.get("music", True)
+ENGINE = "studio.html" if post.get("style") == "studio" else "explainer.html"
+
+# real photos / clips (poster/fetch_media.py or Avinash's own files): clips become frame folders the page can step through
+media = {}
+mf = os.path.join(pd, "media", "manifest.json")
+if os.path.exists(mf):
+    for i, m in json.load(open(mf)).items():
+        src = os.path.join(pd, "media", m["file"])
+        if not os.path.exists(src): continue
+        if m["kind"] == "video":
+            fd = os.path.join(rd, "frames", i); os.makedirs(fd, exist_ok=True)
+            if not os.listdir(fd):
+                subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", src, "-t", "12", "-vf", "fps=30,scale=1080:-2", "-q:v", "3", os.path.join(fd, "%04d.jpg")])
+            media[i] = {"kind": "video", "frames": os.path.relpath(fd, pd), "n": len(os.listdir(fd))}
+        else:
+            media[i] = {"kind": "photo", "src": os.path.relpath(src, pd)}
+post["_media"] = media
 
 
 def mix(events, total, out):
@@ -72,7 +89,7 @@ def music(total, SR):
 with sync_playwright() as p:
     b = p.chromium.launch(); pg = b.new_page(viewport={"width": 1080, "height": 1920})
     errs = []; pg.on("pageerror", lambda e: errs.append(str(e)))
-    pg.goto("file://" + os.path.join(HERE, "explainer.html"))
+    pg.goto("file://" + os.path.join(HERE, ENGINE))
     pg.evaluate("([t,p]) => window.setTimeline(t,p)", [tl, post]); pg.evaluate("document.fonts.ready")
     pg.evaluate("Promise.all([...document.images].map(i=>i.complete?1:new Promise(r=>{i.onload=i.onerror=r})))")
     if "--mix-only" in sys.argv and os.path.exists(os.path.join(rd, "video.tmp.mp4")):
@@ -87,9 +104,9 @@ with sync_playwright() as p:
     if not SKIP:
       events = pg.evaluate("window.EV")
       ff = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", str(FPS), "-c:v", "mjpeg", "-i", "-",
-                           "-c:v", "libx264", "-preset", "veryfast", "-crf", "19", "-pix_fmt", "yuv420p", vid], stdin=subprocess.PIPE)
+                           "-c:v", "libx264", "-preset", "medium", "-crf", "16", "-pix_fmt", "yuv420p", vid], stdin=subprocess.PIPE)
       for fr in range(n):
-          pg.evaluate(f"window.render({fr / FPS})"); ff.stdin.write(pg.screenshot(type="jpeg", quality=90))
+          pg.evaluate(f"window.render({fr / FPS})"); ff.stdin.write(pg.screenshot(type="jpeg", quality=94))
       b.close(); ff.stdin.close(); ff.wait()
 mixw = os.path.join(rd, "mix.wav"); mix(events, total, mixw)
 out = os.path.join(rd, "reel.mp4")

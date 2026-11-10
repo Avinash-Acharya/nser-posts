@@ -1,0 +1,41 @@
+name: Fetch reel media (photos + clips)
+
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "YYYY-MM-DD or a folder like samples/x"
+        required: true
+
+concurrency:
+  group: media
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  media:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: sudo apt-get install -y -qq ffmpeg >/dev/null
+      - name: Fetch
+        env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+        run: |
+          D="${{ inputs.date }}"; case "$D" in */*) P="$D";; *) P="posts/$D";; esac
+          python poster/fetch_media.py "$D"
+          echo "P=$P" >> $GITHUB_ENV
+      - name: Commit
+        run: |
+          git config user.name "nser media bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add "$P/media"
+          git diff --cached --quiet && echo "nothing new" && exit 0
+          git commit -m "Media for $P"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done

@@ -1,0 +1,183 @@
+{
+ "topic": "Studio sample: free products to paid deals",
+ "style": "studio",
+ "handle": "@nser.in_officials",
+ "voice": "hf_alpha:0.4+af_heart:0.6",
+ "captions": false,
+ "sources": [
+  "https://www.afaqs.com/news/influencer-marketing/indias-influencer-marketing-industry-hits-rs-3600-cr-in-2024-report-9353766",
+  "https://www.ascionline.in/social/wp-content/uploads/2024/03/ASCIs-Guide-For-Influencers-1.pdf",
+  "https://www.tribuneindia.com/news/business/indias-3-5-4-5-million-creator-economy-powers-3500-crore-influencer-marketing-industry-growth-kofluence-influencer-marketing-report-2025"
+ ],
+ "explainer": [
+  {
+   "scene": "phone",
+   "contact": "Brand",
+   "media": {
+    "q": "hand holding smartphone",
+    "kind": "video"
+   },
+   "msgs": [
+    {
+     "from": "them",
+     "text": "Hi! Love your content",
+     "time": "10:02"
+    },
+    {
+     "from": "them",
+     "text": "We'll send you our product. Can you post a reel?",
+     "time": "10:02"
+    },
+    {
+     "from": "me",
+     "text": "Sure! What's the budget?",
+     "time": "10:05"
+    },
+    {
+     "from": "them",
+     "text": "It's a **free** collab :)",
+     "time": "10:06"
+    }
+   ],
+   "say": "A brand sends you a free product and asks for a reel. No money."
+  },
+  {
+   "scene": "stat",
+   "pre": "₹",
+   "value": 3600,
+   "suf": " Cr",
+   "unit": "spent by Indian brands on influencers in 2024",
+   "media": {
+    "q": "crowded market street",
+    "kind": "video"
+   },
+   "say": "Yet Indian brands spent three thousand six hundred crore rupees on influencer marketing in 2024."
+  },
+  {
+   "scene": "word",
+   "small": "Free stuff:",
+   "big": "deal or trap?",
+   "bigSize": 130,
+   "say": "So is free stuff a good deal, or a trap? Here's how small creators turn it into paid deals."
+  },
+  {
+   "scene": "chat",
+   "lines": [
+    {
+     "who": "user",
+     "text": "saying no feels rude..."
+    },
+    {
+     "who": "nib",
+     "text": "been there."
+    }
+   ],
+   "nib": {
+    "pose": "shrug",
+    "mood": "worried"
+   },
+   "say": "We've been there. Saying no feels rude, so you say yes to everything."
+  },
+  {
+   "scene": "monitor",
+   "media": {
+    "q": "person typing on laptop",
+    "kind": "video"
+   },
+   "text": "**83%** of marketers struggle to find the right creators",
+   "nib": {
+    "pose": "point",
+    "mood": "wow",
+    "x": 600,
+    "y": 160,
+    "size": 260
+   },
+   "say": "Here's the twist. In one report, eighty three percent of marketers said they struggle to find the right talent."
+  },
+  {
+   "scene": "card",
+   "note": "India's ad rules (ASCI)",
+   "title": "Got it free? Still an ad.",
+   "lines": [
+    "Label it upfront:",
+    "#Collab or #Ad",
+    "Even if the brand didn't ask."
+   ],
+   "say": "And in India, a free product still counts. ASCI says label it upfront, even if the brand didn't ask."
+  },
+  {
+   "scene": "photo",
+   "media": {
+    "q": "empty wallet",
+    "kind": "photo"
+   },
+   "card": "A free product doesn't pay **your rent**.",
+   "say": "But a free product doesn't pay your rent."
+  },
+  {
+   "scene": "stat",
+   "pre": "₹500 – ₹",
+   "value": 5000,
+   "unit": "per reel, creators under **10K** followers",
+   "media": {
+    "q": "camera filming",
+    "kind": "video"
+   },
+   "say": "One industry report puts reel rates for creators under ten thousand followers at five hundred to five thousand rupees."
+  },
+  {
+   "scene": "word",
+   "small": "Free stuff is a deal only if it gets you",
+   "big": "proof.",
+   "nib": {
+    "x": 330,
+    "y": 1180,
+    "size": 300,
+    "pose": "cheer",
+    "mood": "happy"
+   },
+   "say": "So free stuff is a good deal only when it gets you proof. Then you ask for money."
+  },
+  {
+   "scene": "phone",
+   "contact": "Brand",
+   "media": {
+    "q": "person texting on phone",
+    "kind": "photo"
+   },
+   "msgs": [
+    {
+     "from": "me",
+     "text": "Loved working on this!",
+     "time": "6:40"
+    },
+    {
+     "from": "me",
+     "text": "Here's what the post did: [your views + saves]",
+     "time": "6:40"
+    },
+    {
+     "from": "me",
+     "text": "For the next one, my rate is **[your rate]**.",
+     "time": "6:41"
+    }
+   ],
+   "say": "Send this. Loved working on this. Here's what the post did. For the next one, my rate is this."
+  },
+  {
+   "scene": "card",
+   "title": "Try this",
+   "lines": [
+    "1. Say yes only if you'd buy it",
+    "2. Label it and post your best",
+    "3. Send your results + your rate"
+   ],
+   "say": "Try this. Say yes only if you'd buy it. Label it and post your best. Then send your results and your rate."
+  },
+  {
+   "scene": "cta",
+   "text": "**Send** this to a creator who only gets paid in freebies",
+   "say": "Follow us for more on creator growth and monetisation. And send this to a creator who only gets paid in freebies."
+  }
+ ]
+}

@@ -1,0 +1,165 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- STUDIO reel (saasflash-like, nser theme): warm greige set, black-and-white real photos / clips with a yellow
+     colour-pop (3D clay Nib, highlights), floating extruded cards, phone + monitor mockups, chat bubbles,
+     whip-pan cuts with motion blur, film grain. Pure function of time: window.render(t) (returns a promise that
+     resolves when every image on screen is decoded). window.EV = sound cues. -->
+<style>
+  @font-face{font-family:"Geist";src:url(fonts/Geist-Variable.woff2) format("woff2");font-weight:100 900}
+  @font-face{font-family:"Fraunces";src:url(fonts/Fraunces.ttf)}
+  @font-face{font-family:"Deva";src:url(fonts/NotoSansDevanagari.ttf)}
+  :root{--bg:#E9E2D6;--ink:#1F1D1A;--mut:#8D857A;--y:#FFD23F;--y2:#E9A800;--card:#FFFDF8}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1080px;height:1920px;background:var(--bg);overflow:hidden}
+  body{font-family:"Geist","Deva",sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+  .abs{position:absolute}
+  .layer{position:absolute;inset:0;overflow:hidden}
+  .bw{filter:grayscale(1) contrast(1.12) brightness(.98)}
+  .card{background:var(--card);border-radius:30px;box-shadow:0 2px 0 #fff inset,0 10px 0 -2px #D7CEBF,0 30px 60px rgba(40,30,15,.18)}
+  .bub{background:#fff;border-radius:26px;padding:22px 30px;font:500 40px/1.25 Geist,Deva;box-shadow:0 8px 0 -2px #DCD3C4,0 22px 44px rgba(40,30,15,.14)}
+  .acc{color:var(--y2)}
+  .hl{background:linear-gradient(transparent 55%,var(--y) 55%,var(--y) 92%,transparent 92%)}
+  #wm{left:80px;top:210px;font:600 30px/1 Geist;color:var(--mut);z-index:40;letter-spacing:-.01em}
+  #cap{left:90px;right:90px;top:1500px;font:600 44px/1.3 Geist,Deva;z-index:40;text-align:center}
+  #grain{position:absolute;inset:0;z-index:50;pointer-events:none;opacity:.09;mix-blend-mode:multiply}
+  #vig{position:absolute;inset:0;z-index:49;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,transparent 55%,rgba(60,45,25,.18))}
+</style>
+<script src="mascot.js"></script></head>
+<body>
+<div id="A" class="layer"></div>
+<div id="B" class="layer"></div>
+<div id="wm" class="abs">@nser.in_officials</div>
+<div id="cap" class="abs"></div>
+<div id="vig"></div>
+<svg id="grain" width="1080" height="1920"><filter id="gn"><feTurbulence id="gt" type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="1"/><feColorMatrix type="saturate" values="0"/></filter><rect width="1080" height="1920" filter="url(#gn)"/></svg>
+<script>
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const P=(t,a,b)=>clamp((t-a)/(b-a));
+const eo=x=>1-Math.pow(1-clamp(x),3), eio=x=>{x=clamp(x);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+const eb=x=>{x=clamp(x);const c=1.6;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
+const lerp=(a,b,k)=>a+(b-a)*k;
+const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const rich=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<span class="acc">$1</span>');
+const fmt=n=>Math.round(n).toLocaleString('en-IN');
+const $=id=>document.getElementById(id);
+let T=null, POST=null, SCN=[], MEDIA={};
+
+// ---- media: a photo, or one frame of a clip (frames pre-extracted by the renderer) ----
+function mediaSrc(i,lt){ const m=MEDIA[i]; if(!m) return '';
+  if(m.kind==='video'){ const f=1+Math.min(m.n-1, Math.floor(lt*30)%m.n); return `${POST._dir}${m.frames}/${String(f).padStart(4,'0')}.jpg`; }
+  return POST._dir+m.src; }
+function mediaFill(b,lt,o={}){ const src=mediaSrc(b.i,lt); if(!src) return `<div class="layer" style="background:linear-gradient(160deg,#D9D1C3,#CFC6B6)"></div>`;
+  const z=(o.zoom||1.08)+.06*P(lt,0,b.dur+.4);
+  return `<img class="abs bw" src="${src}" style="left:0;top:0;width:1080px;height:1920px;object-fit:cover;transform:scale(${z});transform-origin:50% 45%;${o.blur?`filter:grayscale(1) contrast(1.1) blur(${o.blur}px) brightness(1.05)`:''}">`; }
+const nib=(o,lt,at=.3)=>{ if(!o) return ''; const p=eb(P(lt,at,at+.45)), bob=Math.sin(lt*2.6)*8;
+  return `<div class="abs" style="left:${o.x??330}px;top:${o.y??700}px;transform:translateY(${(1-p)*160+bob}px) scale(${.6+.4*p});opacity:${clamp(p*1.4)};transform-origin:50% 100%;filter:drop-shadow(0 30px 30px rgba(60,40,0,.25))">${mascotSVG({soft:true,pose:o.pose||'wave',mood:o.mood||'happy',size:o.size||420})}</div>`; };
+function typed(str,lt,at,cps=28){ const n=Math.floor(Math.max(0,lt-at)*cps); return rich(str.slice(0,n))+(n<str.length&&lt>at?'<span style="opacity:.5">|</span>':''); }
+
+// ---------------- scenes ----------------
+const SC={};
+// full-bleed black-and-white photo/clip, optional floating card and Nib
+SC.photo={ draw(b,lt){ const p=eb(P(lt,.35,.8));
+  return mediaFill(b,lt)+`<div class="layer" style="background:linear-gradient(transparent 55%,rgba(233,226,214,.85) 82%)"></div>`
+   +(b.card?`<div class="abs card" style="left:120px;right:120px;top:${b.cardTop||1120}px;padding:40px 46px;font:600 54px/1.15 Geist,Deva;transform:translateY(${(1-p)*80}px) rotate(-1.5deg);opacity:${clamp(p*1.5)}">${rich(b.card)}</div>`:'')
+   +nib(b.nib,lt,.5); }, ev:b=>[[.35,'pop',.35]] };
+
+// a desk monitor showing the photo/clip, camera pushes in, cursor wanders, Nib pops onto the screen
+SC.monitor={ draw(b,lt){ const z=lerp(.86,1.08,eio(P(lt,0,b.dur))), cx=lerp(260,640,eio(P(lt,.4,1.6))), cy=lerp(560,760,eio(P(lt,.4,1.6)));
+  return `<div class="layer" style="transform:scale(${z});transform-origin:540px 860px">
+    <div class="abs" style="left:0;right:0;top:1180px;bottom:0;background:linear-gradient(#2B2925,#1E1C19)"></div>
+    <div class="abs" style="left:470px;top:1090px;width:140px;height:110px;background:#26241F"></div>
+    <div class="abs" style="left:60px;top:470px;width:960px;height:640px;border-radius:26px;background:#141311;padding:16px;box-shadow:0 40px 80px rgba(0,0,0,.35)">
+      <div style="position:relative;width:100%;height:100%;border-radius:14px;overflow:hidden">${mediaFill(b,lt,{zoom:1.02}).replace('width:1080px;height:1920px','width:928px;height:608px')}
+        ${b.nib?`<div class="abs" style="left:${b.nib.x??330}px;top:${b.nib.y??120}px;transform:scale(${eb(P(lt,.9,1.3))});filter:drop-shadow(0 20px 20px rgba(0,0,0,.4))">${mascotSVG({soft:true,pose:b.nib.pose||'wave',mood:b.nib.mood||'happy',size:b.nib.size||300})}</div>`:''}
+        ${b.text?`<div class="abs" style="left:40px;bottom:40px;right:40px;font:700 46px/1.1 Geist;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.6);opacity:${eo(P(lt,1.2,1.6))}">${rich(b.text)}</div>`:''}
+        <svg class="abs" style="left:${cx}px;top:${cy}px" width="44" height="44" viewBox="0 0 60 60"><path d="M8 4 L8 46 L19 36 L27 54 L35 50 L27 33 L42 33 Z" fill="#fff" stroke="#000" stroke-width="3"/></svg>
+      </div></div></div>`; }, ev:b=>[[.9,'pop',.45],[1.6,'click',.35]] };
+
+// a phone with a chat; the photo/clip blurred behind
+SC.phone={ draw(b,lt){ const msgs=b.msgs||[], step=Math.max(.7,(b.dur-.6)/Math.max(1,msgs.length)), p=eo(P(lt,0,.5));
+  let h=''; msgs.forEach((m,k)=>{ const a=.4+k*step, q=eb(P(lt,a,a+.3)); if(lt<a) return;
+    const me=m.from==='me'; h+=`<div style="display:flex;justify-content:${me?'flex-end':'flex-start'};margin:16px 0;transform:scale(${q});transform-origin:${me?'100%':'0%'} 50%"><div style="max-width:76%;padding:18px 24px;border-radius:24px;font:500 34px/1.25 Geist,Deva;background:${me?'#DCF8C6':'#fff'};box-shadow:0 2px 6px rgba(0,0,0,.08)">${rich(m.text)}<div style="font:500 20px Geist;color:#8a8a8a;text-align:right;margin-top:6px">${m.time||''}</div></div></div>`; });
+  return mediaFill(b,lt,{blur:14})+`<div class="layer" style="background:rgba(233,226,214,.35)"></div>
+    <div class="abs" style="left:250px;top:${lerp(560,420,p)}px;width:580px;height:1060px;border-radius:70px;background:#121110;padding:18px;box-shadow:0 50px 90px rgba(0,0,0,.35);transform:rotate(${lerp(6,-2,p)}deg)">
+      <div style="width:100%;height:100%;border-radius:54px;background:#ECE5DD;overflow:hidden;padding:110px 26px 30px;position:relative">
+        <div class="abs" style="left:50%;top:18px;width:150px;height:36px;margin-left:-75px;border-radius:20px;background:#121110"></div>
+        <div class="abs" style="left:0;right:0;top:56px;text-align:center;font:600 28px Geist;color:#555">${esc(b.contact||'Creator')}</div>${h}</div></div>`; },
+  ev(b){ const n=(b.msgs||[]).length, step=Math.max(.7,(b.dur-.6)/Math.max(1,n)); return [[0,'whoosh',.3],...[...Array(n)].map((_,k)=>[.4+k*step,'pop',.35])]; } };
+
+// Nib (top) and a viewer (bottom) talking in bubbles
+SC.chat={ draw(b,lt){ const L=b.lines||[], step=Math.max(.8,(b.dur-.5)/Math.max(1,L.length));
+  let h=''; L.forEach((l,k)=>{ const a=.3+k*step; if(lt<a) return; const nibSide=l.who==='nib', q=eb(P(lt,a,a+.3));
+    h+=`<div class="abs bub" style="left:50%;top:${nibSide?820:1130}px;transform:translateX(-50%) scale(${q});white-space:nowrap;opacity:${k===L.length-1||L[k+1]&&L[k+1].who!==l.who||lt<a+step?1:0}">${typed(l.text,lt,a,40)}</div>`; });
+  return `${nib(Object.assign({x:330,y:360,size:380,pose:'idle',mood:'smile'},b.nib||{}),lt,0)}
+    <div class="abs" style="left:465px;top:1290px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#C9C9C9,#9A9A9A);box-shadow:0 18px 30px rgba(0,0,0,.2);overflow:hidden">
+      <div style="position:absolute;left:47px;top:30px;width:56px;height:56px;border-radius:50%;background:#E8E8E8"></div><div style="position:absolute;left:25px;top:96px;width:100px;height:80px;border-radius:50%;background:#E8E8E8"></div></div>${h}`; },
+  ev(b){ const L=b.lines||[], step=Math.max(.8,(b.dur-.5)/Math.max(1,L.length)); return L.map((_,k)=>[.3+k*step,'pop',.35]); } };
+
+// big kinetic words: a small line + a big accent word (or a giant glyph like "?")
+SC.word={ draw(b,lt){ const p=eb(P(lt,.1,.5)), g=b.glyph;
+  return (b.media!==undefined&&MEDIA[b.i]?mediaFill(b,lt,{blur:18})+`<div class="layer" style="background:rgba(233,226,214,.55)"></div>`:'')
+   +(g?`<div class="abs" style="left:0;right:0;top:560px;text-align:center;font:800 640px/1 Geist;transform:rotate(${lerp(-25,0,p)}deg) scale(${.7+.3*p});filter:blur(${(1-p)*14}px)">${esc(g)}</div>`:'')
+   +`<div class="abs" style="left:80px;right:80px;top:${g?1280:820}px;text-align:center">
+      <div style="font:600 64px/1.1 Geist,Deva;opacity:${eo(P(lt,.15,.45))}">${typed(b.small||'',lt,.15,30)}</div>
+      <div style="font:800 ${b.bigSize||170}px/1 Geist,Deva;letter-spacing:-.04em;margin-top:10px;color:var(--y2);transform:translateY(${(1-eb(P(lt,.45,.9)))*60}px);opacity:${eo(P(lt,.45,.7))};text-shadow:0 10px 0 rgba(140,100,0,.12)">${esc(b.big||'')}</div></div>`
+   +nib(b.nib,lt,.6); }, ev:b=>[[.1,'whoosh',.3],[.45,'thump',.35]] };
+
+// an extruded paper card typing itself (an email, a note, a DM), with a small bubble linked by a dashed line
+SC.card={ draw(b,lt){ const p=eo(P(lt,0,.45)), lines=b.lines||[]; let body='', at=.5;
+  lines.forEach(l=>{ body+=`<div style="margin-top:20px">${typed(l,lt,at,34)}</div>`; at+=Math.max(.5,l.length/34); });
+  return `${b.note?`<div class="abs bub" style="left:70px;top:820px;max-width:430px;transform:scale(${eb(P(lt,.2,.5))})">${rich(b.note)}</div>
+      <div class="abs" style="left:500px;top:880px;width:${110*eo(P(lt,.4,.7))}px;border-top:6px dashed #2a2a2a"></div>`:''}
+    <div class="abs card" style="left:${b.note?560:150}px;right:${b.note?70:150}px;top:${lerp(760,640,p)}px;min-height:640px;padding:48px 44px;font:500 36px/1.3 Geist,Deva;transform:rotate(${lerp(4,0,p)}deg)">
+      <div style="font:700 38px Geist,Deva">${rich(b.title||'')}</div>${body}</div>`; },
+  ev:b=>[[0,'whoosh',.3],[.5,'scribble',.25]] };
+
+// a big number counting up on a card, B&W photo blurred behind
+SC.stat={ draw(b,lt){ const v=(b.value||0)*eo(P(lt,.3,Math.min(b.dur-.4,2.4))), p=eb(P(lt,.1,.5));
+  return mediaFill(b,lt,{blur:16})+`<div class="layer" style="background:rgba(233,226,214,.5)"></div>
+    <div class="abs card" style="left:110px;right:110px;top:700px;padding:70px 40px;text-align:center;transform:scale(${.85+.15*p}) rotate(-1deg)">
+      <div style="font:800 190px/1 Geist;letter-spacing:-.05em">${esc(b.pre||'')}${fmt(v)}${esc(b.suf||'')}</div>
+      <div style="font:600 46px/1.2 Geist,Deva;color:var(--mut);margin-top:18px">${rich(b.unit||'')}</div></div>`; },
+  ev:b=>[[.3,'tick',.25],[.9,'tick',.25],[1.5,'tick',.25],[2.2,'ding',.35]] };
+
+// an invented social post (generic handle, never a real account) over the blurred photo
+SC.post={ draw(b,lt){ const p=eb(P(lt,.1,.55)), likes=(b.likes||0)*eo(P(lt,.8,2.4));
+  return mediaFill(b,lt,{blur:12})+`<div class="layer" style="background:rgba(233,226,214,.4)"></div>
+    <div class="abs card" style="left:90px;right:90px;top:620px;padding:40px;transform:translateY(${(1-p)*120}px) rotate(-1.2deg)">
+      <div style="display:flex;align-items:center;gap:20px"><div style="width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,#FFE680,#E9A800)"></div>
+        <div><div style="font:700 36px Geist">${esc(b.name||'A creator')}</div><div style="font:500 28px Geist;color:#8D857A">${esc(b.handle||'@creator')}</div></div></div>
+      <div style="font:500 44px/1.3 Geist,Deva;margin-top:28px">${typed(b.text||'',lt,.5,40)}</div>
+      <div style="display:flex;gap:40px;margin-top:30px;font:600 34px Geist;color:#6E675D"><span>♥ ${fmt(likes)}</span><span>↻ ${fmt(likes/9)}</span></div></div>`; },
+  ev:b=>[[.1,'whoosh',.3],[.8,'tick',.2],[1.4,'tick',.2],[2.0,'ding',.3]] };
+
+// closing: Nib + Follow button, then the send ask
+SC.cta={ draw(b,lt){ const on=lt>1.1, press=P(lt,.95,1.1);
+  return `${nib({x:330,y:520,size:420,pose:on?'cheer':'point',mood:'happy'},lt,0)}
+    <div class="abs" style="left:290px;top:1180px;width:500px;height:130px;border-radius:65px;display:grid;place-items:center;font:700 56px Geist;
+      background:${on?'#fff':'#1F1D1A'};color:${on?'#1F1D1A':'#fff'};box-shadow:0 10px 0 -2px #CFC6B6,0 26px 50px rgba(0,0,0,.18);transform:scale(${1-.08*Math.sin(press*Math.PI)})">${on?'Following':'Follow'}</div>
+    <div class="abs" style="left:80px;right:80px;top:1360px;text-align:center;font:600 46px/1.25 Geist,Deva;opacity:${eo(P(lt,1.4,1.8))}">${rich(b.text||'**Send** this to a creator friend')}</div>`; },
+  ev:b=>[[.95,'click',.6],[1.1,'ding',.3]] };
+
+// ---------------- timeline ----------------
+window.setTimeline=(tl,post)=>{ T=tl; POST=post; MEDIA=post._media||{};
+  SCN=T.beats.map((b,i)=>({...b,i}));
+  const ev=[]; SCN.forEach(b=>{ if(b.i>0) ev.push([b.start,'whoosh',.35]);
+    (SC[b.scene]&&SC[b.scene].ev?SC[b.scene].ev(b):[]).forEach(([t,s,g])=>{ if(t<b.dur) ev.push([b.start+t,s,g]); }); });
+  window.EV=ev.sort((a,b)=>a[0]-b[0]);
+  if(post.captions===false) $('cap').style.display='none';
+};
+function idx(t){ let i=SCN.findIndex(b=>t<b.start+b.dur); return i<0?SCN.length-1:i; }
+const sceneHTML=(b,lt)=>(SC[b.scene]||SC.word).draw(b,lt);
+window.render=function(t){
+  const i=idx(t), b=SCN[i], lt=t-b.start, W=.34, dir=i%2?1:-1;
+  const inT=i>0&&lt<W, k=inT?eio(lt/W):1;
+  if(inT){ const pb=SCN[i-1], A=$('A'); A.innerHTML=sceneHTML(pb,t-pb.start); A.style.display='block';
+    A.style.transform=`translateX(${-dir*1080*k}px)`; A.style.filter=`blur(${Math.sin(k*Math.PI)*18}px)`; }
+  else $('A').style.display='none';
+  const B=$('B'); B.innerHTML=sceneHTML(b,lt);
+  B.style.transform=`translateX(${dir*1080*(1-k)}px)`; B.style.filter=inT?`blur(${Math.sin(k*Math.PI)*18}px)`:'none';
+  $('gt').setAttribute('seed', Math.floor(t*12)%9+1);
+  const cap=$('cap'); if(POST.captions!==false){ if(cap.dataset.k!==String(i)){cap.dataset.k=i; cap.innerHTML=(b.hi||b.say).split(' ').map(w=>`<span>${esc(w)} </span>`).join('');}
+    const ws=cap.querySelectorAll('span'), sp=P(t,b.start,b.start+(b.speech||b.dur)*.95); ws.forEach((w,j)=>{w.style.color=j/ws.length<=sp?'#1F1D1A':'#B3AA9C';}); }
+  return Promise.all([...document.images].map(im=>im.complete?im.decode().catch(()=>0):new Promise(r=>{im.onload=im.onerror=r})));
+};
+</script></body></html>
