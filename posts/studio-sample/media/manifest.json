@@ -1,0 +1,44 @@
+{
+ "0": {
+  "file": "00.jpg",
+  "kind": "photo",
+  "credit": "Openverse cc0 https://www.flickr.com/photos/198895458@N04/53097224746",
+  "q": "hand holding smartphone"
+ },
+ "4": {
+  "file": "04.jpg",
+  "kind": "photo",
+  "credit": "Openverse cc0 https://stocksnap.io/photo/computer-laptop-FBXB2DA8O7",
+  "q": "person typing on laptop"
+ },
+ "5": {
+  "file": "05.jpg",
+  "kind": "photo",
+  "credit": "Openverse cc0 https://stocksnap.io/photo/office-work-UP9J4EZYNJ",
+  "q": "signing contract document"
+ },
+ "6": {
+  "file": "06.jpg",
+  "kind": "photo",
+  "credit": "Openverse cc0 https://www.rawpixel.com/image/5920849/empty-wallet-free-public-domain-cc0-image",
+  "q": "empty wallet"
+ },
+ "7": {
+  "file": "07.jpg",
+  "kind": "photo",
+  "credit": "Openverse cc0 https://stocksnap.io/photo/camera-film-9969Z0OHVX",
+  "q": "camera filming"
+ },
+ "8": {
+  "file": "08.jpg",
+  "kind": "photo",
+  "credit": "Openverse cc0 https://www.flickr.com/photos/41890311@N06/33327833655",
+  "q": "counting money cash"
+ },
+ "9": {
+  "file": "09.jpg",
+  "kind": "photo",
+  "credit": "Openverse pdm https://www.flickr.com/photos/50398299@N08/16494407079",
+  "q": "person texting on phone"
+ }
+}
