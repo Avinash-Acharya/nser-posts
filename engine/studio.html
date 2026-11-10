@@ -109,9 +109,9 @@ SC.phone={ draw(b,lt){ const msgs=b.msgs||[], step=Math.max(.7,(b.dur-.6)/Math.m
 
 // Nib (top) and a viewer (bottom) talking in bubbles
 SC.chat={ draw(b,lt){ const L=b.lines||[], step=Math.max(.8,(b.dur-.5)/Math.max(1,L.length));
-  let h=''; L.forEach((l,k)=>{ const a=.3+k*step; if(lt<a) return backdrop(b,lt)+; const nibSide=l.who==='nib', q=eb(P(lt,a,a+.3));
+  let h=''; L.forEach((l,k)=>{ const a=.3+k*step; if(lt<a) return; const nibSide=l.who==='nib', q=eb(P(lt,a,a+.3));
     h+=`<div class="abs bub" style="left:50%;top:${nibSide?820:1130}px;transform:translateX(-50%) scale(${q});white-space:nowrap;opacity:${k===L.length-1||L[k+1]&&L[k+1].who!==l.who||lt<a+step?1:0}">${typed(l.text,lt,a,40)}</div>`; });
-  return `${nib(Object.assign({x:330,y:360,size:380,pose:'idle',mood:'smile'},b.nib||{}),lt,0)}
+  return backdrop(b,lt)+`${nib(Object.assign({x:330,y:360,size:380,pose:'idle',mood:'smile'},b.nib||{}),lt,0)}
     <div class="abs" style="left:465px;top:1290px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#C9C9C9,#9A9A9A);box-shadow:0 18px 30px rgba(0,0,0,.2);overflow:hidden">
       <div style="position:absolute;left:47px;top:30px;width:56px;height:56px;border-radius:50%;background:#E8E8E8"></div><div style="position:absolute;left:25px;top:96px;width:100px;height:80px;border-radius:50%;background:#E8E8E8"></div></div>${h}`; },
   ev(b){ const L=b.lines||[], step=Math.max(.8,(b.dur-.5)/Math.max(1,L.length)); return L.map((_,k)=>[.3+k*step,'pop',.35]); } };
