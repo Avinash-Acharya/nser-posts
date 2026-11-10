@@ -1,0 +1,272 @@
+{
+ "topic": "When does your Indian audience actually scroll?",
+ "pillar": "Growth",
+ "style": "studio",
+ "handle": "@nser.in_officials",
+ "mascot": "phone",
+ "captions": false,
+ "sources": [
+  "https://www.bloomberg.com/news/articles/2025-03-27/indians-spent-1-1-trillion-hours-on-smartphones-in-2024-ey-says",
+  "https://www.deccanherald.com/india/indians-spend-11-lakh-crore-hours-on-their-phones-pushing-a-rs-25-lakh-crore-media-industry-3466751"
+ ],
+ "explainer": [
+  {
+   "scene": "collage",
+   "cards": [
+    {
+     "name": "Growth Tips",
+     "handle": "@growthtips.daily",
+     "text": "Best time to post: 7 PM sharp!",
+     "kw": "Best time"
+    },
+    {
+     "name": "Reel Hacks",
+     "handle": "@reelhacks",
+     "text": "Only post at 9 AM",
+     "kw": "9 AM"
+    },
+    {
+     "name": "Social Guru",
+     "handle": "@socialguru.in",
+     "text": "Tuesday is the best day for reels",
+     "kw": "best day"
+    },
+    {
+     "name": "Creator Notes",
+     "handle": "@creatornotes",
+     "text": "Never post at night",
+     "kw": "Never"
+    },
+    {
+     "name": "Insta Coach",
+     "handle": "@instacoach",
+     "text": "The golden hour for views",
+     "kw": "golden hour"
+    }
+   ],
+   "say": "Everyone is selling you the best time to post.",
+   "hi": "हर कोई आपको पोस्ट करने का बेस्ट टाइम बता रहा है"
+  },
+  {
+   "scene": "react",
+   "glyph": "?",
+   "say": "But whose audience is that chart about?",
+   "hi": "पर वो चार्ट आख़िर किसकी ऑडियंस का है?",
+   "pause": 0.3
+  },
+  {
+   "scene": "reveal",
+   "a": {
+    "k": "chart"
+   },
+   "b": {
+    "k": "cross"
+   },
+   "words": {
+    "small": "their chart",
+    "big": "≠ your fans"
+   },
+   "say": "Simply put, a best-time chart is someone else's average.",
+   "hi": "सीधी बात, बेस्ट टाइम चार्ट किसी और की ऑडियंस का एवरेज है"
+  },
+  {
+   "scene": "phone",
+   "contact": "My reel",
+   "media": {
+    "q": "hand holding smartphone at night",
+    "kind": "photo"
+   },
+   "msgs": [
+    {
+     "from": "me",
+     "text": "Posted 7 PM",
+     "time": "19:00"
+    },
+    {
+     "from": "them",
+     "text": "Views: **12**",
+     "time": "21:00"
+    }
+   ],
+   "say": "You post at seven because a chart said so, and get twelve views.",
+   "hi": "आपने चार्ट देखकर शाम सात बजे पोस्ट किया, और व्यूज़ आए सिर्फ़ बारह"
+  },
+  {
+   "scene": "photo",
+   "media": {
+    "q": "empty street at night city lights",
+    "kind": "video"
+   },
+   "card": "**12** views",
+   "nib": {
+    "x": 640,
+    "y": 560,
+    "size": 300,
+    "pose": "shrug",
+    "mood": "worried"
+   },
+   "say": "We've been there. It feels like nobody is online.",
+   "hi": "हम भी वहाँ रहे हैं, लगता है कोई ऑनलाइन ही नहीं है"
+  },
+  {
+   "scene": "stat",
+   "media": {
+    "q": "people using phones on a train",
+    "kind": "photo"
+   },
+   "value": 5,
+   "suf": " hrs",
+   "unit": "a day on phones · **India**",
+   "props": [
+    {
+     "k": "clock",
+     "x": 220,
+     "y": 1420,
+     "s": 0.9
+    }
+   ],
+   "say": "But on average, Indians spend five hours a day on their phones.",
+   "hi": "पर एवरेज इंडियन रोज़ क़रीब पाँच घंटे फ़ोन पर बिताता है"
+  },
+  {
+   "scene": "word",
+   "media": {
+    "q": "crowded market street",
+    "kind": "video"
+   },
+   "small": "phone hours · 2024",
+   "big": "1.1 trillion",
+   "bigSize": 150,
+   "say": "In 2024, that added up to 1.1 trillion hours, says EY.",
+   "hi": "दो हज़ार चौबीस में ये मिलाकर एक लाख करोड़ घंटे से भी ज़्यादा हो गया"
+  },
+  {
+   "scene": "monitor",
+   "media": {
+    "q": "scrolling social media feed on phone",
+    "kind": "video"
+   },
+   "text": "**~70%**",
+   "nib": {
+    "pose": "point",
+    "mood": "wow",
+    "x": 600,
+    "y": 160,
+    "size": 260
+   },
+   "say": "Nearly seventy percent of it on social media, games and videos.",
+   "hi": "और उसका क़रीब सत्तर परसेंट सोशल मीडिया, गेम्स और वीडियोज़ पर"
+  },
+  {
+   "scene": "word",
+   "small": "not if, but",
+   "big": "WHEN?",
+   "say": "So your audience is scrolling. The real question is when.",
+   "hi": "तो आपकी ऑडियंस स्क्रॉल तो कर रही है, असली सवाल है कब",
+   "pause": 0.3
+  },
+  {
+   "scene": "flow",
+   "nodes": [
+    {
+     "k": "clock",
+     "label": "Post"
+    },
+    {
+     "k": "chart",
+     "label": "Check"
+    },
+    {
+     "doc": [
+      "**Slot A** ✓",
+      "**Slot B** ✗"
+     ],
+     "label": "Your time"
+    }
+   ],
+   "say": "Now the biggest game changer: your own numbers beat any chart.",
+   "hi": "अब सबसे बड़ा गेम चेंजर, आपके अपने नंबर्स किसी भी चार्ट से बेहतर हैं"
+  },
+  {
+   "scene": "chat",
+   "lines": [
+    {
+     "who": "user",
+     "text": "best time?"
+    },
+    {
+     "who": "nib",
+     "text": "your views"
+    },
+    {
+     "who": "user",
+     "text": "wait... what"
+    }
+   ],
+   "nib": {
+    "pose": "cheer",
+    "mood": "happy"
+   },
+   "say": "The answer isn't in a chart. It's in your own views.",
+   "hi": "जवाब किसी चार्ट में नहीं, आपके अपने व्यूज़ में छुपा है"
+  },
+  {
+   "scene": "icons",
+   "items": [
+    {
+     "g": "3",
+     "w": "Slots"
+    },
+    {
+     "g": "2",
+     "w": "Weeks"
+    },
+    {
+     "g": "✓",
+     "w": "Keep"
+    }
+   ],
+   "say": "Try this: pick three time slots, test them for two weeks, keep the winner.",
+   "hi": "ये करके देखो, तीन टाइम स्लॉट चुनो, दो हफ़्ते टेस्ट करो, और जो जीते वही रखो"
+  },
+  {
+   "scene": "reveal",
+   "a": {
+    "k": "chart"
+   },
+   "b": {
+    "k": "tick"
+   },
+   "flipAt": 0.6,
+   "words": {
+    "small": "their time",
+    "big": "→ your time"
+   },
+   "say": "Stop posting on their time. Post on yours.",
+   "hi": "उनके टाइम पर नहीं, अपनी ऑडियंस के टाइम पर पोस्ट करो"
+  },
+  {
+   "scene": "cta",
+   "text": "for **creator growth**",
+   "say": "Follow for more on creator growth and monetisation.",
+   "hi": "क्रिएटर ग्रोथ और कमाई की ऐसी और बातों के लिए फॉलो करो"
+  },
+  {
+   "scene": "word",
+   "small": "send this to a creator who",
+   "big": "trusts 7 PM",
+   "bigSize": 140,
+   "props": [
+    {
+     "k": "megaphone",
+     "x": 540,
+     "y": 600,
+     "s": 1.0
+    }
+   ],
+   "say": "And send this to a creator who still trusts the seven PM chart.",
+   "hi": "और ये उस क्रिएटर को भेजो जो अभी भी सात बजे वाले चार्ट पर भरोसा करता है"
+  }
+ ],
+ "reel_caption": "Posted at 7 PM because a \"best time\" chart said so, and got 12 views? That chart is someone else's audience.\n\nOn average, Indians spend five hours a day on their phones, and nearly 70% of that goes to social media, games and videos (EY, 2024). Your audience is scrolling. The real question is when.\n\nThe best time to post is in your own data. Try this: pick three time slots, test them for two weeks, and keep the slot that wins in your own views.\n\nSend this to a creator who still trusts the 7 PM chart, and save it for your next test.\n\nFollow @nser.in_officials for more on creator growth and monetisation.\n\nSource: EY annual media and entertainment report, via Bloomberg (27 Mar 2025) and Deccan Herald (28 Mar 2025)\n\n#indiancreators #instagramgrowth #reelstips #contentcreator"
+}
