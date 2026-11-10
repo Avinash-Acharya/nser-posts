@@ -10,7 +10,31 @@ post_dir, model_dir = os.path.abspath(sys.argv[1]), os.path.abspath(sys.argv[2])
 post = json.load(open(os.path.join(post_dir, "post.json"), encoding="utf-8"))
 out = os.path.join(post_dir, "reel"); os.makedirs(out, exist_ok=True)
 
-GAP, LEAD, TAIL = 0.16, 0.12, 0.6
+GAP, LEAD, TAIL = (0.1 if os.path.exists(os.path.join(post_dir, "voice", "manifest.json")) else 0.16), 0.12, 0.6
+
+
+def tighten(a, sr, keep=0.14, th_rel=0.04):
+    """Cut the silence voice models leave around and inside a line (VoxCPM adds ~1 s before each line and long
+    comma pauses): trim both ends, shorten any pause longer than `keep` to `keep`. Keeps the speech flowing."""
+    w = int(.02 * sr); n = len(a) // w
+    if n < 3: return a
+    e = np.sqrt((a[:n * w].reshape(n, w) ** 2).mean(1)); th = e.max() * th_rel
+    loud = e > th; idx = np.where(loud)[0]
+    if not len(idx): return a
+    out, i, k = [], idx[0], int(keep / .02)
+    seg_start = idx[0]
+    while i <= idx[-1]:
+        if loud[i]: i += 1; continue
+        j = i
+        while j <= idx[-1] and not loud[j]: j += 1
+        if j - i > k:   # long pause: keep `keep` seconds of it, with short fades
+            out.append(a[seg_start * w:(i + k // 2) * w]); seg_start = j - k // 2
+        i = j
+    out.append(a[seg_start * w:min(len(a), (idx[-1] + 2) * w)])
+    f = int(.004 * sr)
+    for o in out:
+        if len(o) > 2 * f: o[:f] *= np.linspace(0, 1, f); o[-f:] *= np.linspace(1, 0, f)
+    return np.concatenate(out).astype(np.float32)
 chunks, beats, t, SR = [], [], 0.0, 24000
 BEATS = post.get("explainer") or post["reel"]
 # Ready-made voices (Hindi from Avinash's PC, or Google voices) win over Kokoro when they're there
@@ -34,6 +58,7 @@ for bi, b in enumerate(BEATS):
         a, sr0 = sf.read(os.path.join(vdir, MAN[bi]), dtype="float32")
         if a.ndim > 1: a = a.mean(axis=1)
         if sr0 != SR: a = np.interp(np.arange(0, len(a), sr0 / SR), np.arange(len(a)), a).astype(np.float32)
+        a = tighten(np.asarray(a, dtype=np.float32).copy(), SR)
     else:
         say = (b.get("speak") or b["say"]).replace("%", " percent").replace("₹", "rupees ")
         a, SR = k.create(say, voice=voice, speed=speed, lang=lang)

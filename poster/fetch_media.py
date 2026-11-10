@@ -50,7 +50,8 @@ def pexels_photo(q, key):
 
 def openverse_photo(q):
     d = json.loads(get("https://api.openverse.org/v1/images/?" + urllib.parse.urlencode(
-        {"q": q, "license": "cc0,pdm", "page_size": 10, "mature": "false"})))
+        {"q": q, "license": "cc0,pdm", "page_size": 10, "mature": "false",
+         "source": "stocksnap,rawpixel,nappy,wikimedia"})))
     for r in d.get("results", []):
         if (r.get("height") or 0) >= 900 and (r.get("width") or 0) >= 700:
             return r["url"], f"Openverse {r.get('license','')} {r.get('foreign_landing_url','')}"
