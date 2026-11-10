@@ -16,6 +16,26 @@ Rules for the Hindi reel (Avinash, 10 Nov):
 - Don't set "voice" or "speed"; the voice comes from Avinash's PC.
 - The sections below about the carousel, Kokoro and rendering are kept for reference only; skip them.
 
+## Since 10 Nov 2026 (evening): STUDIO reel style (Avinash's choice, modelled on @saasflash, in nser colours)
+Set `"style": "studio"` and `"captions": false` in post.json. Engine: `engine/studio.html` (render_explainer.py picks it).
+Reference: `samples/studio-freebies/post.json`. Look: warm greige set, BLACK-AND-WHITE real photos/clips with a
+yellow colour-pop (3D clay Nib, highlights), floating cards, phone + monitor mockups, whip-pan cuts, film grain.
+- The voice is Hindi, so the SCREEN carries very few words: max 3–4 words per scene, prefer NUMBERS (₹, %, counts),
+  icons and pictures. Never put the spoken sentence on screen. Labels/words stay English.
+- About half the beats get real footage: `"media": {"q": "<plain scene description>", "kind": "video"|"photo"}`.
+  GitHub fetches it (Pexels, else public-domain Openverse) before rendering. Queries describe scenes, objects,
+  hands, places ("hand holding smartphone", "crowded market street"): NEVER a named or famous person.
+  Avinash can drop his own file as posts/<date>/media/<beat number>.jpg|.mp4 to override.
+- Scenes (fields): `phone` (`contact`, `msgs`: [{from: me|them, text ≤3 words, time}], media blurred behind) ·
+  `stat` (`pre`, `value`, `suf`, `unit` ≤5 words: a big rolling number on a card) · `word` (`small`, `big`, `bigSize`,
+  or `glyph`: "?") · `chat` (`lines`: [{who: nib|user, text ≤2 words}], `nib`) · `monitor` (media on a desk screen,
+  `text` = a number like "**83%**", `nib`) · `card` (`title` ≤3 words, `note` ≤2 words, `lines` usually empty) ·
+  `photo` (full-bleed media, `card` ≤3 words, `nib`) · `post` (an invented social post: `name`, `handle`, `text`,
+  `likes`) · `icons` (`items`: [{g: one symbol, w: one word}] for the method) · `cta` (Follow + `text`, e.g. "**Send** ➜").
+  `nib`: {x, y, size, pose, mood} adds the 3D Nib. `**word**` = yellow.
+- New scene needed? Add it to `SC` in engine/studio.html with the same pattern; keep subjects between y 450 and 1450.
+- Everything else (Hindi `hi` lines, voice from Avinash's PC, render on GitHub, 7pm posting) stays as above.
+
 Reference post (copy its structure and quality): `posts/2026-11-03/post.json`.
 Brand rules live in the claude.ai project doc "claude/Marketing KB". Read it first.
 

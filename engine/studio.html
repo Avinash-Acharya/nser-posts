@@ -16,7 +16,7 @@
   .layer{position:absolute;inset:0;overflow:hidden}
   .bw{filter:grayscale(1) contrast(1.12) brightness(.98)}
   .card{background:var(--card);border-radius:30px;box-shadow:0 2px 0 #fff inset,0 10px 0 -2px #D7CEBF,0 30px 60px rgba(40,30,15,.18)}
-  .bub{background:#fff;border-radius:26px;padding:22px 30px;font:500 40px/1.25 Geist,Deva;box-shadow:0 8px 0 -2px #DCD3C4,0 22px 44px rgba(40,30,15,.14)}
+  .bub{background:#fff;border-radius:30px;padding:24px 36px;font:600 56px/1.2 Geist,Deva;box-shadow:0 8px 0 -2px #DCD3C4,0 22px 44px rgba(40,30,15,.14)}
   .acc{color:var(--y2)}
   .hl{background:linear-gradient(transparent 55%,var(--y) 55%,var(--y) 92%,transparent 92%)}
   #wm{left:80px;top:210px;font:600 30px/1 Geist;color:var(--mut);z-index:40;letter-spacing:-.01em}
@@ -60,7 +60,7 @@ const SC={};
 // full-bleed black-and-white photo/clip, optional floating card and Nib
 SC.photo={ draw(b,lt){ const p=eb(P(lt,.35,.8));
   return mediaFill(b,lt)+`<div class="layer" style="background:linear-gradient(transparent 55%,rgba(233,226,214,.85) 82%)"></div>`
-   +(b.card?`<div class="abs card" style="left:120px;right:120px;top:${b.cardTop||1120}px;padding:40px 46px;font:600 54px/1.15 Geist,Deva;transform:translateY(${(1-p)*80}px) rotate(-1.5deg);opacity:${clamp(p*1.5)}">${rich(b.card)}</div>`:'')
+   +(b.card?`<div class="abs card" style="left:120px;right:120px;top:${b.cardTop||1120}px;padding:44px 50px;font:800 96px/1.05 Geist,Deva;letter-spacing:-.03em;transform:translateY(${(1-p)*80}px) rotate(-1.5deg);opacity:${clamp(p*1.5)}">${rich(b.card)}</div>`:'')
    +nib(b.nib,lt,.5); }, ev:b=>[[.35,'pop',.35]] };
 
 // a desk monitor showing the photo/clip, camera pushes in, cursor wanders, Nib pops onto the screen
@@ -71,14 +71,14 @@ SC.monitor={ draw(b,lt){ const z=lerp(.86,1.08,eio(P(lt,0,b.dur))), cx=lerp(260,
     <div class="abs" style="left:60px;top:470px;width:960px;height:640px;border-radius:26px;background:#141311;padding:16px;box-shadow:0 40px 80px rgba(0,0,0,.35)">
       <div style="position:relative;width:100%;height:100%;border-radius:14px;overflow:hidden">${mediaFill(b,lt,{zoom:1.02}).replace('width:1080px;height:1920px','width:928px;height:608px')}
         ${b.nib?`<div class="abs" style="left:${b.nib.x??330}px;top:${b.nib.y??120}px;transform:scale(${eb(P(lt,.9,1.3))});filter:drop-shadow(0 20px 20px rgba(0,0,0,.4))">${mascotSVG({soft:true,pose:b.nib.pose||'wave',mood:b.nib.mood||'happy',size:b.nib.size||300})}</div>`:''}
-        ${b.text?`<div class="abs" style="left:40px;bottom:40px;right:40px;font:700 46px/1.1 Geist;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.6);opacity:${eo(P(lt,1.2,1.6))}">${rich(b.text)}</div>`:''}
+        ${b.text?`<div class="abs" style="left:40px;top:40px;font:800 150px/1 Geist;letter-spacing:-.04em;color:#fff;text-shadow:0 4px 24px rgba(0,0,0,.55);transform:scale(${eb(P(lt,1.0,1.4))});transform-origin:0 0">${rich(b.text)}</div>`:''}
         <svg class="abs" style="left:${cx}px;top:${cy}px" width="44" height="44" viewBox="0 0 60 60"><path d="M8 4 L8 46 L19 36 L27 54 L35 50 L27 33 L42 33 Z" fill="#fff" stroke="#000" stroke-width="3"/></svg>
       </div></div></div>`; }, ev:b=>[[.9,'pop',.45],[1.6,'click',.35]] };
 
 // a phone with a chat; the photo/clip blurred behind
 SC.phone={ draw(b,lt){ const msgs=b.msgs||[], step=Math.max(.7,(b.dur-.6)/Math.max(1,msgs.length)), p=eo(P(lt,0,.5));
   let h=''; msgs.forEach((m,k)=>{ const a=.4+k*step, q=eb(P(lt,a,a+.3)); if(lt<a) return;
-    const me=m.from==='me'; h+=`<div style="display:flex;justify-content:${me?'flex-end':'flex-start'};margin:16px 0;transform:scale(${q});transform-origin:${me?'100%':'0%'} 50%"><div style="max-width:76%;padding:18px 24px;border-radius:24px;font:500 34px/1.25 Geist,Deva;background:${me?'#DCF8C6':'#fff'};box-shadow:0 2px 6px rgba(0,0,0,.08)">${rich(m.text)}<div style="font:500 20px Geist;color:#8a8a8a;text-align:right;margin-top:6px">${m.time||''}</div></div></div>`; });
+    const me=m.from==='me'; h+=`<div style="display:flex;justify-content:${me?'flex-end':'flex-start'};margin:16px 0;transform:scale(${q});transform-origin:${me?'100%':'0%'} 50%"><div style="max-width:80%;padding:22px 30px;border-radius:28px;font:600 52px/1.2 Geist,Deva;background:${me?'#DCF8C6':'#fff'};box-shadow:0 2px 6px rgba(0,0,0,.08)">${rich(m.text)}<div style="font:500 22px Geist;color:#8a8a8a;text-align:right;margin-top:6px">${m.time||''}</div></div></div>`; });
   return mediaFill(b,lt,{blur:14})+`<div class="layer" style="background:rgba(233,226,214,.35)"></div>
     <div class="abs" style="left:250px;top:${lerp(560,420,p)}px;width:580px;height:1060px;border-radius:70px;background:#121110;padding:18px;box-shadow:0 50px 90px rgba(0,0,0,.35);transform:rotate(${lerp(6,-2,p)}deg)">
       <div style="width:100%;height:100%;border-radius:54px;background:#ECE5DD;overflow:hidden;padding:110px 26px 30px;position:relative">
@@ -110,7 +110,7 @@ SC.card={ draw(b,lt){ const p=eo(P(lt,0,.45)), lines=b.lines||[]; let body='', a
   return `${b.note?`<div class="abs bub" style="left:110px;top:520px;transform:scale(${eb(P(lt,.2,.5))});transform-origin:0 50%">${rich(b.note)}</div>
       <div class="abs" style="left:200px;top:610px;height:${110*eo(P(lt,.4,.7))}px;border-left:6px dashed #2a2a2a"></div>`:''}
     <div class="abs card" style="left:120px;right:120px;top:${lerp(840,740,p)}px;padding:56px 54px;font:500 46px/1.3 Geist,Deva;transform:rotate(${lerp(4,-1,p)}deg)">
-      <div style="font:800 58px/1.1 Geist,Deva;letter-spacing:-.02em">${rich(b.title||'')}</div>${body}</div>`+nib(b.nib===undefined?{x:560,y:1130,size:280,pose:'point',mood:'smile'}:b.nib,lt,.7); },
+      <div style="font:800 ${lines.length?58:110}px/1.1 Geist,Deva;letter-spacing:-.03em;text-align:${lines.length?'left':'center'}">${rich(b.title||'')}</div>${body}</div>`+nib(b.nib===undefined?{x:560,y:1130,size:280,pose:'point',mood:'smile'}:b.nib,lt,.7); },
   ev:b=>[[0,'whoosh',.3],[.5,'scribble',.25]] };
 
 // a big number counting up on a card, B&W photo blurred behind
@@ -131,12 +131,21 @@ SC.post={ draw(b,lt){ const p=eb(P(lt,.1,.55)), likes=(b.likes||0)*eo(P(lt,.8,2.
       <div style="display:flex;gap:40px;margin-top:30px;font:600 34px Geist;color:#6E675D"><span>♥ ${fmt(likes)}</span><span>↻ ${fmt(likes/9)}</span></div></div>`; },
   ev:b=>[[.1,'whoosh',.3],[.8,'tick',.2],[1.4,'tick',.2],[2.0,'ding',.3]] };
 
+// big icon tiles with one word each (the method, without sentences): items [{g:"✓"|"#"|"₹"|any 1-3 chars, w:"one word"}]
+SC.icons={ draw(b,lt){ const it=b.items||[], n=it.length, span=Math.max(1.2,b.dur-.8); let h='';
+  it.forEach((o,k)=>{ const a=.25+k*span/n, q=eb(P(lt,a,a+.4)), y=600+k*300;
+    h+=`<div class="abs card" style="left:170px;right:170px;top:${y}px;height:240px;display:flex;align-items:center;gap:40px;padding:0 46px;transform:scale(${q}) rotate(${k%2?1.2:-1.2}deg);opacity:${clamp(q*1.4)}">
+      <div style="width:150px;height:150px;border-radius:40px;display:grid;place-items:center;font:800 96px/1 Geist,Deva;background:linear-gradient(135deg,#FFE680,#E9A800);box-shadow:0 8px 0 -2px #C99200">${esc(o.g)}</div>
+      <div style="font:800 72px/1 Geist,Deva;letter-spacing:-.03em">${esc(o.w||'')}</div></div>`; });
+  return h; },
+  ev(b){ const n=(b.items||[]).length, span=Math.max(1.2,b.dur-.8); return [...Array(n)].map((_,k)=>[.25+k*span/n,'pop',.45]); } };
+
 // closing: Nib + Follow button, then the send ask
 SC.cta={ draw(b,lt){ const on=lt>1.1, press=P(lt,.95,1.1);
   return `${nib({x:330,y:520,size:420,pose:on?'cheer':'point',mood:'happy'},lt,0)}
     <div class="abs" style="left:290px;top:1180px;width:500px;height:130px;border-radius:65px;display:grid;place-items:center;font:700 56px Geist;
       background:${on?'#fff':'#1F1D1A'};color:${on?'#1F1D1A':'#fff'};box-shadow:0 10px 0 -2px #CFC6B6,0 26px 50px rgba(0,0,0,.18);transform:scale(${1-.08*Math.sin(press*Math.PI)})">${on?'Following':'Follow'}</div>
-    <div class="abs" style="left:80px;right:80px;top:1360px;text-align:center;font:600 46px/1.25 Geist,Deva;opacity:${eo(P(lt,1.4,1.8))}">${rich(b.text||'**Send** this to a creator friend')}</div>`; },
+    <div class="abs" style="left:80px;right:80px;top:1360px;text-align:center;font:800 76px/1.15 Geist,Deva;letter-spacing:-.03em;opacity:${eo(P(lt,1.4,1.8))}">${rich(b.text||'**Send** this to a creator friend')}</div>`; },
   ev:b=>[[.95,'click',.6],[1.1,'ding',.3]] };
 
 // ---------------- timeline ----------------
