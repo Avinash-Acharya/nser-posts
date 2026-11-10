@@ -161,6 +161,48 @@ SC.icons={ draw(b,lt){ const it=b.items||[], n=it.length, span=Math.max(1.2,b.du
   return backdrop(b,lt)+ h; },
   ev(b){ const n=(b.items||[]).length, span=Math.max(1.2,b.dur-.8); return [...Array(n)].map((_,k)=>[.25+k*span/n,'pop',.45]); } };
 
+// OPENING "everyone's talking about it" montage: a close-up of one post with the keyword highlighted, then the camera
+// pulls back into a wall of floating posts / headlines (cards: [{name, handle, text, kw}]). Real screenshots go in `media`.
+SC.collage={ draw(b,lt){ const C=b.cards||[], z=lerp(2.8,1.12,eio(P(lt,.5,1.9))), fx=lerp(-260,0,eio(P(lt,.5,1.9)));
+  const pos=[[70,470,-3],[560,420,2],[60,880,2],[580,820,-2],[300,1200,-1],[620,1260,3],[40,1300,1]];
+  let h=''; C.forEach((c,k)=>{ const [x,y,r]=pos[k%pos.length], a=k?.6+k*.12:0, q=k?eo(P(lt,a,a+.3)):1;
+    const t=esc(c.text||'').replace(new RegExp('('+(c.kw||'@@@').replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','i'),'<span style="background:#FFD23F;padding:0 6px">$1</span>');
+    h+=`<div class="abs card" style="left:${x}px;top:${y}px;width:${k?440:470}px;padding:26px 28px;transform:rotate(${r}deg) scale(${q});opacity:${q};font:600 36px/1.25 Geist,Deva">
+      <div style="display:flex;gap:14px;align-items:center;margin-bottom:12px"><div style="width:52px;height:52px;border-radius:50%;background:${['#FFD23F','#9BC3E8','#F4A3A3','#BFE3B4'][k%4]};border:3px solid #1F1D1A"></div>
+      <div><div style="font:700 28px Geist">${esc(c.name||'Creator')}</div><div style="font:500 22px Geist;color:#8D857A">${esc(c.handle||'@creator')}</div></div></div>${t}</div>`; });
+  return backdrop(b,lt)+`<div class="layer" style="transform:translate(${fx}px,0) scale(${z});transform-origin:300px 640px">${h}</div>`; },
+  ev(b){ return [[0,'whoosh',.35],...(b.cards||[]).slice(1).map((_,k)=>[.6+(k+1)*.12,'pop',.22])]; } };
+
+// one object in the middle that FLIPS (spins on its vertical axis) into a second object, then 2 kinetic words land
+// a / b: {k: prop name} or {nib:true} or {g: "text/emoji"}; words: {small, big}
+SC.reveal={ draw(b,lt){ const spin=P(lt,b.flipAt??1.0,(b.flipAt??1.0)+.45), side=spin<.5?b.a:b.b, sx=Math.abs(Math.cos(spin*Math.PI)), p=eb(P(lt,0,.4));
+  const obj=o=>!o?'':o.nib?mascotSVG({pose:o.pose||'wave',mood:o.mood||'happy',size:420})
+    :o.k?`<svg width="560" height="560" viewBox="-150 -150 300 300" style="overflow:visible">${PROP[o.k]||''}</svg>`
+    :`<div style="width:360px;height:360px;border-radius:50%;background:#FFD23F;border:6px solid #1F1D1A;display:grid;place-items:center;font:800 150px Geist,Deva">${esc(o.g||'?')}</div>`;
+  const w=b.words||{};
+  return backdrop(b,lt)+`<div class="abs" style="left:0;right:0;top:${lt>(b.flipAt??1)+.5&&(w.big||w.small)?560:700}px;display:flex;justify-content:center;transform:scaleX(${Math.max(.04,sx)}) scale(${.7+.3*p})">${obj(side)}</div>
+    ${(w.small||w.big)?`<div class="abs" style="left:60px;right:60px;top:1130px;text-align:center;opacity:${eo(P(lt,(b.flipAt??1)+.5,(b.flipAt??1)+.8))}">
+      <div style="font:600 64px/1.1 Geist,Deva">${esc(w.small||'')}</div><div style="font:800 140px/1 Geist,Deva;letter-spacing:-.04em;color:var(--y2)">${esc(w.big||'')}</div></div>`:''}`; },
+  ev:b=>[[.0,'pop',.4],[b.flipAt??1,'whoosh',.4],[(b.flipAt??1)+.5,'thump',.35]] };
+
+// reaction beat: a giant "?" (or "!") swinging in, Nib peeking from the edge looking confused
+SC.react={ draw(b,lt){ const p=eb(P(lt,0,.5)), peek=eo(P(lt,.4,.9));
+  return `<div class="abs" style="left:0;right:0;top:420px;text-align:center;font:800 900px/1 Geist;transform:rotate(${lerp(-30,6,p)+Math.sin(lt*3)*3}deg) scale(${.6+.4*p});filter:blur(${(1-p)*16}px)">${esc(b.glyph||'?')}</div>
+    <div class="abs" style="left:${lerp(1180,700,peek)}px;top:1150px;transform:rotate(-14deg)">${mascotSVG({pose:'shrug',mood:'worried',size:320})}</div>`; },
+  ev:b=>[[0,'whoosh',.4],[.4,'pop',.3]] };
+
+// a dashed flow line: the camera glides from node to node (prop, bubble, document...). nodes: [{k|text|doc, label}]
+SC.flow={ draw(b,lt){ const N=b.nodes||[], gap=760, n=N.length, cam=lerp(0,(n-1)*gap,eio(P(lt,.3,Math.max(.8,b.dur-.6))));
+  let h=`<div class="abs" style="left:540px;top:1000px;width:${(n-1)*gap}px;border-top:7px dashed #1F1D1A"></div>`;
+  N.forEach((o,k)=>{ const x=540+k*gap, near=1-clamp(Math.abs(cam-k*gap)/gap), q=eb(P(near,.2,.8));
+    const body=o.k?`<svg width="340" height="340" viewBox="-150 -150 300 300" style="overflow:visible">${PROP[o.k]||''}</svg>`
+      :o.doc?`<div class="card" style="width:520px;padding:40px;font:600 42px/1.35 Geist,Deva;text-align:left">${o.doc.map(l=>`<div>${rich(l)}</div>`).join('')}</div>`
+      :`<div class="bub" style="width:max-content;max-width:600px">${rich(o.text||'')}</div>`;
+    h+=`<div class="abs" style="left:${x}px;top:1000px;transform:translate(-50%,-50%) scale(${.75+.25*q})">${body}
+      ${o.label?`<div style="text-align:center;margin-top:18px;font:800 72px/1 Geist,Deva;color:var(--y2);opacity:${q}">${esc(o.label)}</div>`:''}</div>`; });
+  return backdrop(b,lt)+`<div class="abs" style="left:0;top:0;width:1080px;height:1920px;overflow:visible;transform:translateX(${-cam}px)">${h}</div>`; },
+  ev(b){ const n=(b.nodes||[]).length; return [...Array(n)].map((_,k)=>[.3+k*Math.max(.8,b.dur-.9)/Math.max(1,n-1),'whoosh',.3]); } };
+
 // closing: Nib + Follow button, then the send ask
 SC.cta={ draw(b,lt){ const on=lt>1.1, press=P(lt,.95,1.1);
   return `${nib({x:330,y:520,size:420,pose:on?'cheer':'point',mood:'happy'},lt,0)}

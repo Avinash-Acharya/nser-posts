@@ -16,6 +16,9 @@ Rules for the Hindi reel (Avinash, 10 Nov):
 - Don't set "voice" or "speed"; the voice comes from Avinash's PC.
 - The sections below about the carousel, Kokoro and rendering are kept for reference only; skip them.
 
+## ALWAYS: follow docs/REEL_FORMAT.md for the reel (the saasflash-style format: hype hook montage, "simply put" reveal,
+## "you" story, game changer, craziest part, loop ending; every spoken noun gets its picture). Read it before writing.
+
 ## Since 10 Nov 2026 (evening): STUDIO reel style (Avinash's choice, modelled on @saasflash, in nser colours)
 Set `"style": "studio"` and `"captions": false` in post.json. Engine: `engine/studio.html` (render_explainer.py picks it).
 Reference: `samples/studio-freebies/post.json`. Look: warm greige set, BLACK-AND-WHITE real photos/clips with a
@@ -26,7 +29,7 @@ yellow colour-pop (3D clay Nib, highlights), floating cards, phone + monitor moc
   GitHub fetches it (Pexels, else public-domain Openverse) before rendering. Queries describe scenes, objects,
   hands, places ("hand holding smartphone", "crowded market street"): NEVER a named or famous person.
   Avinash can drop his own file as posts/<date>/media/<beat number>.jpg|.mp4 to override.
-- Scenes (fields): `phone` (`contact`, `msgs`: [{from: me|them, text ≤3 words, time}], media blurred behind) ·
+- Scenes: see docs/REEL_FORMAT.md §4 (also `collage`, `reveal`, `react`, `flow`). Older list: `phone` (`contact`, `msgs`: [{from: me|them, text ≤3 words, time}], media blurred behind) ·
   `stat` (`pre`, `value`, `suf`, `unit` ≤5 words: a big rolling number on a card) · `word` (`small`, `big`, `bigSize`,
   or `glyph`: "?") · `chat` (`lines`: [{who: nib|user, text ≤2 words}], `nib`) · `monitor` (media on a desk screen,
   `text` = a number like "**83%**", `nib`) · `card` (`title` ≤3 words, `note` ≤2 words, `lines` usually empty) ·
