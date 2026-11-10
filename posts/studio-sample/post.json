@@ -34,7 +34,15 @@
     }
    ],
    "say": "A brand sends you a free product and asks for a reel. No money.",
-   "hi": "एक ब्रांड आपको फ्री प्रोडक्ट भेजता है, और बदले में एक रील मांगता है, पैसे ज़ीरो"
+   "hi": "एक ब्रांड आपको फ्री प्रोडक्ट भेजता है, और बदले में एक रील मांगता है, पैसे ज़ीरो",
+   "props": [
+    {
+     "k": "gift",
+     "x": 850,
+     "y": 1350,
+     "s": 1.1
+    }
+   ]
   },
   {
    "scene": "stat",
@@ -47,7 +55,21 @@
     "kind": "video"
    },
    "say": "Yet Indian brands spent three thousand six hundred crore rupees on influencer marketing in 2024.",
-   "hi": "जबकि इंडियन ब्रांड्स ने दो हज़ार चौबीस में इन्फ्लुएंसर्स पर छत्तीस सौ करोड़ रुपये खर्च किए"
+   "hi": "जबकि इंडियन ब्रांड्स ने दो हज़ार चौबीस में इन्फ्लुएंसर्स पर छत्तीस सौ करोड़ रुपये खर्च किए",
+   "props": [
+    {
+     "k": "coins",
+     "x": 230,
+     "y": 1300
+    },
+    {
+     "k": "cash",
+     "x": 840,
+     "y": 1330,
+     "s": 1.1,
+     "r": -8
+    }
+   ]
   },
   {
    "scene": "word",
@@ -59,7 +81,23 @@
    "media": {
     "q": "gift box unboxing",
     "kind": "video"
-   }
+   },
+   "props": [
+    {
+     "k": "gift",
+     "x": 300,
+     "y": 1250,
+     "s": 1.2,
+     "r": -10
+    },
+    {
+     "k": "cross",
+     "x": 800,
+     "y": 1260,
+     "s": 0.9,
+     "at": 0.9
+    }
+   ]
   },
   {
    "scene": "chat",
@@ -82,7 +120,16 @@
    "media": {
     "q": "person thinking looking at phone",
     "kind": "photo"
-   }
+   },
+   "props": [
+    {
+     "k": "heart",
+     "x": 820,
+     "y": 620,
+     "s": 0.7,
+     "at": 1.0
+    }
+   ]
   },
   {
    "scene": "monitor",
@@ -99,7 +146,16 @@
     "size": 260
    },
    "say": "Here's the twist. In one report, eighty three percent of marketers said they struggle to find the right talent.",
-   "hi": "पर ट्विस्ट ये है, एक रिपोर्ट में तिरासी परसेंट मार्केटर्स ने कहा कि सही क्रिएटर ढूंढना मुश्किल है"
+   "hi": "पर ट्विस्ट ये है, एक रिपोर्ट में तिरासी परसेंट मार्केटर्स ने कहा कि सही क्रिएटर ढूंढना मुश्किल है",
+   "props": [
+    {
+     "k": "megaphone",
+     "x": 180,
+     "y": 1300,
+     "s": 0.9,
+     "r": -12
+    }
+   ]
   },
   {
    "scene": "card",
@@ -111,7 +167,15 @@
    "media": {
     "q": "signing contract document",
     "kind": "photo"
-   }
+   },
+   "props": [
+    {
+     "k": "tag",
+     "x": 540,
+     "y": 1380,
+     "s": 1.1
+    }
+   ]
   },
   {
    "scene": "photo",
@@ -121,7 +185,16 @@
    },
    "card": "Rent: **₹0**",
    "say": "But a free product doesn't pay your rent.",
-   "hi": "पर फ्री प्रोडक्ट से आपका किराया नहीं भरता"
+   "hi": "पर फ्री प्रोडक्ट से आपका किराया नहीं भरता",
+   "props": [
+    {
+     "k": "wallet",
+     "x": 820,
+     "y": 560,
+     "s": 0.9,
+     "r": 8
+    }
+   ]
   },
   {
    "scene": "stat",
@@ -133,7 +206,20 @@
     "kind": "video"
    },
    "say": "One industry report puts reel rates for creators under ten thousand followers at five hundred to five thousand rupees.",
-   "hi": "एक रिपोर्ट के हिसाब से दस हज़ार से कम फॉलोअर्स वाले क्रिएटर्स को एक रील के पाँच सौ से पाँच हज़ार रुपये मिलते हैं"
+   "hi": "एक रिपोर्ट के हिसाब से दस हज़ार से कम फॉलोअर्स वाले क्रिएटर्स को एक रील के पाँच सौ से पाँच हज़ार रुपये मिलते हैं",
+   "props": [
+    {
+     "k": "coins",
+     "x": 220,
+     "y": 1290
+    },
+    {
+     "k": "chart",
+     "x": 850,
+     "y": 1300,
+     "s": 0.9
+    }
+   ]
   },
   {
    "scene": "word",
@@ -152,7 +238,23 @@
    "media": {
     "q": "counting money cash",
     "kind": "video"
-   }
+   },
+   "props": [
+    {
+     "k": "tick",
+     "x": 260,
+     "y": 1300,
+     "s": 0.9
+    },
+    {
+     "k": "cash",
+     "x": 800,
+     "y": 1300,
+     "s": 1.1,
+     "r": 6,
+     "at": 0.8
+    }
+   ]
   },
   {
    "scene": "phone",
@@ -174,7 +276,15 @@
     }
    ],
    "say": "Send this. Loved working on this. Here's what the post did. For the next one, my rate is this.",
-   "hi": "ये मैसेज भेजो, काम करके मज़ा आया, पोस्ट के रिज़ल्ट ये रहे, और अगली बार मेरा रेट इतना है"
+   "hi": "ये मैसेज भेजो, काम करके मज़ा आया, पोस्ट के रिज़ल्ट ये रहे, और अगली बार मेरा रेट इतना है",
+   "props": [
+    {
+     "k": "chart",
+     "x": 180,
+     "y": 1450,
+     "s": 0.8
+    }
+   ]
   },
   {
    "scene": "icons",
@@ -203,7 +313,21 @@
    "scene": "cta",
    "text": "**Send** ➜",
    "say": "Follow us for more on creator growth and monetisation. And send this to a creator who only gets paid in freebies.",
-   "hi": "ऐसी और बातों के लिए फॉलो करो, और ये उस क्रिएटर को भेजो जिसे सिर्फ फ्री सामान मिलता है"
+   "hi": "ऐसी और बातों के लिए फॉलो करो, और ये उस क्रिएटर को भेजो जिसे सिर्फ फ्री सामान मिलता है",
+   "props": [
+    {
+     "k": "heart",
+     "x": 200,
+     "y": 800,
+     "s": 0.7
+    },
+    {
+     "k": "megaphone",
+     "x": 880,
+     "y": 820,
+     "s": 0.7
+    }
+   ]
   }
  ]
 }
