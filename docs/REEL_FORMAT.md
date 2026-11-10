@@ -42,6 +42,13 @@ Escalation phrases to use: "Simply put…", "So what's the difference?", "Now th
 - Props (flat 2D): gift, coins, cash, wallet, chart, heart, tick, cross, megaphone, tag, clock. Add more to `PROP` when
   a noun needs one.
 
+## 3b. Motion (the part that makes it not a slideshow)
+Nothing is ever still: the camera always pushes and drifts, Nib bobs, blinks, waves and lands with squash, props
+float, words fly in one by one and scatter out. Cuts rotate whip / zoom / rise with motion blur (`"cut"` to force one).
+Give scenes things that HAPPEN on screen: `monitor` `lines` (an app window types itself) + `alert` (warning pops and
+shakes), phone typing dots, `collage` 3 snap close-ups + keyword highlight sweep + `media` photo popping in,
+`reveal` wiggle → flip → sunburst, `stat` count-up → burst. Every beat should have at least 2 moving things.
+
 ## 4. Scenes (engine/studio.html) and when to use them
 | Story moment | Scene | Key fields |
 |---|---|---|
