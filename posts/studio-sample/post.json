@@ -1,0 +1,209 @@
+{
+ "topic": "Studio sample (Hindi): free products to paid deals",
+ "style": "studio",
+ "handle": "@nser.in_officials",
+ "captions": false,
+ "sources": [
+  "https://www.afaqs.com/news/influencer-marketing/indias-influencer-marketing-industry-hits-rs-3600-cr-in-2024-report-9353766",
+  "https://www.ascionline.in/social/wp-content/uploads/2024/03/ASCIs-Guide-For-Influencers-1.pdf",
+  "https://www.tribuneindia.com/news/business/indias-3-5-4-5-million-creator-economy-powers-3500-crore-influencer-marketing-industry-growth-kofluence-influencer-marketing-report-2025"
+ ],
+ "explainer": [
+  {
+   "scene": "phone",
+   "contact": "Brand",
+   "media": {
+    "q": "hand holding smartphone",
+    "kind": "video"
+   },
+   "msgs": [
+    {
+     "from": "them",
+     "text": "Free collab?",
+     "time": "10:02"
+    },
+    {
+     "from": "me",
+     "text": "Budget?",
+     "time": "10:05"
+    },
+    {
+     "from": "them",
+     "text": "**₹0**",
+     "time": "10:06"
+    }
+   ],
+   "say": "A brand sends you a free product and asks for a reel. No money.",
+   "hi": "एक ब्रांड आपको फ्री प्रोडक्ट भेजता है, और बदले में एक रील मांगता है, पैसे ज़ीरो"
+  },
+  {
+   "scene": "stat",
+   "pre": "₹",
+   "value": 3600,
+   "suf": " Cr",
+   "unit": "Indian brands · influencers · **2024**",
+   "media": {
+    "q": "crowded market street",
+    "kind": "video"
+   },
+   "say": "Yet Indian brands spent three thousand six hundred crore rupees on influencer marketing in 2024.",
+   "hi": "जबकि इंडियन ब्रांड्स ने दो हज़ार चौबीस में इन्फ्लुएंसर्स पर छत्तीस सौ करोड़ रुपये खर्च किए"
+  },
+  {
+   "scene": "word",
+   "small": "",
+   "big": "₹0 = ?",
+   "bigSize": 230,
+   "say": "So is free stuff a good deal, or a trap? Here's how small creators turn it into paid deals.",
+   "hi": "तो फ्री सामान डील है या ट्रैप? चलो समझते हैं",
+   "media": {
+    "q": "gift box unboxing",
+    "kind": "video"
+   }
+  },
+  {
+   "scene": "chat",
+   "lines": [
+    {
+     "who": "user",
+     "text": "no..."
+    },
+    {
+     "who": "nib",
+     "text": "yes!"
+    }
+   ],
+   "nib": {
+    "pose": "shrug",
+    "mood": "worried"
+   },
+   "say": "We've been there. Saying no feels rude, so you say yes to everything.",
+   "hi": "हम भी वहाँ रहे हैं, ना बोलना अजीब लगता है, तो हर चीज़ को हाँ बोल देते हो",
+   "media": {
+    "q": "person thinking looking at phone",
+    "kind": "photo"
+   }
+  },
+  {
+   "scene": "monitor",
+   "media": {
+    "q": "person typing on laptop",
+    "kind": "video"
+   },
+   "text": "**83%**",
+   "nib": {
+    "pose": "point",
+    "mood": "wow",
+    "x": 600,
+    "y": 160,
+    "size": 260
+   },
+   "say": "Here's the twist. In one report, eighty three percent of marketers said they struggle to find the right talent.",
+   "hi": "पर ट्विस्ट ये है, एक रिपोर्ट में तिरासी परसेंट मार्केटर्स ने कहा कि सही क्रिएटर ढूंढना मुश्किल है"
+  },
+  {
+   "scene": "card",
+   "note": "ASCI",
+   "title": "#Collab  #Ad",
+   "lines": [],
+   "say": "And in India, a free product still counts. ASCI says label it upfront, even if the brand didn't ask.",
+   "hi": "और इंडिया में फ्री प्रोडक्ट भी ऐड गिना जाता है, नियम कहता है शुरू में ही लेबल करो",
+   "media": {
+    "q": "signing contract document",
+    "kind": "photo"
+   }
+  },
+  {
+   "scene": "photo",
+   "media": {
+    "q": "empty wallet",
+    "kind": "photo"
+   },
+   "card": "Rent: **₹0**",
+   "say": "But a free product doesn't pay your rent.",
+   "hi": "पर फ्री प्रोडक्ट से आपका किराया नहीं भरता"
+  },
+  {
+   "scene": "stat",
+   "pre": "₹500 – ₹",
+   "value": 5000,
+   "unit": "per reel · **<10K** followers",
+   "media": {
+    "q": "camera filming",
+    "kind": "video"
+   },
+   "say": "One industry report puts reel rates for creators under ten thousand followers at five hundred to five thousand rupees.",
+   "hi": "एक रिपोर्ट के हिसाब से दस हज़ार से कम फॉलोअर्स वाले क्रिएटर्स को एक रील के पाँच सौ से पाँच हज़ार रुपये मिलते हैं"
+  },
+  {
+   "scene": "word",
+   "small": "",
+   "big": "Proof → ₹",
+   "nib": {
+    "x": 330,
+    "y": 1180,
+    "size": 300,
+    "pose": "cheer",
+    "mood": "happy"
+   },
+   "say": "So free stuff is a good deal only when it gets you proof. Then you ask for money.",
+   "bigSize": 170,
+   "hi": "तो फ्री सामान तभी डील है जब उससे आपको प्रूफ मिले, फिर पैसे मांगो",
+   "media": {
+    "q": "counting money cash",
+    "kind": "video"
+   }
+  },
+  {
+   "scene": "phone",
+   "contact": "Brand",
+   "media": {
+    "q": "person texting on phone",
+    "kind": "photo"
+   },
+   "msgs": [
+    {
+     "from": "me",
+     "text": "Results ✓",
+     "time": "6:40"
+    },
+    {
+     "from": "me",
+     "text": "My rate: **₹ ____**",
+     "time": "6:41"
+    }
+   ],
+   "say": "Send this. Loved working on this. Here's what the post did. For the next one, my rate is this.",
+   "hi": "ये मैसेज भेजो, काम करके मज़ा आया, पोस्ट के रिज़ल्ट ये रहे, और अगली बार मेरा रेट इतना है"
+  },
+  {
+   "scene": "icons",
+   "items": [
+    {
+     "g": "✓",
+     "w": "Pick"
+    },
+    {
+     "g": "#",
+     "w": "Label"
+    },
+    {
+     "g": "₹",
+     "w": "Ask"
+    }
+   ],
+   "say": "Try this. Say yes only if you'd buy it. Label it and post your best. Then send your results and your rate.",
+   "hi": "ट्राय करो, वही लो जो आप खुद खरीदते, लेबल करो और बेस्ट पोस्ट डालो, फिर रिज़ल्ट और रेट भेजो",
+   "media": {
+    "q": "creator filming with smartphone",
+    "kind": "video"
+   }
+  },
+  {
+   "scene": "cta",
+   "text": "**Send** ➜",
+   "say": "Follow us for more on creator growth and monetisation. And send this to a creator who only gets paid in freebies.",
+   "hi": "ऐसी और बातों के लिए फॉलो करो, और ये उस क्रिएटर को भेजो जिसे सिर्फ फ्री सामान मिलता है"
+  }
+ ]
+}
