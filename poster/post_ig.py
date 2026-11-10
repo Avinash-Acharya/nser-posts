@@ -226,7 +226,8 @@ def main():
     if DRY: return
     other = prop_text(row, "Reel post" if kind == "carousel" else "Carousel post")
     upd = {done_field: link if link.startswith("http") else None}
-    if other: upd["Status"] = "Posted"
+    reel_only = not os.path.isdir(os.path.join(ROOT, "posts", day, "carousel"))
+    if other or (kind == "reel" and reel_only): upd["Status"] = "Posted"
     if warn: upd["Notes"] = warn
     set_props(row, **{k: v for k, v in upd.items() if v is not None})
 

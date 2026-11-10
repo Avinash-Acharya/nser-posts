@@ -2,7 +2,6 @@ name: Post to Instagram
 
 on:
   schedule:
-    - cron: "30 5 * * *"    # 11:00 IST  -> carousel
     - cron: "30 13 * * *"   # 19:00 IST  -> reel
   workflow_dispatch:
     inputs:

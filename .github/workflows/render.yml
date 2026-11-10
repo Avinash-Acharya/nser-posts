@@ -1,0 +1,56 @@
+name: Render Hindi reel
+
+# Runs when Avinash's PC pushes the Hindi voice for a day (posts/<date>/voice/manifest.json).
+on:
+  push:
+    paths:
+      - "posts/*/voice/manifest.json"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "YYYY-MM-DD"
+        required: true
+
+concurrency:
+  group: render
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Which day
+        id: day
+        run: |
+          if [ -n "${{ inputs.date }}" ]; then D="${{ inputs.date }}"
+          else D=$(git diff --name-only HEAD~1 HEAD -- 'posts/*/voice/manifest.json' | head -1 | cut -d/ -f2); fi
+          [ -z "$D" ] && echo "no day found" && exit 1
+          echo "d=$D" >> $GITHUB_OUTPUT; echo "Rendering $D"
+      - name: Install tools
+        run: |
+          sudo apt-get install -y -qq ffmpeg >/dev/null
+          pip install -q numpy soundfile scipy playwright
+          python -m playwright install --with-deps chromium >/dev/null
+      - name: Render
+        run: |
+          D=posts/${{ steps.day.outputs.d }}
+          python engine/tts.py $D none
+          python engine/render_explainer.py $D
+          mv $D/reel/reel.mp4 $D/reel.mp4 && rm -rf $D/reel
+      - name: Commit the reel
+        run: |
+          git config user.name "nser render bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add posts/${{ steps.day.outputs.d }}/reel.mp4
+          git commit -m "Reel for ${{ steps.day.outputs.d }} (Hindi voice)"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done

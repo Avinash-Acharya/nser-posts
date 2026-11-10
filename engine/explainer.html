@@ -511,7 +511,8 @@ window.render=function(t){
   $('B').innerHTML=sceneHTML(b,lt);
   const r=inT?eio(lt/IR)*1250:2000; $('B').style.clipPath=`circle(${r}px at 540px 1050px)`;
   // captions: words light up as spoken
-  const cap=$('cap'); if(cap.dataset.k!==String(i)){cap.dataset.k=i; cap.innerHTML=b.say.split(' ').map(w=>`<span>${esc(w)} </span>`).join('');}
+  const cap=$('cap'); if(POST&&POST.captions===false){cap.style.display='none';return;}
+  if(cap.dataset.k!==String(i)){cap.dataset.k=i; cap.innerHTML=b.say.split(' ').map(w=>`<span>${esc(w)} </span>`).join('');}
   const ws=cap.querySelectorAll('span'), sp=P(t,b.start,b.start+(b.speech||b.dur)*.95);
   ws.forEach((w,j)=>{w.style.color=j/ws.length<=sp?INK:'#B9B1A3';});
 };

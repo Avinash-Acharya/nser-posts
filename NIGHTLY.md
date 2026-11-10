@@ -1,9 +1,20 @@
 # Nightly post maker (runbook for Claude)
 
-Every night, make TOMORROW's post (carousel + reel) for Instagram @nser.in_officials,
-push it to this repo, and mark it Ready in Notion. GitHub Actions posts it the next day:
-carousel at 11:00 IST, reel at 19:00 IST, only once the Notion row is Approved
-(or Ready, when the repo variable AUTO_APPROVE=true).
+## Since 10 Nov 2026: ONE Hindi reel a day, no carousel
+Every night, write TOMORROW's reel SCRIPT only (post.json + reel-caption.txt) and push it. Do NOT render and do NOT
+make a carousel. The day after:
+1. Avinash runs `daily.bat` on his PC: it makes the Hindi voice (VoxCPM2, locked storyteller voice, needs his GPU)
+   for every beat and pushes posts/<date>/voice/ (wav files + manifest.json).
+2. That push starts `.github/workflows/render.yml`, which renders reel.mp4 on GitHub.
+3. GitHub Actions posts the reel at 19:00 IST, only once the Notion row is Approved
+   (or Ready, when the repo variable AUTO_APPROVE=true).
+Rules for the Hindi reel (Avinash, 10 Nov):
+- Each explainer beat gets `"hi"`: the Hindi line that is SPOKEN. Devanagari, numbers written as words
+  ("पचास हज़ार", not "50,000"), NO danda (।), no line breaks, one short sentence. `"say"` stays the English meaning.
+- Everything written stays ENGLISH: labels, scenes, Instagram caption.
+- No subtitles in the video: set `"captions": false` in post.json.
+- Don't set "voice" or "speed"; the voice comes from Avinash's PC.
+- The sections below about the carousel, Kokoro and rendering are kept for reference only; skip them.
 
 Reference post (copy its structure and quality): `posts/2026-11-03/post.json`.
 Brand rules live in the claude.ai project doc "claude/Marketing KB". Read it first.
@@ -85,11 +96,11 @@ a soft music bed under the voice, -14 LUFS). Replaces the UI-motion (reel3) and 
 ### Captions
 - `carousel_caption`: first line ≤ 125 chars and concrete; story; one ask (send + save); then the line
   "Follow @nser.in_officials for more on creator growth and monetisation."; source; 3–5 hashtags.
-- `reel_caption`: short, points to the carousel, same single ask, the same follow line, source, hashtags.
+- `reel_caption` (English, the only caption now): short, NO mention of a carousel, same single ask, the same follow line, source, hashtags.
 - `carousel_alt`: one-line alt text.
 - Lint: `python3 tools/caption.py <file> --keywords "..."` must say READY.
 
-## 3. Render
+## 3. Render (OLD, skip since 10 Nov: GitHub renders after Avinash pushes the voice)
 ```bash
 D=posts/<YYYY-MM-DD>   # tomorrow, IST
 python3 engine/make_carousel.py $D                       # -> $D/carousel/01.jpg ...
@@ -102,10 +113,12 @@ Write `$D/caption.txt` and `$D/reel-caption.txt` from post.json. Look at every s
 before pushing: no text overlapping Nib, nothing in the bottom caption zone of the reel.
 
 ## 4. Publish for review
-- `git add posts/<date> && git commit -m "Post for <date>: <topic>" && git push`
-- Notion row: Status = Ready, Post date = tomorrow, Hook, Carousel caption, Reel caption,
+- Push only `posts/<date>/post.json` and `posts/<date>/reel-caption.txt`:
+  `git add posts/<date> && git commit -m "Script for <date>: <topic>" && git push`
+- Notion row: Status = Ready, Post date = tomorrow, Hook, Reel caption,
   Files = `https://github.com/Avinash-Acharya/nser-posts/tree/main/posts/<date>`.
-- Tell Avinash in one short message: tomorrow's topic, the hook, and that it's waiting for Approved.
+- Tell Avinash in one short message: tomorrow's topic, the hook, to run daily.bat on his PC tomorrow,
+  and to set the Notion row to Approved once the reel appears in the folder.
 
 ## Real screenshots in case studies (added 3 Nov)
 Pure motion graphics feel detached; case studies need real proof of who the creator is.
