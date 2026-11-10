@@ -205,6 +205,8 @@ def main():
 
     if not os.path.isdir(os.path.join(ROOT, "posts", day)):
         print(f"No post folder for {day}. Nothing to do."); return
+    if kind == "carousel" and not os.path.isdir(os.path.join(ROOT, "posts", day, "carousel")):
+        print(f"No carousel for {day} (reel-only day). Nothing to do."); return
     row = notion_row(day)
     if not row: print(f"No Notion row with Post date {day}. Nothing to do."); return
     status = prop_text(row, "Status")
