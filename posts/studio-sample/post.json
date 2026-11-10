@@ -10,12 +10,88 @@
  ],
  "explainer": [
   {
+   "scene": "collage",
+   "cards": [
+    {
+     "name": "Riya",
+     "handle": "@riyacreates",
+     "text": "Got my first paid brand deal at 4K followers!",
+     "kw": "paid brand deal"
+    },
+    {
+     "name": "Creator Weekly",
+     "handle": "@creatorweekly",
+     "text": "Brands now prefer nano creators",
+     "kw": "nano creators"
+    },
+    {
+     "name": "Aman",
+     "handle": "@aman.films",
+     "text": "Stop doing free collabs",
+     "kw": "free collabs"
+    },
+    {
+     "name": "Marketing Daily",
+     "handle": "@mktdaily",
+     "text": "Influencer spend up again this year",
+     "kw": "Influencer spend"
+    },
+    {
+     "name": "Sneha",
+     "handle": "@sneha.eats",
+     "text": "How much do you charge per reel?",
+     "kw": "charge"
+    }
+   ],
+   "say": "Everyone's talking about brand deals for small creators.",
+   "hi": "हर तरफ़ यही बात है, ब्रांड डील्स अब छोटे क्रिएटर्स को भी मिल रही हैं"
+  },
+  {
+   "scene": "reveal",
+   "a": {
+    "k": "gift"
+   },
+   "b": {
+    "k": "cash"
+   },
+   "words": {
+    "small": "free product",
+    "big": "≠ money"
+   },
+   "say": "But simply put, a free product is not money.",
+   "hi": "पर सीधी बात, फ्री प्रोडक्ट पैसा नहीं है"
+  },
+  {
+   "scene": "react",
+   "say": "So why do most creators still say yes?",
+   "hi": "तो फिर ज़्यादातर क्रिएटर्स हाँ क्यों बोल देते हैं?"
+  },
+  {
+   "scene": "stat",
+   "pre": "₹",
+   "value": 3600,
+   "suf": " Cr",
+   "unit": "brands · influencers · **2024**",
+   "props": [
+    {
+     "k": "coins",
+     "x": 220,
+     "y": 1430
+    },
+    {
+     "k": "cash",
+     "x": 840,
+     "y": 1440,
+     "s": 1.1,
+     "r": -8
+    }
+   ],
+   "say": "Indian brands spent three thousand six hundred crore rupees on influencers in 2024.",
+   "hi": "जबकि इंडियन ब्रांड्स ने दो हज़ार चौबीस में इन्फ्लुएंसर्स पर छत्तीस सौ करोड़ रुपये खर्च किए"
+  },
+  {
    "scene": "phone",
    "contact": "Brand",
-   "media": {
-    "q": "hand holding smartphone",
-    "kind": "video"
-   },
    "msgs": [
     {
      "from": "them",
@@ -33,110 +109,25 @@
      "time": "10:06"
     }
    ],
-   "say": "A brand sends you a free product and asks for a reel. No money.",
-   "hi": "एक ब्रांड आपको फ्री प्रोडक्ट भेजता है, और बदले में एक रील मांगता है, पैसे ज़ीरो",
    "props": [
     {
      "k": "gift",
      "x": 850,
-     "y": 1350,
-     "s": 1.1
-    }
-   ]
-  },
-  {
-   "scene": "stat",
-   "pre": "₹",
-   "value": 3600,
-   "suf": " Cr",
-   "unit": "Indian brands · influencers · **2024**",
-   "media": {
-    "q": "crowded market street",
-    "kind": "video"
-   },
-   "say": "Yet Indian brands spent three thousand six hundred crore rupees on influencer marketing in 2024.",
-   "hi": "जबकि इंडियन ब्रांड्स ने दो हज़ार चौबीस में इन्फ्लुएंसर्स पर छत्तीस सौ करोड़ रुपये खर्च किए",
-   "props": [
-    {
-     "k": "coins",
-     "x": 220,
-     "y": 1430
-    },
-    {
-     "k": "cash",
-     "x": 840,
-     "y": 1440,
-     "s": 1.1,
-     "r": -8
-    }
-   ]
-  },
-  {
-   "scene": "word",
-   "small": "",
-   "big": "₹0 = ?",
-   "bigSize": 230,
-   "say": "So is free stuff a good deal, or a trap? Here's how small creators turn it into paid deals.",
-   "hi": "तो फ्री सामान डील है या ट्रैप? चलो समझते हैं",
-   "media": {
-    "q": "gift box unboxing",
-    "kind": "video"
-   },
-   "props": [
-    {
-     "k": "gift",
-     "x": 300,
-     "y": 1250,
-     "s": 1.2,
-     "r": -10
-    },
-    {
-     "k": "cross",
-     "x": 800,
-     "y": 1260,
-     "s": 0.9,
-     "at": 0.9
-    }
-   ]
-  },
-  {
-   "scene": "chat",
-   "lines": [
-    {
-     "who": "user",
-     "text": "no..."
-    },
-    {
-     "who": "nib",
-     "text": "yes!"
+     "y": 1380,
+     "s": 1.0
     }
    ],
-   "nib": {
-    "pose": "shrug",
-    "mood": "worried"
-   },
-   "say": "We've been there. Saying no feels rude, so you say yes to everything.",
-   "hi": "हम भी वहाँ रहे हैं, ना बोलना अजीब लगता है, तो हर चीज़ को हाँ बोल देते हो",
-   "media": {
-    "q": "person thinking looking at phone",
-    "kind": "photo"
-   },
-   "props": [
-    {
-     "k": "heart",
-     "x": 820,
-     "y": 620,
-     "s": 0.7,
-     "at": 1.0
-    }
-   ]
+   "say": "Picture it. You're out with friends and a brand DMs you: free collab?",
+   "hi": "सोचो, आप दोस्तों के साथ हो, और एक ब्रांड का डीएम आता है, फ्री कोलैब?"
+  },
+  {
+   "scene": "photo",
+   "card": "Rent: **₹0**",
+   "say": "You say yes, you make the reel, and your rent? Still zero.",
+   "hi": "आप हाँ बोल देते हो, रील बनाते हो, पर किराया? वो तो ज़ीरो"
   },
   {
    "scene": "monitor",
-   "media": {
-    "q": "person typing on laptop",
-    "kind": "video"
-   },
    "text": "**83%**",
    "nib": {
     "pose": "point",
@@ -145,146 +136,60 @@
     "y": 160,
     "size": 260
    },
-   "say": "Here's the twist. In one report, eighty three percent of marketers said they struggle to find the right talent.",
-   "hi": "पर ट्विस्ट ये है, एक रिपोर्ट में तिरासी परसेंट मार्केटर्स ने कहा कि सही क्रिएटर ढूंढना मुश्किल है",
-   "props": [
+   "say": "Now the biggest game changer: 83 percent of marketers say finding the right creator is hard.",
+   "hi": "अब सबसे बड़ा गेम चेंजर, तिरासी परसेंट मार्केटर्स कहते हैं कि सही क्रिएटर ढूंढना मुश्किल है"
+  },
+  {
+   "scene": "flow",
+   "nodes": [
     {
-     "k": "megaphone",
-     "x": 180,
-     "y": 1300,
-     "s": 0.9,
-     "r": -12
+     "k": "gift",
+     "label": "Free"
+    },
+    {
+     "text": "Here's what the post did"
+    },
+    {
+     "doc": [
+      "**Results** ✓",
+      "**Rate:** ₹ ____"
+     ],
+     "label": "Paid"
     }
-   ]
+   ],
+   "say": "So your free reel can become the proof for your next paid deal.",
+   "hi": "मतलब आपकी फ्री वाली रील, अगली पेड डील का प्रूफ बन सकती है"
+  },
+  {
+   "scene": "chat",
+   "lines": [
+    {
+     "who": "user",
+     "text": "under 10K?"
+    },
+    {
+     "who": "nib",
+     "text": "₹500–5,000"
+    },
+    {
+     "who": "user",
+     "text": "wait... what"
+    }
+   ],
+   "nib": {
+    "pose": "cheer",
+    "mood": "happy"
+   },
+   "say": "And the craziest part: even under 10K followers, a reel can pay five hundred to five thousand rupees.",
+   "hi": "और सबसे मज़ेदार बात, दस हज़ार से कम फॉलोअर्स पर भी एक रील के पाँच सौ से पाँच हज़ार रुपये मिलते हैं"
   },
   {
    "scene": "card",
    "note": "ASCI",
    "title": "#Collab  #Ad",
    "lines": [],
-   "say": "And in India, a free product still counts. ASCI says label it upfront, even if the brand didn't ask.",
-   "hi": "और इंडिया में फ्री प्रोडक्ट भी ऐड गिना जाता है, नियम कहता है शुरू में ही लेबल करो",
-   "media": {
-    "q": "signing contract document",
-    "kind": "photo"
-   },
-   "props": [
-    {
-     "k": "tag",
-     "x": 280,
-     "y": 1330,
-     "s": 1.0
-    }
-   ]
-  },
-  {
-   "scene": "photo",
-   "media": {
-    "q": "empty wallet",
-    "kind": "photo"
-   },
-   "card": "Rent: **₹0**",
-   "say": "But a free product doesn't pay your rent.",
-   "hi": "पर फ्री प्रोडक्ट से आपका किराया नहीं भरता",
-   "props": [
-    {
-     "k": "wallet",
-     "x": 820,
-     "y": 560,
-     "s": 0.9,
-     "r": 8
-    }
-   ]
-  },
-  {
-   "scene": "stat",
-   "pre": "₹500 – ₹",
-   "value": 5000,
-   "unit": "per reel · **<10K** followers",
-   "media": {
-    "q": "camera filming",
-    "kind": "video"
-   },
-   "say": "One industry report puts reel rates for creators under ten thousand followers at five hundred to five thousand rupees.",
-   "hi": "एक रिपोर्ट के हिसाब से दस हज़ार से कम फॉलोअर्स वाले क्रिएटर्स को एक रील के पाँच सौ से पाँच हज़ार रुपये मिलते हैं",
-   "props": [
-    {
-     "k": "coins",
-     "x": 220,
-     "y": 1430
-    },
-    {
-     "k": "chart",
-     "x": 850,
-     "y": 1440,
-     "s": 0.9
-    }
-   ]
-  },
-  {
-   "scene": "word",
-   "small": "",
-   "big": "Proof → ₹",
-   "nib": {
-    "x": 330,
-    "y": 1180,
-    "size": 300,
-    "pose": "cheer",
-    "mood": "happy"
-   },
-   "say": "So free stuff is a good deal only when it gets you proof. Then you ask for money.",
-   "bigSize": 170,
-   "hi": "तो फ्री सामान तभी डील है जब उससे आपको प्रूफ मिले, फिर पैसे मांगो",
-   "media": {
-    "q": "counting money cash",
-    "kind": "video"
-   },
-   "props": [
-    {
-     "k": "tick",
-     "x": 260,
-     "y": 1300,
-     "s": 0.9
-    },
-    {
-     "k": "cash",
-     "x": 800,
-     "y": 1300,
-     "s": 1.1,
-     "r": 6,
-     "at": 0.8
-    }
-   ]
-  },
-  {
-   "scene": "phone",
-   "contact": "Brand",
-   "media": {
-    "q": "person texting on phone",
-    "kind": "photo"
-   },
-   "msgs": [
-    {
-     "from": "me",
-     "text": "Results ✓",
-     "time": "6:40"
-    },
-    {
-     "from": "me",
-     "text": "My rate: **₹ ____**",
-     "time": "6:41"
-    }
-   ],
-   "say": "Send this. Loved working on this. Here's what the post did. For the next one, my rate is this.",
-   "hi": "ये मैसेज भेजो, काम करके मज़ा आया, पोस्ट के रिज़ल्ट ये रहे, और अगली बार मेरा रेट इतना है",
-   "props": [
-    {
-     "k": "chart",
-     "x": 180,
-     "y": 1450,
-     "s": 0.8
-    }
-   ]
+   "say": "Just one rule: label it as an ad, even when it's free.",
+   "hi": "बस एक नियम, फ्री प्रोडक्ट पर भी शुरू में ही ऐड लेबल लगाओ"
   },
   {
    "scene": "icons",
@@ -302,32 +207,30 @@
      "w": "Ask"
     }
    ],
-   "say": "Try this. Say yes only if you'd buy it. Label it and post your best. Then send your results and your rate.",
-   "hi": "ट्राय करो, वही लो जो आप खुद खरीदते, लेबल करो और बेस्ट पोस्ट डालो, फिर रिज़ल्ट और रेट भेजो",
-   "media": {
-    "q": "creator filming with smartphone",
-    "kind": "video"
-   }
+   "say": "So: pick it, post your best, then send your rate.",
+   "hi": "तो सही चीज़ चुनो, बेस्ट पोस्ट बनाओ, और अगली बार अपना रेट भेजो"
+  },
+  {
+   "scene": "reveal",
+   "a": {
+    "k": "gift"
+   },
+   "b": {
+    "k": "coins"
+   },
+   "flipAt": 0.6,
+   "words": {
+    "small": "free",
+    "big": "→ paid"
+   },
+   "say": "Start free. End paid.",
+   "hi": "फ्री से शुरू, पेड पर ख़त्म"
   },
   {
    "scene": "cta",
    "text": "**Send** ➜",
-   "say": "Follow us for more on creator growth and monetisation. And send this to a creator who only gets paid in freebies.",
-   "hi": "ऐसी और बातों के लिए फॉलो करो, और ये उस क्रिएटर को भेजो जिसे सिर्फ फ्री सामान मिलता है",
-   "props": [
-    {
-     "k": "heart",
-     "x": 200,
-     "y": 800,
-     "s": 0.7
-    },
-    {
-     "k": "megaphone",
-     "x": 880,
-     "y": 820,
-     "s": 0.7
-    }
-   ]
+   "say": "Follow for more, and send this to a creator who only gets freebies.",
+   "hi": "ऐसी और बातों के लिए फॉलो करो, और ये उस क्रिएटर को भेजो जिसे सिर्फ फ्री सामान मिलता है"
   }
  ]
 }
