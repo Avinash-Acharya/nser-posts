@@ -106,11 +106,11 @@ SC.word={ draw(b,lt){ const p=eb(P(lt,.1,.5)), g=b.glyph;
 
 // an extruded paper card typing itself (an email, a note, a DM), with a small bubble linked by a dashed line
 SC.card={ draw(b,lt){ const p=eo(P(lt,0,.45)), lines=b.lines||[]; let body='', at=.5;
-  lines.forEach(l=>{ body+=`<div style="margin-top:20px">${typed(l,lt,at,34)}</div>`; at+=Math.max(.5,l.length/34); });
-  return `${b.note?`<div class="abs bub" style="left:70px;top:820px;max-width:430px;transform:scale(${eb(P(lt,.2,.5))})">${rich(b.note)}</div>
-      <div class="abs" style="left:500px;top:880px;width:${110*eo(P(lt,.4,.7))}px;border-top:6px dashed #2a2a2a"></div>`:''}
-    <div class="abs card" style="left:${b.note?560:150}px;right:${b.note?70:150}px;top:${lerp(760,640,p)}px;min-height:640px;padding:48px 44px;font:500 36px/1.3 Geist,Deva;transform:rotate(${lerp(4,0,p)}deg)">
-      <div style="font:700 38px Geist,Deva">${rich(b.title||'')}</div>${body}</div>`; },
+  lines.forEach(l=>{ body+=`<div style="margin-top:22px">${typed(l,lt,at,34)}</div>`; at+=Math.max(.5,l.length/34); });
+  return `${b.note?`<div class="abs bub" style="left:110px;top:520px;transform:scale(${eb(P(lt,.2,.5))});transform-origin:0 50%">${rich(b.note)}</div>
+      <div class="abs" style="left:200px;top:610px;height:${110*eo(P(lt,.4,.7))}px;border-left:6px dashed #2a2a2a"></div>`:''}
+    <div class="abs card" style="left:120px;right:120px;top:${lerp(840,740,p)}px;padding:56px 54px;font:500 46px/1.3 Geist,Deva;transform:rotate(${lerp(4,-1,p)}deg)">
+      <div style="font:800 58px/1.1 Geist,Deva;letter-spacing:-.02em">${rich(b.title||'')}</div>${body}</div>`+nib(b.nib===undefined?{x:560,y:1130,size:280,pose:'point',mood:'smile'}:b.nib,lt,.7); },
   ev:b=>[[0,'whoosh',.3],[.5,'scribble',.25]] };
 
 // a big number counting up on a card, B&W photo blurred behind

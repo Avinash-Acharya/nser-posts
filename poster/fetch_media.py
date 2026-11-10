@@ -18,9 +18,15 @@ UA = {"User-Agent": "nser-reels/1.0 (media fetcher)"}
 
 
 def get(url, headers=None):
-    req = urllib.request.Request(url, headers={**UA, **(headers or {})})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return r.read()
+    import time
+    for attempt in range(4):   # Openverse often answers 504 at first
+        try:
+            req = urllib.request.Request(url, headers={**UA, **(headers or {})})
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return r.read()
+        except urllib.error.HTTPError as e:
+            if e.code not in (429, 500, 502, 503, 504) or attempt == 3: raise
+            time.sleep(4 * (attempt + 1))
 
 
 def pexels_video(q, key):
