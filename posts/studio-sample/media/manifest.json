@@ -1,9 +1,4 @@
 {
- "3": {
-  "file": "03.jpg",
-  "kind": "photo",
-  "credit": "Openverse CC0"
- },
  "4": {
   "file": "04.jpg",
   "kind": "photo",
@@ -21,6 +16,11 @@
  },
  "9": {
   "file": "09.jpg",
+  "kind": "photo",
+  "credit": "Openverse CC0"
+ },
+ "0": {
+  "file": "00.jpg",
   "kind": "photo",
   "credit": "Openverse CC0"
  }

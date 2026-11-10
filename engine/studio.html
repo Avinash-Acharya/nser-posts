@@ -31,6 +31,10 @@
 <div id="wm" class="abs">@nser.in_officials</div>
 <div id="cap" class="abs"></div>
 <div id="vig"></div>
+<svg width="0" height="0" style="position:absolute"><filter id="mbS" x="-20%" y="-5%" width="140%" height="110%"><feGaussianBlur id="mbSg" stdDeviation="0 0"/></filter>
+  <filter id="mbA" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur id="mbAg" stdDeviation="0 0"/></filter>
+  <filter id="mbB" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur id="mbBg" stdDeviation="0 0"/></filter>
+  <filter id="mbF" x="-20%" y="-5%" width="140%" height="110%"><feGaussianBlur id="mbFg" stdDeviation="0 0"/></filter></svg>
 <svg id="grain" width="1080" height="1920"><filter id="gn"><feTurbulence id="gt" type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="1"/><feColorMatrix type="saturate" values="0"/></filter><rect width="1080" height="1920" filter="url(#gn)"/></svg>
 <script>
 const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
@@ -51,8 +55,26 @@ function mediaSrc(i,lt){ const m=MEDIA[i]; if(!m) return '';
 function mediaFill(b,lt,o={}){ const src=mediaSrc(b.i,lt); if(!src) return `<div class="layer" style="background:linear-gradient(160deg,#D9D1C3,#CFC6B6)"></div>`;
   const z=(o.zoom||1.08)+.06*P(lt,0,b.dur+.4);
   return `<img class="abs bw" src="${src}" style="left:0;top:0;width:1080px;height:1920px;object-fit:cover;transform:scale(${z});transform-origin:50% 45%;${o.blur?`filter:grayscale(1) contrast(1.1) blur(${o.blur}px) brightness(1.05)`:''}">`; }
-const nib=(o,lt,at=.3)=>{ if(!o) return ''; const p=eb(P(lt,at,at+.45)), bob=Math.sin(lt*2.6)*8;
-  return `<div class="abs" style="left:${o.x??330}px;top:${o.y??700}px;transform:translateY(${(1-p)*160+bob}px) scale(${.6+.4*p});opacity:${clamp(p*1.4)};transform-origin:50% 100%;">${mascotSVG({pose:o.pose||'wave',mood:o.mood||'happy',size:o.size||420})}</div>`; };
+// Nib is never still: drops in with squash-and-stretch, bobs, sways, blinks, waves (arm swaps on twos, hand-drawn
+// style), and can turn round (o.turnAt: spins on its vertical axis, like the reference character).
+const nibBody=(o,lt,size)=>{ const mood=o.mood||'happy'; let pose=o.pose||'wave';
+  if(pose==='wave'&&o.anim!==false) pose=Math.floor(lt*3.3)%2?'wave':'idle';
+  if(pose==='cheer'&&o.anim!==false) pose=Math.floor(lt*3.3)%3?'cheer':'wave';
+  const blink=mood!=='happy'&&((lt+(o.x||0)*.003)%2.7)<.11;
+  return mascotSVG({pose,mood,size,blink}); };
+const nib=(o,lt,at=.3)=>{ if(!o) return ''; const p=eb(P(lt,at,at+.45)), land=P(lt,at+.32,at+.62), sq=Math.sin(land*Math.PI)*.14;
+  const bob=Math.sin(lt*3.2)*10*p, sway=Math.sin(lt*1.8)*3.5, fall=(1-eo(P(lt,at,at+.4)))*-260;
+  const turn=o.turnAt!=null?Math.cos(P(lt,o.turnAt,o.turnAt+.4)*Math.PI*2):1;
+  return `<div class="abs" style="left:${o.x??330}px;top:${o.y??700}px;transform:translateY(${fall+bob}px) rotate(${sway}deg) scale(${(1+sq)*Math.max(.05,Math.abs(turn))},${1-sq});opacity:${clamp(p*2)};transform-origin:50% 100%;filter:blur(${(1-eo(P(lt,at,at+.3)))*8}px)">${nibBody(o,lt,o.size||420)}</div>`; };
+// kinetic words: each word flies in on its own (stagger, scatter, motion blur) and, with o.out, scatters away again
+function kin(str,lt,at,o={}){ let acc=false;
+  return String(str||'').split(' ').filter(Boolean).map((w,k)=>{ const s=Math.sin((k+1)*12.9898+(o.seed||0))*43758.5453, r=s-Math.floor(s);
+    const a=at+k*(o.step??.09), p=eb(P(lt,a,a+.38)), e=eo(P(lt,a,a+.3));
+    let dx=(r-.5)*160*(1-e), dy=(1-e)*(70+r*70), rot=(r-.5)*24*(1-e), bl=(1-e)*10, op=clamp(e*1.8);
+    if(o.out!=null){ const q=eio(P(lt,o.out+k*.035,o.out+k*.035+.28)); dy-=q*(90+r*140); dx+=(r-.5)*260*q; rot+=(r-.5)*40*q; bl+=q*12; op*=1-q; }
+    const st=w.startsWith('**'), en=w.endsWith('**'); if(st) acc=true; const cls=acc?'acc':''; if(en) acc=false;
+    return `<span class="${cls}" style="display:inline-block;margin:0 .13em;transform:translate(${dx}px,${dy}px) rotate(${rot}deg) scale(${.55+.45*p});filter:blur(${bl}px);opacity:${op}">${esc(w.replace(/\*\*/g,''))}</span>`; }).join(''); }
+const pop=(lt,a,d=.4)=>{ const p=eb(P(lt,a,a+d)); return {s:.4+.6*p, o:clamp(eo(P(lt,a,a+d*.6))*1.5), bl:(1-eo(P(lt,a,a+d*.7)))*10}; };
 function typed(str,lt,at,cps=28){ const n=Math.floor(Math.max(0,lt-at)*cps); return rich(str.slice(0,n))+(n<str.length&&lt>at?'<span style="opacity:.5">|</span>':''); }
 
 // blurred black-and-white footage behind a text scene, when the beat has media
@@ -71,11 +93,19 @@ const PROP={
  cross:`<circle r="80" fill="#F27059" ${INKS}/><path d="M-30 -30 L30 30 M30 -30 L-30 30" stroke="#1F1D1A" stroke-width="16" stroke-linecap="round"/>`,
  megaphone:`<path d="M-80 -30 L40 -90 L40 90 L-80 30Z" fill="#FFD23F" ${INKS}/><rect x="-110" y="-34" width="40" height="68" rx="10" fill="#fff" ${INKS}/><path d="M70 -40 Q100 0 70 40" fill="none" ${INKS}/>`,
  tag:`<path d="M-100 -60 L60 -60 L110 0 L60 60 L-100 60Z" fill="#fff" ${INKS}/><circle cx="62" cy="0" r="12" fill="#fff" ${INKS}/>`,
- clock:`<circle r="90" fill="#fff" ${INKS}/><path d="M0 0 L0 -56 M0 0 L40 20" stroke="#1F1D1A" stroke-width="12" stroke-linecap="round"/>`
+ clock:`<circle r="90" fill="#fff" ${INKS}/><path d="M0 0 L0 -56 M0 0 L40 20" stroke="#1F1D1A" stroke-width="12" stroke-linecap="round"/>`,
+ warn:`<path d="M0 -100 L105 85 L-105 85Z" fill="#FFD23F" ${INKS}/><rect x="-9" y="-40" width="18" height="70" rx="9" fill="#1F1D1A"/><circle cx="0" cy="58" r="11" fill="#1F1D1A"/>`,
+ phone:`<rect x="-60" y="-110" width="120" height="220" rx="22" fill="#fff" ${INKS}/><rect x="-22" y="-98" width="44" height="10" rx="5" fill="#1F1D1A"/>`,
+ mail:`<rect x="-110" y="-70" width="220" height="140" rx="16" fill="#fff" ${INKS}/><path d="M-104 -62 L0 12 L104 -62" fill="none" ${INKS}/>`,
+ star:`<path d="M0 -95 L27 -30 L95 -28 L42 15 L60 85 L0 45 L-60 85 L-42 15 L-95 -28 L-27 -30Z" fill="#FFD23F" ${INKS}/>`
 };
-function props(b,lt){ return (b.props||[]).map((o,k)=>{ const at=o.at??(.3+k*.25), p=eb(P(lt,at,at+.45)), fl=Math.sin(lt*2+k)*10;
-  return `<svg class="abs" style="left:${o.x-150}px;top:${o.y-150}px;overflow:visible" width="300" height="300" viewBox="-150 -150 300 300">
-    <g transform="translate(0 ${(1-p)*140+fl}) scale(${(o.s||1)*p}) rotate(${(o.r||0)+(1-p)*-20})" opacity="${clamp(p*1.5)}">${PROP[o.k]||''}</g></svg>`; }).join(''); }
+// props pop in with blur, then keep floating and wobbling (never frozen)
+function props(b,lt){ return (b.props||[]).map((o,k)=>{ const at=o.at??(.3+k*.25), p=eb(P(lt,at,at+.45)), fl=Math.sin(lt*2.2+k*1.7)*12, wob=Math.sin(lt*2.8+k)*6;
+  return `<svg class="abs" style="left:${o.x-150}px;top:${o.y-150}px;overflow:visible;filter:blur(${(1-eo(P(lt,at,at+.3)))*9}px)" width="300" height="300" viewBox="-150 -150 300 300">
+    <g transform="translate(0 ${(1-p)*160+fl}) scale(${(o.s||1)*p}) rotate(${(o.r||0)+(1-p)*-30+wob})" opacity="${clamp(p*1.5)}">${PROP[o.k]||''}</g></svg>`; }).join(''); }
+// a sunburst that slowly spins behind a hero object (reference: the rays behind the logo after the flip)
+const burst=(lt,a,cx=540,cy=900,r=520)=>{ const p=eo(P(lt,a,a+.5)); if(p<=0) return '';
+  return `<svg class="abs" style="left:${cx-r}px;top:${cy-r}px;opacity:${.55*p}" width="${2*r}" height="${2*r}" viewBox="-1 -1 2 2"><g transform="rotate(${lt*14}) scale(${.6+.4*p})">${[...Array(14)].map((_,k)=>`<path d="M0 0 L${Math.cos(k*Math.PI/7-.1)} ${Math.sin(k*Math.PI/7-.1)} L${Math.cos(k*Math.PI/7+.1)} ${Math.sin(k*Math.PI/7+.1)}Z" fill="#FFD23F" opacity=".55"/>`).join('')}</g></svg>`; };
 // ---------------- scenes ----------------
 const SC={};
 // full-bleed black-and-white photo/clip, optional floating card and Nib
@@ -85,23 +115,35 @@ SC.photo={ draw(b,lt){ const p=eb(P(lt,.35,.8));
    +nib(b.nib,lt,.5); }, ev:b=>[[.35,'pop',.35]] };
 
 // a desk monitor showing the photo/clip, camera pushes in, cursor wanders, Nib pops onto the screen
-SC.monitor={ draw(b,lt){ const z=lerp(.86,1.08,eio(P(lt,0,b.dur))), cx=lerp(260,640,eio(P(lt,.4,1.6))), cy=lerp(560,760,eio(P(lt,.4,1.6)));
+// screen activity (reference: an app window slides in, code types itself, a warning pops and shakes):
+// b.lines = typed lines in a dark app window; b.alert = time a warning sign pops; b.nib on screen
+SC.monitor={ draw(b,lt){ const z=lerp(.82,1.1,eio(P(lt,0,b.dur))), cx=lerp(200,620,eio(P(lt,.3,1.3)))+Math.sin(lt*2.4)*30, cy=lerp(520,700,eio(P(lt,.3,1.3)))+Math.cos(lt*1.9)*20;
+  const L=b.lines||[], wp=eo(P(lt,.8,1.2)); let code=''; let at=1.1; L.forEach(l=>{ code+=`<div style="min-height:34px">${lt>at?typed(l,lt,at,30):''}</div>`; at+=Math.max(.35,l.length/30); });
+  const al=b.alert!=null?pop(lt,b.alert,.35):null, shake=b.alert!=null&&lt>b.alert?Math.sin(lt*40)*6*(1-P(lt,b.alert+.35,b.alert+.9)):0;
+  const nb=b.nib?pop(lt,.9,.45):null;
   return `<div class="layer" style="transform:scale(${z});transform-origin:540px 860px">
-    <div class="abs" style="left:0;right:0;top:1180px;bottom:0;background:linear-gradient(#2B2925,#1E1C19)"></div>
-    <div class="abs" style="left:470px;top:1090px;width:140px;height:110px;background:#26241F"></div>
-    <div class="abs" style="left:60px;top:470px;width:960px;height:640px;border-radius:26px;background:#141311;padding:16px;box-shadow:0 40px 80px rgba(0,0,0,.35)">
+    <div class="abs" style="left:0;right:0;top:1150px;bottom:0;background:linear-gradient(#3A3732,#2A2824 30%,#22201D)"></div>
+    <div class="abs" style="left:0;right:0;top:1150px;height:8px;background:#55514A"></div>
+    <div class="abs" style="left:440px;top:1110px;width:200px;height:44px;border-radius:10px 10px 4px 4px;background:#2E2C28"></div>
+    <div class="abs" style="left:515px;top:1060px;width:50px;height:60px;background:#2E2C28"></div>
+    <div class="abs" style="left:60px;top:430px;width:960px;height:640px;border-radius:26px;background:#141311;padding:16px;box-shadow:0 40px 80px rgba(0,0,0,.3)">
       <div style="position:relative;width:100%;height:100%;border-radius:14px;overflow:hidden">${mediaFill(b,lt,{zoom:1.02}).replace('width:1080px;height:1920px','width:928px;height:608px')}
-        ${b.nib?`<div class="abs" style="left:${b.nib.x??330}px;top:${b.nib.y??120}px;transform:scale(${eb(P(lt,.9,1.3))});">${mascotSVG({pose:b.nib.pose||'wave',mood:b.nib.mood||'happy',size:b.nib.size||300})}</div>`:''}
-        ${b.text?`<div class="abs" style="left:40px;top:40px;font:800 150px/1 Geist;letter-spacing:-.04em;color:#fff;text-shadow:0 4px 24px rgba(0,0,0,.55);transform:scale(${eb(P(lt,1.0,1.4))});transform-origin:0 0">${rich(b.text)}</div>`:''}
+        ${nb?`<div class="abs" style="left:${b.nib.x??330}px;top:${(b.nib.y??120)+Math.sin(lt*3)*8}px;transform:scale(${nb.s});opacity:${nb.o};filter:blur(${nb.bl}px)">${nibBody(b.nib,lt,b.nib.size||300)}</div>`:''}
+        ${L.length?`<div class="abs" style="left:${lerp(-480,40,wp)}px;top:40px;width:430px;height:530px;border-radius:14px;background:#2B2A28;box-shadow:0 20px 40px rgba(0,0,0,.4);padding:56px 26px;font:500 22px/1.5 ui-monospace,monospace;color:#E7E2D8;filter:blur(${(1-wp)*12}px)">
+          <div class="abs" style="left:18px;top:18px;display:flex;gap:8px"><i style="width:14px;height:14px;border-radius:7px;background:#F26B5B"></i><i style="width:14px;height:14px;border-radius:7px;background:#F5BE4F"></i><i style="width:14px;height:14px;border-radius:7px;background:#5BC26A"></i></div>${code}</div>`:''}
+        ${al?`<svg class="abs" style="left:${L.length?180:360}px;top:170px;overflow:visible;transform:translateX(${shake}px) scale(${al.s});opacity:${al.o};filter:blur(${al.bl}px)" width="240" height="240" viewBox="-150 -150 300 300">${PROP.warn}</svg>`:''}
+        ${b.text?`<div class="abs" style="${L.length?'right:40px;bottom:30px':'left:40px;top:40px'};font:800 150px/1 Geist;letter-spacing:-.04em;color:#fff;text-shadow:0 4px 24px rgba(0,0,0,.55);white-space:nowrap">${kin(b.text,lt,1.0,{step:.12})}</div>`:''}
         <svg class="abs" style="left:${cx}px;top:${cy}px" width="44" height="44" viewBox="0 0 60 60"><path d="M8 4 L8 46 L19 36 L27 54 L35 50 L27 33 L42 33 Z" fill="#fff" stroke="#000" stroke-width="3"/></svg>
-      </div></div></div>`; }, ev:b=>[[.9,'pop',.45],[1.6,'click',.35]] };
+      </div></div></div>`; }, ev:b=>[[.8,'whoosh',.25],[.9,'pop',.45],[1.3,'click',.35],...(b.alert!=null?[[b.alert,'thump',.45]]:[])] };
 
 // a phone with a chat; the photo/clip blurred behind
-SC.phone={ draw(b,lt){ const msgs=b.msgs||[], step=Math.max(.7,(b.dur-.6)/Math.max(1,msgs.length)), p=eo(P(lt,0,.5));
-  let h=''; msgs.forEach((m,k)=>{ const a=.4+k*step, q=eb(P(lt,a,a+.3)); if(lt<a) return;
-    const me=m.from==='me'; h+=`<div style="display:flex;justify-content:${me?'flex-end':'flex-start'};margin:16px 0;transform:scale(${q});transform-origin:${me?'100%':'0%'} 50%"><div style="max-width:80%;padding:22px 30px;border-radius:28px;font:600 52px/1.2 Geist,Deva;background:${me?'#DCF8C6':'#fff'};box-shadow:0 2px 6px rgba(0,0,0,.08)">${rich(m.text)}<div style="font:500 22px Geist;color:#8a8a8a;text-align:right;margin-top:6px">${m.time||''}</div></div></div>`; });
+SC.phone={ draw(b,lt){ const msgs=b.msgs||[], step=Math.max(.7,(b.dur-.6)/Math.max(1,msgs.length)), p=eo(P(lt,0,.55));
+  let h=''; msgs.forEach((m,k)=>{ const a=.45+k*step, q=eb(P(lt,a,a+.3)), me=m.from==='me';
+    if(!me&&lt>=a-.4&&lt<a){ h+=`<div style="display:flex;margin:16px 0"><div style="padding:26px 30px;border-radius:28px;background:#fff;display:flex;gap:10px">${[0,1,2].map(d=>`<i style="width:16px;height:16px;border-radius:8px;background:#9a948a;transform:translateY(${Math.sin(lt*14-d)*6}px)"></i>`).join('')}</div></div>`; return; }
+    if(lt<a) return;
+    h+=`<div style="display:flex;justify-content:${me?'flex-end':'flex-start'};margin:16px 0;transform:scale(${q}) translateY(${(1-q)*30}px);transform-origin:${me?'100%':'0%'} 100%"><div style="max-width:80%;padding:22px 30px;border-radius:28px;font:600 52px/1.2 Geist,Deva;background:${me?'#DCF8C6':'#fff'};box-shadow:0 2px 6px rgba(0,0,0,.08)">${rich(m.text)}<div style="font:500 22px Geist;color:#8a8a8a;text-align:right;margin-top:6px">${m.time||''}</div></div></div>`; });
   return mediaFill(b,lt,{blur:14})+`<div class="layer" style="background:rgba(233,226,214,.35)"></div>
-    <div class="abs" style="left:250px;top:${lerp(560,420,p)}px;width:580px;height:1060px;border-radius:70px;background:#121110;padding:18px;box-shadow:16px 18px 0 rgba(31,29,26,.18);transform:rotate(${lerp(6,-2,p)}deg)">
+    <div class="abs" style="left:250px;top:${lerp(1500,420,p)+Math.sin(lt*1.6)*10}px;width:580px;height:1060px;border-radius:70px;background:#121110;padding:18px;box-shadow:16px 18px 0 rgba(31,29,26,.18);transform:rotate(${lerp(10,-2,p)+Math.sin(lt*1.3)*1.2}deg);filter:blur(${(1-eo(P(lt,0,.4)))*14}px)">
       <div style="width:100%;height:100%;border-radius:54px;background:#ECE5DD;overflow:hidden;padding:110px 26px 30px;position:relative">
         <div class="abs" style="left:50%;top:18px;width:150px;height:36px;margin-left:-75px;border-radius:20px;background:#121110"></div>
         <div class="abs" style="left:0;right:0;top:56px;text-align:center;font:600 28px Geist;color:#555">${esc(b.contact||'Creator')}</div>${h}</div></div>`; },
@@ -110,7 +152,8 @@ SC.phone={ draw(b,lt){ const msgs=b.msgs||[], step=Math.max(.7,(b.dur-.6)/Math.m
 // Nib (top) and a viewer (bottom) talking in bubbles
 SC.chat={ draw(b,lt){ const L=b.lines||[], step=Math.max(.8,(b.dur-.5)/Math.max(1,L.length));
   let h=''; L.forEach((l,k)=>{ const a=.3+k*step; if(lt<a) return; const nibSide=l.who==='nib', q=eb(P(lt,a,a+.3));
-    h+=`<div class="abs bub" style="left:50%;top:${nibSide?820:1130}px;transform:translateX(-50%) scale(${q});white-space:nowrap;opacity:${k===L.length-1||L[k+1]&&L[k+1].who!==l.who||lt<a+step?1:0}">${typed(l.text,lt,a,40)}</div>`; });
+    const dots=lt<a+.35?`<span style="display:inline-flex;gap:10px">${[0,1,2].map(d=>`<i style="width:16px;height:16px;border-radius:8px;background:#9a948a;transform:translateY(${Math.sin(lt*14-d)*6}px)"></i>`).join('')}</span>`:typed(l.text,lt,a+.35,40);
+    h+=`<div class="abs bub" style="left:50%;top:${nibSide?820:1130}px;transform:translateX(-50%) scale(${q});white-space:nowrap;opacity:${k===L.length-1||L[k+1]&&L[k+1].who!==l.who||lt<a+step?1:0}">${dots}</div>`; });
   return backdrop(b,lt)+`${nib(Object.assign({x:330,y:360,size:380,pose:'idle',mood:'smile'},b.nib||{}),lt,0)}
     <div class="abs" style="left:465px;top:1290px;width:150px;height:150px;border-radius:50%;background:#BDB5A8;border:4px solid #1F1D1A;overflow:hidden">
       <div style="position:absolute;left:47px;top:30px;width:56px;height:56px;border-radius:50%;background:#E8E8E8"></div><div style="position:absolute;left:25px;top:96px;width:100px;height:80px;border-radius:50%;background:#E8E8E8"></div></div>${h}`; },
@@ -120,26 +163,27 @@ SC.chat={ draw(b,lt){ const L=b.lines||[], step=Math.max(.8,(b.dur-.5)/Math.max(
 SC.word={ draw(b,lt){ const p=eb(P(lt,.1,.5)), g=b.glyph;
   return backdrop(b,lt)
    +(g?`<div class="abs" style="left:0;right:0;top:560px;text-align:center;font:800 640px/1 Geist;transform:rotate(${lerp(-25,0,p)}deg) scale(${.7+.3*p});filter:blur(${(1-p)*14}px)">${esc(g)}</div>`:'')
-   +`<div class="abs" style="left:80px;right:80px;top:${g?1280:820}px;text-align:center">
-      <div style="font:600 64px/1.1 Geist,Deva;opacity:${eo(P(lt,.15,.45))}">${typed(b.small||'',lt,.15,30)}</div>
-      <div style="font:800 ${b.bigSize||170}px/1 Geist,Deva;letter-spacing:-.04em;margin-top:10px;color:var(--y2);transform:translateY(${(1-eb(P(lt,.45,.9)))*60}px);opacity:${eo(P(lt,.45,.7))};">${esc(b.big||'')}</div></div>`
+   +`<div class="abs" style="left:60px;right:60px;top:${g?1280:820}px;text-align:center">
+      <div style="font:600 64px/1.1 Geist,Deva">${kin(b.small||'',lt,.12,{out:b.dur>2.4?b.dur-.4:null})}</div>
+      <div style="font:800 ${b.bigSize||170}px/1 Geist,Deva;letter-spacing:-.04em;margin-top:10px;color:var(--y2);transform:scale(${1+.03*Math.sin(lt*4)})">${kin(b.big||'',lt,.45,{step:.12,seed:3,out:b.dur>2.4?b.dur-.35:null})}</div></div>`
    +nib(b.nib,lt,.6); }, ev:b=>[[.1,'whoosh',.3],[.45,'thump',.35]] };
 
 // an extruded paper card typing itself (an email, a note, a DM), with a small bubble linked by a dashed line
 SC.card={ draw(b,lt){ const p=eo(P(lt,0,.45)), lines=b.lines||[]; let body='', at=.5;
   lines.forEach(l=>{ body+=`<div style="margin-top:22px">${typed(l,lt,at,34)}</div>`; at+=Math.max(.5,l.length/34); });
-  return backdrop(b,lt)+ `${b.note?`<div class="abs bub" style="left:110px;top:520px;transform:scale(${eb(P(lt,.2,.5))});transform-origin:0 50%">${rich(b.note)}</div>
+  return backdrop(b,lt)+ `${b.note?`<div class="abs bub" style="left:110px;top:${520+Math.sin(lt*2)*8}px;transform:scale(${eb(P(lt,.2,.5))});transform-origin:0 50%">${rich(b.note)}</div>
       <div class="abs" style="left:200px;top:610px;height:${110*eo(P(lt,.4,.7))}px;border-left:6px dashed #2a2a2a"></div>`:''}
-    <div class="abs card" style="left:120px;right:120px;top:${lerp(840,740,p)}px;padding:56px 54px;font:500 46px/1.3 Geist,Deva;transform:rotate(${lerp(4,-1,p)}deg)">
+    <div class="abs card" style="left:120px;right:120px;top:${lerp(1400,740,p)+Math.sin(lt*1.5)*8}px;padding:56px 54px;font:500 46px/1.3 Geist,Deva;transform:rotate(${lerp(8,-1,p)+Math.sin(lt*1.2)*.8}deg);filter:blur(${(1-p)*12}px)">
       <div style="font:800 ${lines.length?58:110}px/1.1 Geist,Deva;letter-spacing:-.03em;text-align:${lines.length?'left':'center'}">${rich(b.title||'')}</div>${body}</div>`+nib(b.nib===undefined?{x:560,y:1130,size:280,pose:'point',mood:'smile'}:b.nib,lt,.7); },
   ev:b=>[[0,'whoosh',.3],[.5,'scribble',.25]] };
 
 // a big number counting up on a card, B&W photo blurred behind
-SC.stat={ draw(b,lt){ const v=(b.value||0)*eo(P(lt,.3,Math.min(b.dur-.4,2.4))), p=eb(P(lt,.1,.5));
+SC.stat={ draw(b,lt){ const e1=Math.min(b.dur-.4,2.4), u=P(lt,.3,e1), v=(b.value||0)*eo(u), p=eb(P(lt,.1,.5)), spd=u>0&&u<1?3*Math.pow(1-u,2):0, done=eb(P(lt,e1,e1+.35));
   return mediaFill(b,lt,{blur:16})+`<div class="layer" style="background:rgba(233,226,214,.5)"></div>
-    <div class="abs card" style="left:110px;right:110px;top:700px;padding:70px 40px;text-align:center;transform:scale(${.85+.15*p}) rotate(-1deg)">
-      <div style="font:800 190px/1 Geist;letter-spacing:-.05em">${esc(b.pre||'')}${fmt(v)}${esc(b.suf||'')}</div>
-      <div style="font:600 46px/1.2 Geist,Deva;color:var(--mut);margin-top:18px">${rich(b.unit||'')}</div></div>`; },
+    ${burst(lt,e1,540,880,560)}
+    <div class="abs card" style="left:110px;right:110px;top:${700+Math.sin(lt*1.8)*8}px;padding:70px 40px;text-align:center;transform:scale(${(.6+.4*p)*(1+.06*Math.sin(done*Math.PI))}) rotate(${-1+Math.sin(lt*1.4)*.7}deg);filter:blur(${(1-eo(P(lt,.1,.4)))*12}px)">
+      <div style="font:800 190px/1 Geist;letter-spacing:-.05em;filter:blur(${Math.min(5,spd*2.2)}px)">${esc(b.pre||'')}${fmt(v)}${esc(b.suf||'')}</div>
+      <div style="font:600 46px/1.2 Geist,Deva;color:var(--mut);margin-top:18px">${kin(b.unit||'',lt,.5,{step:.06})}</div></div>`; },
   ev:b=>[[.3,'tick',.25],[.9,'tick',.25],[1.5,'tick',.25],[2.2,'ding',.35]] };
 
 // an invented social post (generic handle, never a real account) over the blurred photo
@@ -154,53 +198,68 @@ SC.post={ draw(b,lt){ const p=eb(P(lt,.1,.55)), likes=(b.likes||0)*eo(P(lt,.8,2.
 
 // big icon tiles with one word each (the method, without sentences): items [{g:"✓"|"#"|"₹"|any 1-3 chars, w:"one word"}]
 SC.icons={ draw(b,lt){ const it=b.items||[], n=it.length, span=Math.max(1.2,b.dur-.8); let h='';
-  it.forEach((o,k)=>{ const a=.25+k*span/n, q=eb(P(lt,a,a+.4)), y=600+k*300;
-    h+=`<div class="abs card" style="left:170px;right:170px;top:${y}px;height:240px;display:flex;align-items:center;gap:40px;padding:0 46px;transform:scale(${q}) rotate(${k%2?1.2:-1.2}deg);opacity:${clamp(q*1.4)}">
-      <div style="width:150px;height:150px;border-radius:40px;display:grid;place-items:center;font:800 96px/1 Geist,Deva;background:#FFD23F;border:4px solid #1F1D1A">${esc(o.g)}</div>
+  it.forEach((o,k)=>{ const a=.25+k*span/n, q=eb(P(lt,a,a+.4)), e=eo(P(lt,a,a+.35)), y=600+k*300+Math.sin(lt*2+k)*6, side=k%2?1:-1;
+    h+=`<div class="abs card" style="left:170px;right:170px;top:${y}px;height:240px;display:flex;align-items:center;gap:40px;padding:0 46px;transform:translateX(${side*900*(1-e)}px) scale(${.8+.2*q}) rotate(${(k%2?1.2:-1.2)+side*(1-e)*12}deg);opacity:${clamp(e*1.6)};filter:blur(${(1-e)*14}px)">
+      <div style="width:150px;height:150px;border-radius:40px;display:grid;place-items:center;font:800 96px/1 Geist,Deva;background:#FFD23F;border:4px solid #1F1D1A;transform:rotate(${(1-eb(P(lt,a+.2,a+.6)))*-90}deg) scale(${eb(P(lt,a+.2,a+.6))})">${esc(o.g)}</div>
       <div style="font:800 72px/1 Geist,Deva;letter-spacing:-.03em">${esc(o.w||'')}</div></div>`; });
   return backdrop(b,lt)+ h; },
   ev(b){ const n=(b.items||[]).length, span=Math.max(1.2,b.dur-.8); return [...Array(n)].map((_,k)=>[.25+k*span/n,'pop',.45]); } };
 
 // OPENING "everyone's talking about it" montage: a close-up of one post with the keyword highlighted, then the camera
 // pulls back into a wall of floating posts / headlines (cards: [{name, handle, text, kw}]). Real screenshots go in `media`.
-SC.collage={ draw(b,lt){ const C=b.cards||[], z=lerp(2.8,1.12,eio(P(lt,.5,1.9))), fx=lerp(-260,0,eio(P(lt,.5,1.9)));
+// Reference hook: 3 snap close-ups on different posts (keyword highlight sweeping on, sideways motion blur between
+// shots), then the camera pulls far back into a wall of posts drifting at different depths, and a B&W clip/photo
+// (beat media) pops up in the middle.
+SC.collage={ draw(b,lt){ const C=b.cards||[];
   const pos=[[70,470,-3],[560,420,2],[60,880,2],[580,820,-2],[300,1200,-1],[620,1260,3],[40,1300,1]];
-  let h=''; C.forEach((c,k)=>{ const [x,y,r]=pos[k%pos.length], a=k?.6+k*.12:0, q=k?eo(P(lt,a,a+.3)):1;
-    const t=esc(c.text||'').replace(new RegExp('('+(c.kw||'@@@').replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','i'),'<span style="background:#FFD23F;padding:0 6px">$1</span>');
-    h+=`<div class="abs card" style="left:${x}px;top:${y}px;width:${k?440:470}px;padding:26px 28px;transform:rotate(${r}deg) scale(${q});opacity:${q};font:600 36px/1.25 Geist,Deva">
+  const shots=Math.min(3,C.length), SH=.42, ph1=shots*SH, pull=eio(P(lt,ph1,ph1+.9));
+  const s=Math.min(shots-1,Math.floor(lt/SH)), u=lt<ph1?(lt-s*SH)/SH:1;
+  const tgt=k=>[pos[k][0]+(k?220:235), pos[k][1]+95];
+  const [ox,oy]=tgt(s), zc=2.5+.3*u, z=lerp(zc,1.0,pull), X=lerp(540-ox*zc+(u-.5)*-80,0,pull), Y=lerp(900-oy*zc,0,pull);
+  const snap=lt<ph1&&s>0&&u<.16?(1-u/.16)*16:0; const fg=document.getElementById('mbSg'); if(fg) fg.setAttribute('stdDeviation',`${snap} 0`);
+  let h=''; C.forEach((c,k)=>{ const [x,y,r]=pos[k%pos.length], d=.5+(k%3)*.35, dx=pull*Math.sin(lt*.7+k)*14*d, dy=pull*(Math.cos(lt*.9+k*2)*12*d-lt*6*d);
+    const hs=k<shots?k*SH+.08:ph1+.2+k*.08, hw=P(lt,hs,hs+.3)*100;
+    const t=esc(c.text||'').replace(new RegExp('('+(c.kw||'@@@').replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','i'),`<span style="background:linear-gradient(#FFD23F,#FFD23F) no-repeat 0 0/${hw}% 100%;padding:0 6px">$1</span>`);
+    h+=`<div class="abs card" style="left:${x}px;top:${y}px;width:${k?440:470}px;padding:26px 28px;transform:translate(${dx}px,${dy}px) rotate(${r}deg);font:600 36px/1.25 Geist,Deva">
       <div style="display:flex;gap:14px;align-items:center;margin-bottom:12px"><div style="width:52px;height:52px;border-radius:50%;background:${['#FFD23F','#9BC3E8','#F4A3A3','#BFE3B4'][k%4]};border:3px solid #1F1D1A"></div>
       <div><div style="font:700 28px Geist">${esc(c.name||'Creator')}</div><div style="font:500 22px Geist;color:#8D857A">${esc(c.handle||'@creator')}</div></div></div>${t}</div>`; });
-  return backdrop(b,lt)+`<div class="layer" style="transform:translate(${fx}px,0) scale(${z});transform-origin:300px 640px">${h}</div>`; },
-  ev(b){ return [[0,'whoosh',.35],...(b.cards||[]).slice(1).map((_,k)=>[.6+(k+1)*.12,'pop',.22])]; } };
+  const mp=MEDIA[b.i]?pop(lt,ph1+.9,.45):null;
+  const pic=mp?`<div class="abs" style="left:290px;top:${700+Math.sin(lt*1.5)*10}px;width:500px;height:560px;border-radius:24px;overflow:hidden;border:5px solid #1F1D1A;box-shadow:12px 14px 0 rgba(31,29,26,.18);transform:scale(${mp.s}) rotate(-2deg);opacity:${mp.o};filter:blur(${mp.bl}px)"><img class="bw" src="${mediaSrc(b.i,lt)}" style="width:100%;height:100%;object-fit:cover;transform:scale(${1.05+.05*P(lt,0,b.dur)})"></div>`:'';
+  return `<div class="layer" style="transform:translate(${X}px,${Y}px) scale(${z});transform-origin:0 0;filter:${snap?`url(#mbS)`:'none'}">${h}</div>${pic}`; },
+  ev(b){ const n=Math.min(3,(b.cards||[]).length); return [[0,'whoosh',.35],...[...Array(n)].map((_,k)=>[k*.42+.08,'click',.3]),[n*.42,'whoosh_up',.35],[n*.42+.9,'pop',.35]]; } };
 
 // one object in the middle that FLIPS (spins on its vertical axis) into a second object, then 2 kinetic words land
 // a / b: {k: prop name} or {nib:true} or {g: "text/emoji"}; words: {small, big}
-SC.reveal={ draw(b,lt){ const spin=P(lt,b.flipAt??1.0,(b.flipAt??1.0)+.45), side=spin<.5?b.a:b.b, sx=Math.abs(Math.cos(spin*Math.PI)), p=eb(P(lt,0,.4));
-  const obj=o=>!o?'':o.nib?mascotSVG({pose:o.pose||'wave',mood:o.mood||'happy',size:420})
+SC.reveal={ draw(b,lt){ const F=b.flipAt??1.0, spin=P(lt,F,F+.45), side=spin<.5?b.a:b.b, sx=Math.abs(Math.cos(spin*Math.PI)), p=eb(P(lt,0,.4));
+  // before the flip the object is restless (wiggle that builds up); after it, it settles with a bounce over spinning rays
+  const wig=lt<F?Math.sin(lt*16)*Math.pow(P(lt,.3,F),2)*9:Math.sin(lt*2)*3, after=eb(P(lt,F+.2,F+.6)), fl=Math.sin(lt*2.4)*12;
+  const obj=o=>!o?'':o.nib?nibBody(o,lt,420)
     :o.k?`<svg width="560" height="560" viewBox="-150 -150 300 300" style="overflow:visible">${PROP[o.k]||''}</svg>`
     :`<div style="width:360px;height:360px;border-radius:50%;background:#FFD23F;border:6px solid #1F1D1A;display:grid;place-items:center;font:800 150px Geist,Deva">${esc(o.g||'?')}</div>`;
-  const w=b.words||{};
-  return backdrop(b,lt)+`<div class="abs" style="left:0;right:0;top:${lt>(b.flipAt??1)+.5&&(w.big||w.small)?560:700}px;display:flex;justify-content:center;transform:scaleX(${Math.max(.04,sx)}) scale(${.7+.3*p})">${obj(side)}</div>
-    ${(w.small||w.big)?`<div class="abs" style="left:60px;right:60px;top:1130px;text-align:center;opacity:${eo(P(lt,(b.flipAt??1)+.5,(b.flipAt??1)+.8))}">
-      <div style="font:600 64px/1.1 Geist,Deva">${esc(w.small||'')}</div><div style="font:800 140px/1 Geist,Deva;letter-spacing:-.04em;color:var(--y2)">${esc(w.big||'')}</div></div>`:''}`; },
+  const w=b.words||{}, up=(w.big||w.small)?eio(P(lt,F+.45,F+.8)):0, top=lerp(700,540,up);
+  return backdrop(b,lt)+burst(lt,F+.25,540,top+280,340)+`<div class="abs" style="left:0;right:0;top:${top+fl}px;display:flex;justify-content:center;transform:scaleX(${Math.max(.04,sx)}) scale(${(.5+.5*p)*(spin>=.5?.85+.15*after:1)}) rotate(${wig}deg);filter:blur(${(1-eo(P(lt,0,.3)))*12+Math.sin(spin*Math.PI)*6}px)">${obj(side)}</div>
+    ${(w.small||w.big)?`<div class="abs" style="left:40px;right:40px;top:1130px;text-align:center">
+      <div style="font:600 64px/1.1 Geist,Deva">${kin(w.small||'',lt,F+.5,{out:b.dur>F+2.2?b.dur-.4:null})}</div><div style="font:800 140px/1 Geist,Deva;letter-spacing:-.04em;color:var(--y2)">${kin(w.big||'',lt,F+.7,{step:.12,seed:5,out:b.dur>F+2.2?b.dur-.35:null})}</div></div>`:''}`; },
   ev:b=>[[.0,'pop',.4],[b.flipAt??1,'whoosh',.4],[(b.flipAt??1)+.5,'thump',.35]] };
 
-// reaction beat: a giant "?" (or "!") swinging in, Nib peeking from the edge looking confused
-SC.react={ draw(b,lt){ const p=eb(P(lt,0,.5)), peek=eo(P(lt,.4,.9));
-  return `<div class="abs" style="left:0;right:0;top:420px;text-align:center;font:800 900px/1 Geist;transform:rotate(${lerp(-30,6,p)+Math.sin(lt*3)*3}deg) scale(${.6+.4*p});filter:blur(${(1-p)*16}px)">${esc(b.glyph||'?')}</div>
-    <div class="abs" style="left:${lerp(1180,700,peek)}px;top:1150px;transform:rotate(-14deg)">${mascotSVG({pose:'shrug',mood:'worried',size:320})}</div>`; },
-  ev:b=>[[0,'whoosh',.4],[.4,'pop',.3]] };
+// reaction beat: a giant "?" (or "!") swinging in, Nib runs in from the side, stops, looks up, scratches (shrug)
+SC.react={ draw(b,lt){ const p=eb(P(lt,0,.5)), peek=eo(P(lt,.4,.95)), hop=Math.abs(Math.sin(lt*9))*30*(1-P(lt,.6,.95));
+  const qs=[[180,380,.0],[860,520,.25],[230,1500,.45]].map(([x,y,a],k)=>{ const q=pop(lt,.6+a,.35); return `<div class="abs" style="left:${x}px;top:${y+Math.sin(lt*3+k)*14}px;font:800 120px/1 Geist;color:var(--y2);transform:scale(${q.s}) rotate(${Math.sin(lt*2+k)*14}deg);opacity:${q.o}">?</div>`; }).join('');
+  return `<div class="abs" style="left:0;right:0;top:420px;text-align:center;font:800 900px/1 Geist;transform:rotate(${lerp(-30,6,p)+Math.sin(lt*3)*4}deg) scale(${(.6+.4*p)*(1+.03*Math.sin(lt*5))});filter:blur(${(1-p)*16}px)">${esc(b.glyph||'?')}</div>${qs}
+    <div class="abs" style="left:${lerp(1180,680,peek)}px;top:${1150-hop}px;transform:rotate(${-14+Math.sin(lt*2.5)*5}deg)">${nibBody({pose:'shrug',mood:'worried',x:1},lt,320)}</div>`; },
+  ev:b=>[[0,'whoosh',.4],[.4,'pop',.3],[.6,'pop',.2],[.85,'pop',.2],[1.05,'pop',.2]] };
 
-// a dashed flow line: the camera glides from node to node (prop, bubble, document...). nodes: [{k|text|doc, label}]
-SC.flow={ draw(b,lt){ const N=b.nodes||[], gap=760, n=N.length, cam=lerp(0,(n-1)*gap,eio(P(lt,.3,Math.max(.8,b.dur-.6))));
-  let h=`<div class="abs" style="left:540px;top:1000px;width:${(n-1)*gap}px;border-top:7px dashed #1F1D1A"></div>`;
-  N.forEach((o,k)=>{ const x=540+k*gap, near=1-clamp(Math.abs(cam-k*gap)/gap), q=eb(P(near,.2,.8));
-    const body=o.k?`<svg width="340" height="340" viewBox="-150 -150 300 300" style="overflow:visible">${PROP[o.k]||''}</svg>`
-      :o.doc?`<div class="card" style="width:520px;padding:40px;font:600 42px/1.35 Geist,Deva;text-align:left">${o.doc.map(l=>`<div>${rich(l)}</div>`).join('')}</div>`
+// a dashed flow line (the dashes march): the camera glides from node to node with sideways motion blur while it moves
+SC.flow={ draw(b,lt){ const N=b.nodes||[], gap=760, n=N.length, E=Math.max(.8,b.dur-.6), camAt=x=>lerp(0,(n-1)*gap,eio(P(x,.3,E))), cam=camAt(lt);
+  const speed=Math.abs(camAt(lt+.03)-cam)/.03, mb=Math.min(22,speed/90); const fg=document.getElementById('mbFg'); if(fg) fg.setAttribute('stdDeviation',`${mb} 0`);
+  let h=`<div class="abs" style="left:540px;top:997px;width:${(n-1)*gap}px;height:7px;background:repeating-linear-gradient(90deg,#1F1D1A 0 26px,transparent 26px 46px);background-position:${lt*-90}px 0"></div>`;
+  N.forEach((o,k)=>{ const x=540+k*gap, near=1-clamp(Math.abs(cam-k*gap)/gap), q=eb(P(near,.2,.8)), bob=Math.sin(lt*2.6+k)*12;
+    const body=o.k?`<svg width="340" height="340" viewBox="-150 -150 300 300" style="overflow:visible"><g transform="rotate(${Math.sin(lt*3+k)*7})">${PROP[o.k]||''}</g></svg>`
+      :o.doc?`<div class="card" style="width:520px;padding:40px;font:600 42px/1.35 Geist,Deva;text-align:left">${o.doc.map((l,j)=>`<div style="opacity:${eo(P(near,.5+j*.12,.65+j*.12))};transform:translateX(${(1-eo(P(near,.5+j*.12,.65+j*.12)))*40}px)">${rich(l)}</div>`).join('')}</div>`
       :`<div class="bub" style="width:max-content;max-width:600px">${rich(o.text||'')}</div>`;
-    h+=`<div class="abs" style="left:${x}px;top:1000px;transform:translate(-50%,-50%) scale(${.75+.25*q})">${body}
-      ${o.label?`<div style="text-align:center;margin-top:18px;font:800 72px/1 Geist,Deva;color:var(--y2);opacity:${q}">${esc(o.label)}</div>`:''}</div>`; });
-  return backdrop(b,lt)+`<div class="abs" style="left:0;top:0;width:1080px;height:1920px;overflow:visible;transform:translateX(${-cam}px)">${h}</div>`; },
+    h+=`<div class="abs" style="left:${x}px;top:${1000+bob}px;transform:translate(-50%,-50%) scale(${.7+.3*q})">${body}
+      ${o.label?`<div style="text-align:center;margin-top:18px;font:800 72px/1 Geist,Deva;color:var(--y2);opacity:${q};transform:translateY(${(1-q)*30}px)">${esc(o.label)}</div>`:''}</div>`; });
+  return backdrop(b,lt)+`<div class="abs" style="left:0;top:0;width:1080px;height:1920px;overflow:visible;transform:translateX(${-cam}px);filter:${mb>.5?'url(#mbF)':'none'}">${h}</div>`; },
   ev(b){ const n=(b.nodes||[]).length; return [...Array(n)].map((_,k)=>[.3+k*Math.max(.8,b.dur-.9)/Math.max(1,n-1),'whoosh',.3]); } };
 
 // closing: Nib + Follow button, then the send ask
@@ -208,7 +267,7 @@ SC.cta={ draw(b,lt){ const on=lt>1.1, press=P(lt,.95,1.1);
   return `${nib({x:330,y:520,size:420,pose:on?'cheer':'point',mood:'happy'},lt,0)}
     <div class="abs" style="left:290px;top:1180px;width:500px;height:130px;border-radius:65px;display:grid;place-items:center;font:700 56px Geist;
       background:${on?'#fff':'#1F1D1A'};color:${on?'#1F1D1A':'#fff'};border:4px solid #1F1D1A;box-shadow:8px 10px 0 rgba(31,29,26,.14);transform:scale(${1-.08*Math.sin(press*Math.PI)})">${on?'Following':'Follow'}</div>
-    <div class="abs" style="left:80px;right:80px;top:1360px;text-align:center;font:800 76px/1.15 Geist,Deva;letter-spacing:-.03em;opacity:${eo(P(lt,1.4,1.8))}">${rich(b.text||'**Send** this to a creator friend')}</div>`; },
+    <div class="abs" style="left:80px;right:80px;top:1360px;text-align:center;font:800 76px/1.15 Geist,Deva;letter-spacing:-.03em;">${kin(b.text||'**Send** this to a creator friend',lt,1.35,{step:.08})}</div>`; },
   ev:b=>[[.95,'click',.6],[1.1,'ding',.3]] };
 
 // ---------------- timeline ----------------
@@ -221,14 +280,20 @@ window.setTimeline=(tl,post)=>{ T=tl; POST=post; MEDIA=post._media||{};
 };
 function idx(t){ let i=SCN.findIndex(b=>t<b.start+b.dur); return i<0?SCN.length-1:i; }
 const sceneHTML=(b,lt)=>(SC[b.scene]||SC.word).draw(b,lt)+props(b,lt);
+// every shot keeps moving: slow push-in + handheld drift. Cuts rotate between whip-pan (sideways blur), zoom-through
+// and a vertical whip, like the reference; a beat can force one with "cut": "whip" | "zoom" | "rise".
+const CUTS=['whip','zoom','whip','rise'];
+const camT=(lt,dur,t)=>`scale(${1+.05*eio(P(lt,0,dur))}) translate(${Math.sin(t*.9)*7}px,${Math.cos(t*.7)*6}px) rotate(${Math.sin(t*.6)*.4}deg)`;
 window.render=function(t){
-  const i=idx(t), b=SCN[i], lt=t-b.start, W=.34, dir=i%2?1:-1;
-  const inT=i>0&&lt<W, k=inT?eio(lt/W):1;
-  if(inT){ const pb=SCN[i-1], A=$('A'); A.innerHTML=sceneHTML(pb,t-pb.start); A.style.display='block';
-    A.style.transform=`translateX(${-dir*1080*k}px)`; A.style.filter=`blur(${Math.sin(k*Math.PI)*18}px)`; }
-  else $('A').style.display='none';
-  const B=$('B'); B.innerHTML=sceneHTML(b,lt);
-  B.style.transform=`translateX(${dir*1080*(1-k)}px)`; B.style.filter=inT?`blur(${Math.sin(k*Math.PI)*18}px)`:'none';
+  const i=idx(t), b=SCN[i], lt=t-b.start, W=.34, dir=i%2?1:-1, cut=b.cut||CUTS[i%4];
+  const inT=i>0&&lt<W, k=inT?eio(lt/W):1, bl=inT?Math.sin(k*Math.PI)*28:0;
+  const A=$('A'), B=$('B'); let ta='', tb='', fa='none', fb='none';
+  if(cut==='zoom'){ ta=`scale(${1+1.4*k})`; tb=`scale(${.72+.28*k})`; fa=fb=bl?`blur(${bl*.6}px)`:'none'; A.style.opacity=1-k; A.style.zIndex=2; }
+  else if(cut==='rise'){ ta=`translateY(${-1920*k}px)`; tb=`translateY(${1920*(1-k)}px)`; $('mbAg').setAttribute('stdDeviation',`0 ${bl}`); $('mbBg').setAttribute('stdDeviation',`0 ${bl}`); fa='url(#mbA)'; fb='url(#mbB)'; A.style.opacity=1; A.style.zIndex=''; }
+  else { ta=`translateX(${-dir*1080*k}px)`; tb=`translateX(${dir*1080*(1-k)}px)`; $('mbAg').setAttribute('stdDeviation',`${bl} 0`); $('mbBg').setAttribute('stdDeviation',`${bl} 0`); fa='url(#mbA)'; fb='url(#mbB)'; A.style.opacity=1; A.style.zIndex=''; }
+  if(inT){ const pb=SCN[i-1], plt=t-pb.start; A.innerHTML=sceneHTML(pb,plt); A.style.display='block'; A.style.transform=ta+' '+camT(plt,pb.dur,t); A.style.filter=fa; }
+  else A.style.display='none';
+  B.innerHTML=sceneHTML(b,lt); B.style.transform=(inT?tb+' ':'')+camT(lt,b.dur,t); B.style.filter=inT?fb:'none';
   $('gt').setAttribute('seed', Math.floor(t*12)%9+1);
   const cap=$('cap'); if(POST.captions!==false){ if(cap.dataset.k!==String(i)){cap.dataset.k=i; cap.innerHTML=(b.hi||b.say).split(' ').map(w=>`<span>${esc(w)} </span>`).join('');}
     const ws=cap.querySelectorAll('span'), sp=P(t,b.start,b.start+(b.speech||b.dur)*.95); ws.forEach((w,j)=>{w.style.color=j/ws.length<=sp?'#1F1D1A':'#B3AA9C';}); }

@@ -116,7 +116,8 @@
     </g>
     <g transform="translate(4 2)">
     ${blush(F.lx - 8, F.ey + 28)}${blush(F.rx + 10, F.ey + 28)}
-    ${eye(F.lx, F.ey, mood, -1, o.eyes)}${eye(F.rx, F.ey, mood, 1, o.eyes)}
+    ${o.blink ? `<path d="M${F.lx - 13} ${F.ey} H${F.lx + 13} M${F.rx - 13} ${F.ey} H${F.rx + 13}" ${st(6.5)}/>`
+      : eye(F.lx, F.ey, mood, -1, o.eyes) + eye(F.rx, F.ey, mood, 1, o.eyes)}
     ${mouth(F.cx, F.my, mood)}
     </g>
     <g transform="rotate(${tilt} 175 190)">

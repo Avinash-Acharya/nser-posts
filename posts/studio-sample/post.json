@@ -59,7 +59,8 @@
     "big": "≠ money"
    },
    "say": "But simply put, a free product is not money.",
-   "hi": "पर सीधी बात, फ्री प्रोडक्ट पैसा नहीं है"
+   "hi": "पर सीधी बात, फ्री प्रोडक्ट पैसा नहीं है",
+   "flipAt": 0.55
   },
   {
    "scene": "react",
@@ -129,15 +130,17 @@
   {
    "scene": "monitor",
    "text": "**83%**",
-   "nib": {
-    "pose": "point",
-    "mood": "wow",
-    "x": 600,
-    "y": 160,
-    "size": 260
-   },
    "say": "Now the biggest game changer: 83 percent of marketers say finding the right creator is hard.",
-   "hi": "अब सबसे बड़ा गेम चेंजर, तिरासी परसेंट मार्केटर्स कहते हैं कि सही क्रिएटर ढूंढना मुश्किल है"
+   "hi": "अब सबसे बड़ा गेम चेंजर, तिरासी परसेंट मार्केटर्स कहते हैं कि सही क्रिएटर ढूंढना मुश्किल है",
+   "lines": [
+    "> find creator",
+    "  niche: food, Pune",
+    "  budget: ₹0",
+    "",
+    "searching...",
+    "0 matches"
+   ],
+   "alert": 2.2
   },
   {
    "scene": "flow",
@@ -218,7 +221,7 @@
    "b": {
     "k": "coins"
    },
-   "flipAt": 0.6,
+   "flipAt": 0.4,
    "words": {
     "small": "free",
     "big": "→ paid"
