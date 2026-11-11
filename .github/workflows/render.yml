@@ -56,6 +56,8 @@ jobs:
         run: |
           for X in ${{ steps.day.outputs.d }}; do
             D=posts/$X
+            # the PC usually makes the reel itself and pushes it with the voice: then there's nothing to do
+            if [ "${{ github.event_name }}" = "push" ] && [ -f $D/reel.mp4 ]; then echo "$X: reel already made on the PC"; continue; fi
             if grep -q '"style": *"paper"' $D/post.json; then
               python engine/paper/render.py $D
             else
@@ -69,5 +71,6 @@ jobs:
           git config user.name "nser render bot"
           git config user.email "actions@users.noreply.github.com"
           for X in ${{ steps.day.outputs.d }}; do git add posts/$X/reel.mp4; git add posts/$X/media 2>/dev/null || true; done
+          git diff --cached --quiet && echo "nothing new" && exit 0
           git commit -m "Reels: ${{ steps.day.outputs.d }}"
           for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done
