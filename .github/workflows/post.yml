@@ -2,13 +2,18 @@ name: Post to Instagram
 
 on:
   schedule:
-    - cron: "30 13 * * *"   # 19:00 IST  -> reel
+    - cron: "30 5 * * *"    # 11:00 IST -> 11am reel
+    - cron: "30 13 * * *"   # 19:00 IST -> 7pm reel
   workflow_dispatch:
     inputs:
       kind:
-        description: "carousel, reel or check (check = test the setup, posts nothing)"
+        description: "reel or check (check = test the setup, posts nothing)"
         required: true
         default: check
+      slot:
+        description: "11am or 7pm (empty = by the time of day)"
+        required: false
+        default: ""
       date:
         description: "YYYY-MM-DD (empty = today in India)"
         required: false
@@ -40,8 +45,6 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "kind=${{ inputs.kind }}" >> $GITHUB_OUTPUT
-          elif [ "${{ github.event.schedule }}" = "30 5 * * *" ]; then
-            echo "kind=carousel" >> $GITHUB_OUTPUT
           else
             echo "kind=reel" >> $GITHUB_OUTPUT
           fi
@@ -51,10 +54,10 @@ jobs:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_DB: ${{ secrets.NOTION_DB }}
-          AUTO_APPROVE: ${{ vars.AUTO_APPROVE }}
           EVENT: ${{ github.event_name }}
         run: |
           ARGS="${{ steps.what.outputs.kind }}"
+          if [ -n "${{ inputs.slot }}" ]; then ARGS="$ARGS --slot ${{ inputs.slot }}"; fi
           if [ -n "${{ inputs.date }}" ]; then ARGS="$ARGS --date ${{ inputs.date }}"; fi
           if [ "${{ inputs.force }}" = "yes" ]; then ARGS="$ARGS --force"; fi
           if [ "${{ inputs.dry }}" = "yes" ]; then ARGS="$ARGS --dry"; fi

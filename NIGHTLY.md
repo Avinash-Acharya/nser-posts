@@ -1,5 +1,52 @@
 # Nightly post maker (runbook for Claude)
 
+## SINCE 11 NOV 2026 (overrides everything below): TWO PAPER REELS A DAY, NO APPROVAL
+Avinash wiped the Instagram grid and restarted. Every day = two Hindi-voiced reels in the PAPER style
+(Paper Atlas cut-paper art, set in present-day India). No carousel, no other format. Times (India):
+- **~6 PM (day before)**: the evening Claude run (you) writes BOTH reels for tomorrow and pushes them.
+- **~7-8 PM**: Avinash runs `daily.bat` on his PC: VoxCPM makes the Hindi voice for every new reel and pushes it.
+  GitHub (`render.yml`) renders each reel with `engine/paper/render.py` (~3 min each) and commits `reel.mp4`.
+- **9 PM**: Avinash watches them in the repo (he may ask for changes). No Notion approval needed.
+- **11:00 AM** posts `<date>-11am`, **7:00 PM** posts `<date>-7pm` (`post.yml` + backup dispatch tasks).
+
+### Folders (one per reel)
+`posts/<tomorrow>-11am/` and `posts/<tomorrow>-7pm/`, each with:
+- `post.json`: `"style": "paper"`, `"topic"`, `"captions": false`, `"music": "bed"`, `"sources"`, and `"explainer"`:
+  10-14 beats, each `{"hi": spoken Hindi (Devanagari, casual creator Hindi, English nouns kept: क्रिएटर, ब्रांड, रील;
+  numbers as words; no danda), "say": the English meaning}`. Aim for 40-55 s total (~800-1000 Hindi characters).
+  Shape (docs/REEL_FORMAT.md): hook question → "simply put" → surprise/number → a "you" story → the game changer →
+  the craziest part → what to do (2-3 steps) → a punchy loop line → follow + send.
+- `shots.js`: the shot list for THIS reel. Start from `engine/paper/src/shots.js` (the sample) and rewrite every
+  shot for the new story. One shot per beat (two for beats over ~4 s), placed with `cs(i)` / `len(i)`; key moments at
+  fractions of the beat (Hindi word order differs, so don't use word timing). Use the kit:
+  `engine/paper/src/core/kit.js` (cut paper, parchment, ribbon, slip, seal, timeline, dashedRoute, compass, label)
+  and `engine/paper/src/core/modern.js` (person, phoneBig, bubble, laptop, postCard, skyline, room, dayPage,
+  nightPage, gift, note, coins, wallet, ringLight, magnifier, bigMark, indiaMap + geo/CITY). Add new paper props to
+  modern.js when a noun needs one (keep the look: `cut()` with edge + soft shadow, palette P / M only).
+  Rules: every spoken noun gets its picture; the camera always moves (zoom per shot); 1-3 words on screen per shot
+  on slips/ribbons, numbers over words; crimson = the key thing, gold = numbers/dates; faceless people only,
+  NEVER a real person's likeness, logo or photo (a case study about a real creator = a generic paper figure + facts
+  on slips); nothing above y 1700 overlaps; keep text inside x 60-1020.
+- `reel-caption.txt` (English): hook line that survives the "... more" cut, 2-4 short paragraphs, one ask (send/save),
+  "Follow @nser.in_officials for more on creator growth and monetisation.", Source line(s), 3-4 hashtags.
+  `python3 tools/caption.py posts/<folder>/reel-caption.txt` must say READY.
+
+### Steps
+1. Topic: take the next 2 unused topics from `docs/TOPICS.md` (top to bottom), mark them used with tomorrow's
+   date + slot. When the list runs out, add new topics there first (educational, creator growth/monetisation,
+   at least half India-focused; avoid repeating a covered angle within 30 days).
+2. Research each topic: every fact from a source you actually opened; no invented numbers, quotes or people.
+3. Write the two folders. QA each one: `CHROME=<chrome> python3 engine/paper/render.py posts/<folder> --estimate`
+   must print CHECK OK and writes `review.jpg`: READ the contact sheet and fix anything empty, overlapping,
+   off-screen or not matching its line. (Delete review.jpg before committing.)
+4. Notion "Content Queue" (collection://4685a8c5-7254-45d2-bf71-90cb4807adbc): one row per reel. Title
+   "<topic> (11am)" / "<topic> (7pm)" (the slot MUST be in the title; post_ig.py matches on it), Post date =
+   tomorrow, Status = Ready, Format = Reel, reel caption, hook, Files = the folder link. These rows stop double posts.
+5. `git fetch origin main && git rebase origin/main`, commit both folders, push.
+6. One short SendUserMessage to Avinash: the two topics + hooks, "run daily.bat on your PC now (it voices both)",
+   "reels will be in the folders ~10 min later; they post at 11 AM and 7 PM". If anything failed, say exactly what.
+
+## OLDER NOTES (before 11 Nov; only for history)
 ## Since 10 Nov 2026: ONE Hindi reel a day, no carousel
 Every night, write TOMORROW's reel SCRIPT only (post.json + reel-caption.txt) and push it. Do NOT render and do NOT
 make a carousel. The day after:

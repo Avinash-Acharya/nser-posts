@@ -1,6 +1,6 @@
 name: Render Hindi reel
 
-# Runs when Avinash's PC pushes the Hindi voice for a day (posts/<date>/voice/manifest.json).
+# Runs when Avinash's PC pushes the Hindi voice for reels (posts/<date>-<slot>/voice/manifest.json).
 on:
   push:
     paths:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       date:
-        description: "YYYY-MM-DD"
+        description: "post folder name(s), e.g. 2026-11-12-11am (space separated)"
         required: true
 
 concurrency:
@@ -29,32 +29,38 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Which day
+      - name: Which reels
         id: day
         run: |
           if [ -n "${{ inputs.date }}" ]; then D="${{ inputs.date }}"
-          else D=$(git diff --name-only HEAD~1 HEAD -- 'posts/*/voice/manifest.json' | head -1 | cut -d/ -f2); fi
-          [ -z "$D" ] && echo "no day found" && exit 1
-          echo "d=$D" >> $GITHUB_OUTPUT; echo "Rendering $D"
+          else D=$(git diff --name-only HEAD~1 HEAD -- 'posts/*/voice/manifest.json' | cut -d/ -f2 | sort -u | tr '\n' ' '); fi
+          [ -z "$D" ] && echo "no reel found" && exit 1
+          echo "d=$D" >> $GITHUB_OUTPUT; echo "Rendering: $D"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
       - name: Install tools
         run: |
-          sudo apt-get install -y -qq ffmpeg >/dev/null
+          sudo apt-get install -y -qq ffmpeg fonts-noto-core >/dev/null
           pip install -q numpy soundfile scipy playwright
           python -m playwright install --with-deps chromium >/dev/null
-      - name: Fetch photos and clips the script asks for
-        env:
-          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
-        run: python poster/fetch_media.py ${{ steps.day.outputs.d }} || echo "media fetch failed, rendering without"
       - name: Render
         run: |
-          D=posts/${{ steps.day.outputs.d }}
-          python engine/tts.py $D none
-          python engine/render_explainer.py $D
-          mv $D/reel/reel.mp4 $D/reel.mp4 && rm -rf $D/reel
+          export CHROME=$(ls -d ~/.cache/ms-playwright/chromium-*/chrome-linux*/chrome | head -1)
+          for X in ${{ steps.day.outputs.d }}; do
+            D=posts/$X
+            if grep -q '"style": *"paper"' $D/post.json; then
+              python engine/paper/render.py $D
+            else
+              python poster/fetch_media.py $X || echo "media fetch failed, rendering without"
+              python engine/tts.py $D none && python engine/render_explainer.py $D && mv $D/reel/reel.mp4 $D/reel.mp4
+            fi
+            rm -rf $D/reel
+          done
       - name: Commit the reel
         run: |
           git config user.name "nser render bot"
           git config user.email "actions@users.noreply.github.com"
-          git add posts/${{ steps.day.outputs.d }}/reel.mp4 posts/${{ steps.day.outputs.d }}/media 2>/dev/null || git add posts/${{ steps.day.outputs.d }}/reel.mp4
-          git commit -m "Reel for ${{ steps.day.outputs.d }} (Hindi voice)"
+          for X in ${{ steps.day.outputs.d }}; do git add posts/$X/reel.mp4; git add posts/$X/media 2>/dev/null || true; done
+          git commit -m "Reels: ${{ steps.day.outputs.d }}"
           for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done

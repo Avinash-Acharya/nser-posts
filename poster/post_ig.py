@@ -1,11 +1,12 @@
 """Publish today's nser post to Instagram through the official Graph API.
 
-Usage:  python poster/post_ig.py carousel|reel|check [--date YYYY-MM-DD] [--force]
+Usage:  python poster/post_ig.py reel|check [--slot 11am|7pm] [--date YYYY-MM-DD] [--force]
 
-Reads   posts/<date>/  (carousel/*.jpg + caption.txt, reel.mp4 + reel-caption.txt)
-Checks  the Notion "Content Queue" row whose Post date = <date>:
-        posts only if Status is Approved or Failed (= approved, retry) (or Ready when AUTO_APPROVE=true). Skipped = never.
-Writes  the post link back to Notion, and Status = Posted once both are out.
+Since 11 Nov 2026: two reels a day, 11am and 7pm, no approval step (Avinash's call).
+Reads   posts/<date>-<slot>/  (reel.mp4 + reel-caption.txt). No --slot: 11am before 3pm IST, else 7pm.
+Notion  the "Content Queue" row with Post date = <date> whose title contains the slot is the record:
+        posts unless its Status is Skipped or its "Reel post" link is already filled (= posted, no double posts).
+Writes  the post link back to that row and Status = Posted.
 
 Env:    IG_USER_ID, IG_TOKEN            (Instagram professional account id + page access token)
         NOTION_TOKEN, NOTION_DB         (Notion connection token + Content Queue database id)
@@ -17,7 +18,7 @@ GRAPH = "https://graph.facebook.com"
 IST = dt.timezone(dt.timedelta(hours=5, minutes=30))
 DRY = False
 # GitHub's own timer can fire hours late; a late scheduled run must not post at 2am.
-WINDOW = {"carousel": (10, 14), "reel": (18, 22)}   # IST hours, [start, end)
+WINDOW = {"11am": (10, 14), "7pm": (18, 22)}   # IST hours, [start, end)
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -150,9 +151,16 @@ def notion(method, path, body=None):
                          "Notion-Version": "2022-06-28", "Content-Type": "application/json"})
 
 
-def notion_row(day):
+def title(row):
+    for p in row["properties"].values():
+        if p.get("type") == "title": return "".join(t.get("plain_text", "") for t in p.get("title", []))
+    return ""
+
+
+def notion_row(day, slot=None):
     res = notion("POST", f"databases/{os.environ['NOTION_DB']}/query",
                  {"filter": {"property": "Post date", "date": {"equals": day}}}).get("results", [])
+    if slot: res = [r for r in res if slot in title(r).lower().replace(" ", "")]
     return res[0] if res else None
 
 
@@ -174,15 +182,16 @@ def set_props(row, **props):
 # ---------- main ----------
 def main():
     args = sys.argv[1:]
-    if not args or args[0] not in ("carousel", "reel", "check"): die(__doc__)
+    if not args or args[0] not in ("reel", "check"): die(__doc__)
     kind = args[0]
     day = args[args.index("--date") + 1] if "--date" in args else dt.datetime.now(IST).strftime("%Y-%m-%d")
+    slot = args[args.index("--slot") + 1] if "--slot" in args else ("11am" if dt.datetime.now(IST).hour < 15 else "7pm")
     force = "--force" in args
     global DRY; DRY = "--dry" in args
-    if os.environ.get("EVENT") == "schedule" and kind in WINDOW:
-        h = dt.datetime.now(IST).hour; a, b = WINDOW[kind]
+    if os.environ.get("EVENT") == "schedule" and kind == "reel":
+        h = dt.datetime.now(IST).hour; a, b = WINDOW[slot]
         if not a <= h < b:
-            print(f"Scheduled run fired late ({h}:xx IST), outside the {kind} window. Not posting."); return
+            print(f"Scheduled run fired late ({h}:xx IST), outside the {slot} window. Not posting."); return
     for v in ("IG_USER_ID", "IG_TOKEN", "NOTION_TOKEN", "NOTION_DB"):
         if not os.environ.get(v): die(f"missing secret {v}")
     user = os.environ["IG_USER_ID"]
@@ -198,41 +207,30 @@ def main():
               f"data access until {fmt(d.get('data_access_expires_at'))}")
         lim = ig("GET", f"{user}/content_publishing_limit", fields="quota_usage,config")
         print("Publishing quota:", lim.get("data", lim))
-        row = notion_row(day)
-        print(f"Notion OK. Row for {day}:", (row and prop_text(row, 'Status')) or "none")
-        print("Files:", os.listdir(os.path.join(ROOT, "posts", day)) if os.path.isdir(os.path.join(ROOT, "posts", day)) else "no folder")
+        for sl in WINDOW:
+            row = notion_row(day, sl); f = os.path.join(ROOT, "posts", f"{day}-{sl}")
+            print(f"{day} {sl}: Notion", (row and prop_text(row, 'Status')) or "no row", "| files:", os.listdir(f) if os.path.isdir(f) else "no folder")
         return
 
-    if not os.path.isdir(os.path.join(ROOT, "posts", day)):
-        print(f"No post folder for {day}. Nothing to do."); return
-    if kind == "carousel" and not os.path.isdir(os.path.join(ROOT, "posts", day, "carousel")):
-        print(f"No carousel for {day} (reel-only day). Nothing to do."); return
-    row = notion_row(day)
-    if not row: print(f"No Notion row with Post date {day}. Nothing to do."); return
-    status = prop_text(row, "Status")
-    auto = os.environ.get("AUTO_APPROVE", "false").lower() == "true"
-    if status == "Skipped": print("Row is Skipped. Not posting."); return
-    # 'Failed' means it was approved but Instagram errored, so a re-run may try again.
-    if not force and not (status in ("Approved", "Failed") or (auto and status in ("Ready", "Approved"))):
-        print(f"Row status is '{status}', not Approved. Not posting."); return
-    done_field = "Carousel post" if kind == "carousel" else "Reel post"
-    if prop_text(row, done_field) and not force:
-        print(f"{kind} already posted: {prop_text(row, done_field)}"); return
-
+    folder = f"{day}-{slot}"
+    if not os.path.exists(os.path.join(ROOT, "posts", folder, "reel.mp4")):
+        print(f"No reel at posts/{folder}/reel.mp4. Nothing to do."); return
+    row = notion_row(day, slot)
+    if not row: print(f"No Notion row for {day} {slot}. Not posting (the row is the guard against double posts)."); return
+    if prop_text(row, "Status") == "Skipped": print("Row is Skipped. Not posting."); return
+    if prop_text(row, "Reel post") and not force:
+        print(f"already posted: {prop_text(row, 'Reel post')}"); return
     try:
-        link = publish_carousel(day, user) if kind == "carousel" else publish_reel(day, user)
+        link = publish_reel(folder, user)
     except Exception as e:
-        if not DRY: set_props(row, Status="Failed", Notes=f"{kind} failed {dt.datetime.now(IST):%d %b %H:%M}: {e}")
+        if not DRY: set_props(row, Status="Failed", Notes=f"{slot} reel failed {dt.datetime.now(IST):%d %b %H:%M}: {e}")
         raise
-    print(f"Published {kind}: {link}")
+    print(f"Published {slot} reel: {link}")
     if DRY: return
-    other = prop_text(row, "Reel post" if kind == "carousel" else "Carousel post")
-    upd = {done_field: link if link.startswith("http") else None}
-    reel_only = not os.path.isdir(os.path.join(ROOT, "posts", day, "carousel"))
-    if other or (kind == "reel" and reel_only): upd["Status"] = "Posted"
+    upd = {"Status": "Posted"}
+    if link.startswith("http"): upd["Reel post"] = link
     if warn: upd["Notes"] = warn
-    set_props(row, **{k: v for k, v in upd.items() if v is not None})
-
+    set_props(row, **upd)
 
 if __name__ == "__main__":
     main()
