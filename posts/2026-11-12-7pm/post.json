@@ -1,0 +1,65 @@
+{
+ "style": "paper",
+ "topic": "Hooks that stop the scroll (3-second rule)",
+ "captions": false,
+ "music": "bed",
+ "sources": [
+  "https://www.socialsamosa.com/news-2/instagram-retention-chart-skip-rate-new-performance-metrics-reels-9730992",
+  "https://www.socialmediatoday.com/news/instagram-adds-retention-insights-reels/758464/",
+  "https://www.socialmediatoday.com/news/instagram-shares-algorithm-insights-2025/738034/"
+ ],
+ "explainer": [
+  {
+   "hi": "आपकी रील पहले तीन सेकंड में ही स्किप हो रही है, और आपको पता भी नहीं",
+   "say": "Your reel is getting skipped in the first three seconds, and you don't even know it."
+  },
+  {
+   "hi": "सिंपल भाषा में, हुक मतलब आपकी रील की पहली लाइन",
+   "say": "Simply put, the hook is your reel's first line."
+  },
+  {
+   "hi": "पर घंटों एडिटिंग के बाद भी लोग एक सेकंड में आगे क्यों निकल जाते हैं",
+   "say": "So why do people flick past in one second, after hours of editing?"
+  },
+  {
+   "hi": "जनवरी दो हज़ार पच्चीस में इंस्टाग्राम के हेड ने बताया, टॉप तीन सिग्नल हैं वॉच टाइम, लाइक्स और सेंड्स",
+   "say": "In January 2025, Instagram's head said the top three signals are watch time, likes and sends."
+  },
+  {
+   "hi": "सोचिए, आपने रील शुरू की हाय गाइज़ से, और अंगूठा पहले ही ऊपर चला गया",
+   "say": "Picture it: you open with hi guys, and the thumb has already swiped up."
+  },
+  {
+   "hi": "अब सबसे बड़ा गेम चेंजर, अगस्त दो हज़ार पच्चीस से हर रील पर रिटेंशन चार्ट दिखता है",
+   "say": "Now the biggest game changer: since August 2025, every reel shows a retention chart."
+  },
+  {
+   "hi": "और स्किप रेट, यानी कितने लोग पहले तीन सेकंड में ही निकल गए",
+   "say": "And skip rate: how many people left in the first three seconds."
+  },
+  {
+   "hi": "तो हाय गाइज़ नहीं, सीधे देखने वाले की प्रॉब्लम से शुरू करो",
+   "say": "So skip the hi guys. Start with the viewer's own problem."
+  },
+  {
+   "hi": "हुक चार लाइन में लिखो, लोग क्या करते हैं, एक सच्चा प्रूफ, एक वादा, और एक सवाल",
+   "say": "Write the hook in four lines: what most people do, one true proof, one promise, and a question."
+  },
+  {
+   "hi": "और सबसे मज़ेदार बात, उस सवाल का जवाब सुनने के लिए लोग आख़िर तक रुकते हैं",
+   "say": "And the craziest part: people stay till the end to hear the answer to that question."
+  },
+  {
+   "hi": "आख़िर तक रुकना मतलब वॉच टाइम, यानी टॉप सिग्नल",
+   "say": "Staying till the end means watch time, the top signal."
+  },
+  {
+   "hi": "आज ही इनसाइट्स खोलो और अपना स्किप रेट चेक करो",
+   "say": "Open your Insights today and check your skip rate."
+  },
+  {
+   "hi": "ऐसी और टिप्स के लिए फॉलो करो, और ये रील उस दोस्त को भेजो जिसकी रील्स स्किप होती हैं",
+   "say": "Follow for more tips like this, and send this to a friend whose reels keep getting skipped."
+  }
+ ]
+}

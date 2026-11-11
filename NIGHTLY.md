@@ -41,7 +41,7 @@ Avinash wiped the Instagram grid and restarted. Every day = two Hindi-voiced ree
    off-screen or not matching its line. (Delete review.jpg before committing.)
 4. Notion "Content Queue" (collection://4685a8c5-7254-45d2-bf71-90cb4807adbc): one row per reel. Title
    "<topic> (11am)" / "<topic> (7pm)" (the slot MUST be in the title; post_ig.py matches on it), Post date =
-   tomorrow, Status = Ready, Format = Reel, reel caption, hook, Files = the folder link. These rows stop double posts.
+   tomorrow, Status = Ready, Reel caption, hook, Files = the folder link. These rows stop double posts.
 5. `git fetch origin main && git rebase origin/main`, commit both folders, push.
 6. One short SendUserMessage to Avinash: the two topics + hooks, "run daily.bat on your PC now (it voices both)",
    "reels will be in the folders ~10 min later; they post at 11 AM and 7 PM". If anything failed, say exactly what.

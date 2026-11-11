@@ -6,7 +6,7 @@ what was posted 3-11 Nov (new script, new shots; the old post.json in posts/2026
 | # | Topic | Notes / old folder | used |
 |---|---|---|---|
 | 1 | From free products to paid brand deals | posts/2026-11-10, samples/paper-sample | used: 2026-11-12 11am |
-| 2 | Hooks that stop the scroll (3-second rule) | posts/2026-11-08 | |
+| 2 | Hooks that stop the scroll (3-second rule) | posts/2026-11-08 | used: 2026-11-12 7pm |
 | 3 | Post in your mother tongue: regional creators win | posts/2026-11-06 | |
 | 4 | You don't need to live in Mumbai to grow | posts/2026-11-07 | |
 | 5 | Fix your Instagram profile in 10 minutes | posts/2026-11-09 | |

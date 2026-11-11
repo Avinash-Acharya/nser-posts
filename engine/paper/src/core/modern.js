@@ -78,3 +78,29 @@ export function indiaMap(seed) { K.parchment(seed); ctx.save(); ctx.globalAlpha 
   ctx.strokeStyle = 'rgba(62,44,30,0.15)'; ctx.lineWidth = 2; for (let x = 0; x <= W; x += 120) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); } for (let y = 0; y <= H; y += 120) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
   cut(P_poly(LL.map(([a, b]) => geo(a, b))), P.land, { shadow: 1, edge: 7 }); K.compass(930, 1380, 0.5); }
 
+
+// ── added 11 Nov: hand, fishing hook, retention chart, clock, podium card ──
+/** a paper hand (palm + 4 fingers + thumb); point = index finger up; rot in radians */
+export function hand(x, y, s, rot = 0, point = false) { ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(s, s);
+  cut(P_rr(-60, -20, 120, 150, 40), P.skin); for (let i = 0; i < 4; i++) { const h = point && i ? 70 : [130, 150, 140, 115][i]; cut(P_rr(-58 + i * 30, -h + 10, 28, h, 14), P.skin, { shadow: 0.3, edge: 3 }); }
+  cut(() => { ctx.beginPath(); ctx.save(); ctx.translate(-55, 60); ctx.rotate(-0.9); ctx.roundRect(-14, -90, 30, 100, 15); ctx.restore(); }, P.skin, { shadow: 0.3, edge: 3 }); cut(P_rr(-66, 120, 132, 80, 10), M.hoodie, { shadow: 0.4, edge: 4 }); ctx.restore(); }
+/** a fishing hook on a line, hanging from y0 */
+export function fishHook(x, y, s, y0 = -400) { line([[x, y0], [x, y - 120 * s]], P.ink, 5); ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+  ctx.beginPath(); ctx.moveTo(0, -120); ctx.lineTo(0, 30); ctx.arc(-40, 30, 40, 0, Math.PI, false); ctx.lineTo(-80, 0); ctx.lineWidth = 16; ctx.lineCap = 'round'; ctx.strokeStyle = '#7A7F86'; ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(-80, 0); ctx.lineTo(-62, 18); ctx.stroke(); circle(0, -120, 14, '#7A7F86'); ctx.restore(); }
+/** a retention chart card: the line draws on with p; drop = how hard it falls in the first 3 s (0..1); mark = highlight the drop */
+export function retention(x, y, w, h, p, drop = 0.5, mark = 0) { cut(P_rr(x, y, w, h, 14), '#FFFBF0');
+  const ox = x + 60, oy = y + h - 70, cw = w - 110, ch = h - 150; line([[ox, y + 60], [ox, oy], [ox + cw, oy]], 'rgba(62,44,30,0.5)', 5);
+  const pts = []; for (let i = 0; i <= 40; i++) { const u = i / 40, v = u < 0.12 ? 1 - drop * (u / 0.12) : (1 - drop) * (1 - 0.35 * (u - 0.12)); pts.push([ox + u * cw, oy - v * ch]); }
+  const n = Math.max(2, Math.floor(pts.length * clamp(p))); line(pts.slice(0, n), P.crimson, 9);
+  if (mark > 0) { ctx.save(); ctx.globalAlpha = 0.25 * mark; ctx.fillStyle = P.crimson; ctx.fillRect(ox, y + 50, cw * 0.12, oy - y - 50); ctx.restore(); K.label('0-3s', ox + cw * 0.06, oy + 40, 30, P.crimson); } }
+/** wall clock, hands spin with t */
+export function clock(x, y, s, t = 0) { ctx.save(); ctx.translate(x, y); ctx.scale(s, s); cut(P_circ(0, 0, 120), '#FFFBF0', { shadow: 0.8, edge: 6 }); ctx.lineWidth = 8; ctx.strokeStyle = P.ink; ctx.beginPath(); ctx.arc(0, 0, 120, 0, TAU); ctx.stroke();
+  for (let i = 0; i < 12; i++) { const a = i / 12 * TAU; line([[Math.cos(a) * 95, Math.sin(a) * 95], [Math.cos(a) * 108, Math.sin(a) * 108]], P.ink, 6); }
+  line([[0, 0], [Math.cos(t * 6 - 1.57) * 85, Math.sin(t * 6 - 1.57) * 85]], P.ink, 8); line([[0, 0], [Math.cos(t * 0.5 - 1.57) * 55, Math.sin(t * 0.5 - 1.57) * 55]], P.crimson, 10); circle(0, 0, 10, P.ink); ctx.restore(); }
+/** a numbered gold card with a word (rankings, steps) */
+export function rankCard(n, word, x, y, sc, rot = 0, w = 560) { if (sc <= 0) return; ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(sc, sc);
+  cut(P_rr(-w / 2, -70, w, 140, 14), '#FFFBF0'); cut(P_circ(-w / 2 + 75, 0, 50), P.gold, { shadow: 0.5, edge: 4 }); ctx.font = '700 64px Caladea'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = P.ink; ctx.fillText(String(n), -w / 2 + 75, 4);
+  ctx.textAlign = 'left'; ctx.font = '700 62px Caladea'; ctx.fillText(word, -w / 2 + 150, 4); ctx.restore(); }
+/** strike a crimson line through a rect area (x, y, w), p 0..1 */
+export function strike(x, y, w, p) { if (p <= 0) return; line([[x, y], [x + w * clamp(p), y - 20 * clamp(p)]], P.crimson, 14); }
