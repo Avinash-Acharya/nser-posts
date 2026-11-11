@@ -4,7 +4,8 @@
 Avinash wiped the Instagram grid and restarted. Every day = two Hindi-voiced reels in the PAPER style
 (Paper Atlas cut-paper art, set in present-day India). No carousel, no other format. Times (India):
 - **~6 PM (day before)**: the evening Claude run (you) writes BOTH reels for tomorrow and pushes them.
-- **~7-8 PM**: Avinash runs `daily.bat` on his PC: VoxCPM makes the Hindi voice for every new reel and pushes it.
+- **~7-8 PM**: Avinash runs `daily.bat` on his PC: VoxCPM makes the Hindi voice for every new reel, the PC renders the
+  reels too (engine/paper/render.py; needs Node.js) and pushes voice + reel.mp4. If the PC can't render, GitHub does:
   GitHub (`render.yml`) renders each reel with `engine/paper/render.py` (~3 min each) and commits `reel.mp4`.
 - **9 PM**: Avinash watches them in the repo (he may ask for changes). No Notion approval needed.
 - **11:00 AM** posts `<date>-11am`, **7:00 PM** posts `<date>-7pm` (`post.yml` + backup dispatch tasks).
