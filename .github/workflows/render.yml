@@ -42,16 +42,18 @@ jobs:
       - name: Install tools
         timeout-minutes: 12
         run: |
-          which ffmpeg || { timeout 240 sudo apt-get update -q || true; timeout 400 sudo apt-get install -y -q --no-install-recommends ffmpeg; }
+          pip install -q numpy soundfile scipy imageio-ffmpeg playwright
+          # ffmpeg: a static build from PyPI (Ubuntu's own mirrors have failed on the runner before)
+          which ffmpeg || sudo ln -sf "$(python -c 'import imageio_ffmpeg as i; print(i.get_ffmpeg_exe())')" /usr/local/bin/ffmpeg
           ffmpeg -version | head -1
-          pip install -q numpy soundfile scipy
-          ls -la /usr/bin/google-chrome* || true
-          # the old studio engine needs playwright; paper reels use the runner's own Chrome
+          C=$(which google-chrome || which google-chrome-stable || which chromium || true)
+          if [ -z "$C" ]; then timeout 300 python -m playwright install chromium; C=$(ls -d ~/.cache/ms-playwright/chromium-*/chrome-linux*/chrome | head -1); fi
+          echo "CHROME=$C" >> $GITHUB_ENV; echo "chrome: $C"
+          # the old studio engine needs playwright's chromium too
           if grep -L '"style": *"paper"' $(for X in ${{ steps.day.outputs.d }}; do echo posts/$X/post.json; done) | grep -q .; then
-            pip install -q playwright && timeout 300 python -m playwright install --with-deps chromium; fi
+            timeout 300 python -m playwright install chromium; fi
       - name: Render
         run: |
-          export CHROME=/usr/bin/google-chrome
           for X in ${{ steps.day.outputs.d }}; do
             D=posts/$X
             if grep -q '"style": *"paper"' $D/post.json; then
