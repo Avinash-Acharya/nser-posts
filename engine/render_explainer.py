@@ -37,21 +37,25 @@ def mix(events, total, out):
     SR = sfx.SR; n = int((total + .5) * SR); buf = np.zeros((n, 2))
     v, sr0 = sf.read(os.path.join(rd, "narration.wav"), dtype="float64")
     if v.ndim > 1: v = v.mean(1)
-    v = np.interp(np.arange(0, len(v), sr0 / SR), np.arange(len(v)), v)          # 24k -> 48k
+    if sr0 != SR:                                                                 # clean resample (no muffling)
+        from scipy.signal import resample_poly; from math import gcd; g = gcd(SR, sr0); v = resample_poly(v, SR // g, sr0 // g)
+    from scipy.signal import butter, sosfilt
+    v = sosfilt(butter(2, 80, "hp", fs=SR, output="sos"), v)                      # drop rumble
+    v = v + .35 * sosfilt(butter(2, [2500, 6000], "bp", fs=SR, output="sos"), v)  # presence: clearer, less muffled
     v = sfx.compress(sfx.norm(v, .9), thr=.3, ratio=3)
     # voice envelope for ducking
     win = int(.12 * SR); env = np.convolve(np.abs(v), np.ones(win) / win, "same"); env = np.clip(env / (env.max() + 1e-9) * 4, 0, 1)
     if MUSIC:
-        m = music(total, SR)[:n]; duck = 1 - .55 * np.pad(env, (0, max(0, len(m) - len(env))))[:len(m)]
-        buf[:len(m)] += (m * duck[:, None]) * .16
+        m = music(total, SR)[:n]; duck = 1 - .7 * np.pad(env, (0, max(0, len(m) - len(env))))[:len(m)]
+        buf[:len(m)] += (m * duck[:, None]) * .09
     lib = {"whoosh": lambda: sfx.whoosh(.32), "pop": sfx.pop, "click": lambda: sfx.click(1.2), "tick": lambda: sfx.click(1.8, .6),
            "ding": sfx.ding, "step": sfx.step, "creak": sfx.creak, "thump": lambda: sfx.thump(1, 90),
            "clink": lambda: sfx.click(2.4), "scribble": lambda: sfx.lp(sfx.bp(sfx.noise(.28), 1500, 5000) * np.abs(np.sin(np.linspace(0, 18, int(.28 * SR)))), 6000),
            "whoosh_up": lambda: sfx.whoosh(.7)}
     for t, name, g in events:
-        if name in lib: sfx.add(buf, sfx.norm(lib[name]()), t, g * .55, pan=float(np.clip(np.sin(t * 7) * .3, -.3, .3)))
+        if name in lib: sfx.add(buf, sfx.norm(lib[name]()), t, g * .32, pan=float(np.clip(np.sin(t * 7) * .3, -.3, .3)))
     vv = np.zeros(n); vv[:min(n, len(v))] = v[:n]
-    buf[:, 0] += vv * .9; buf[:, 1] += vv * .9
+    buf[:, 0] += vv * 1.0; buf[:, 1] += vv * 1.0
     buf = np.stack([sfx.limit(buf[:, 0], .95), sfx.limit(buf[:, 1], .95)], 1)
     sf.write(out, buf.astype(np.float32), SR)
 

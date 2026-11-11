@@ -42,6 +42,7 @@ vdir = os.path.join(post_dir, "voice"); MAN = None
 if os.path.exists(os.path.join(vdir, "manifest.json")):
     MAN = {m["i"]: m["file"] for m in json.load(open(os.path.join(vdir, "manifest.json")))["lines"]}
     print("using ready-made narration from", vdir)
+    SR = sf.info(os.path.join(vdir, next(iter(MAN.values())))).samplerate   # keep the PC voice at full quality (48k)
 if not MAN or any(i not in MAN for i in range(len(BEATS))):   # Kokoro only when needed
     from kokoro_onnx import Kokoro
     k = Kokoro(os.path.join(model_dir, "kokoro-v1.0.onnx"), os.path.join(model_dir, "voices-v1.0.bin"))
@@ -57,7 +58,9 @@ for bi, b in enumerate(BEATS):
     if MAN and bi in MAN:
         a, sr0 = sf.read(os.path.join(vdir, MAN[bi]), dtype="float32")
         if a.ndim > 1: a = a.mean(axis=1)
-        if sr0 != SR: a = np.interp(np.arange(0, len(a), sr0 / SR), np.arange(len(a)), a).astype(np.float32)
+        if sr0 != SR:
+            from scipy.signal import resample_poly; from math import gcd; g = gcd(SR, sr0)
+            a = resample_poly(a, SR // g, sr0 // g).astype(np.float32)
         a = tighten(np.asarray(a, dtype=np.float32).copy(), SR)
     else:
         say = (b.get("speak") or b["say"]).replace("%", " percent").replace("₹", "rupees ")
