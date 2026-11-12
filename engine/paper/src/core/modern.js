@@ -104,3 +104,35 @@ export function rankCard(n, word, x, y, sc, rot = 0, w = 560) { if (sc <= 0) ret
   ctx.textAlign = 'left'; ctx.font = '700 62px Caladea'; ctx.fillText(word, -w / 2 + 150, 4); ctx.restore(); }
 /** strike a crimson line through a rect area (x, y, w), p 0..1 */
 export function strike(x, y, w, p) { if (p <= 0) return; line([[x, y], [x + w * clamp(p), y - 20 * clamp(p)]], P.crimson, 14); }
+
+// ── added 13 Nov: bar pair, map pin, hut, palm tree, cooking pot, river, cafe cup ──
+/** two paper bars side by side growing with p; a = {v, label, txt, hot}, b likewise; base y, max height hMax */
+export function barPair(a, b, x, y, p, hMax = 760) { const mx = Math.max(a.v, b.v);
+  [a, b].forEach((o, k) => { const bx = x + k * 360, h = hMax * (o.v / mx) * eo(clamp(p)); if (h > 2) cut(P_rr(bx - 130, y - h, 260, h, 10), o.hot ? P.crimson : P.stone);
+    if (p > 0.3) { ctx.save(); ctx.globalAlpha = clamp((p - 0.3) * 3); K.label(o.txt, bx, y - h - 60, 72, o.hot ? P.crimson : P.ink); ctx.restore(); }
+    K.label(o.label, bx, y + 55, 40); }); }
+/** a map pin at (x, y) (tip at the point); sc pops it in */
+export function pin(x, y, sc, col = P.crimson) { if (sc <= 0) return; ctx.save(); ctx.translate(x, y); ctx.scale(sc, sc);
+  cut(() => { ctx.beginPath(); ctx.moveTo(0, 0); ctx.bezierCurveTo(-40, -50, -46, -80, -46, -96); ctx.arc(0, -96, 46, Math.PI, 0); ctx.bezierCurveTo(46, -80, 40, -50, 0, 0); ctx.closePath(); }, col, { shadow: 0.6, edge: 4 });
+  circle(0, -96, 17, P.edge); ctx.restore(); }
+/** a village hut (walls + thatched roof) standing on (x, y) */
+export function hut(x, y, s, wall = '#C9A574') { ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+  cut(P_rr(-150, -200, 300, 200, 6), wall); cut(P_rr(-40, -120, 80, 120, 4), P.ink, { shadow: 0, edge: 3 });
+  cut(P_poly([[-200, -190], [0, -360], [200, -190]]), '#A8823F'); for (let i = 0; i < 5; i++) line([[-150 + i * 60, -200], [-20 + i * 20, -330]], 'rgba(62,44,30,0.3)', 4); ctx.restore(); }
+/** a palm / coconut tree standing on (x, y); sway = small rotation */
+export function tree(x, y, s, sway = 0) { ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.rotate(sway);
+  cut(() => { ctx.beginPath(); ctx.moveTo(-18, 0); ctx.quadraticCurveTo(-30, -250, 10, -480); ctx.lineTo(34, -478); ctx.quadraticCurveTo(0, -250, 18, 0); ctx.closePath(); }, P.sepia, { shadow: 0.6, edge: 4 });
+  for (let i = 0; i < 6; i++) { const a = -Math.PI / 2 + (i - 2.5) * 0.55; cut(() => { ctx.beginPath(); ctx.save(); ctx.translate(22, -480); ctx.rotate(a); ctx.ellipse(110, 0, 120, 30, 0.25, 0, TAU); ctx.restore(); }, i % 2 ? P.forest : P.green, { shadow: 0.4, edge: 3 }); }
+  ctx.restore(); }
+/** a huge cooking pot over a fire; t animates flames + steam */
+export function pot(x, y, s, t = 0) { ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+  for (let i = 0; i < 5; i++) { const fh = 90 + Math.sin(t * 9 + i * 1.7) * 25; cut(P_poly([[-150 + i * 75, 0], [-115 + i * 75, -fh], [-80 + i * 75, 0]]), i % 2 ? P.gold : P.crimson, { shadow: 0, edge: 3 }); }
+  cut(() => { ctx.beginPath(); ctx.ellipse(0, -150, 230, 130, 0, 0, Math.PI); ctx.lineTo(-230, -240); ctx.lineTo(230, -240); ctx.closePath(); }, '#5A5550');
+  cut(() => { ctx.beginPath(); ctx.ellipse(0, -240, 250, 40, 0, 0, TAU); }, '#7A7F86', { shadow: 0.3, edge: 4 });
+  ctx.save(); ctx.globalAlpha = 0.5; for (let i = 0; i < 3; i++) { const u = (t * 0.6 + i / 3) % 1; circle(-80 + i * 80 + Math.sin(t * 2 + i) * 20, -300 - u * 260, 30 + u * 30, '#F7EFDC'); } ctx.restore(); ctx.restore(); }
+/** a river strip across the page at y */
+export function river(y, t = 0) { cut(() => { ctx.beginPath(); ctx.moveTo(-300, y); for (let x = -300; x <= W + 300; x += 60) ctx.lineTo(x, y + Math.sin(x / 140 + t) * 18); ctx.lineTo(W + 300, y + 170); ctx.lineTo(-300, y + 170); ctx.closePath(); }, P.sea, { shadow: 0.3, edge: 5 });
+  for (let i = 0; i < 6; i++) line([[(i * 200 + t * 60) % (W + 200) - 100, y + 80], [(i * 200 + t * 60) % (W + 200) - 40, y + 80]], '#F7EFDC', 5); }
+/** a café cup (steam) */
+export function cup(x, y, s, t = 0) { ctx.save(); ctx.translate(x, y); ctx.scale(s, s); cut(P_rr(-80, -140, 160, 140, 20), '#FFFBF0'); ctx.beginPath(); ctx.arc(95, -75, 35, -1.4, 1.4); ctx.lineWidth = 16; ctx.strokeStyle = '#FFFBF0'; ctx.stroke();
+  cut(P_rr(-60, -100, 120, 30, 6), P.sepia, { shadow: 0, edge: 0 }); ctx.save(); ctx.globalAlpha = 0.45; for (let i = 0; i < 2; i++) line([[-20 + i * 40, -170], [-30 + i * 40 + Math.sin(t * 3 + i) * 10, -240]], P.sepia, 8); ctx.restore(); ctx.restore(); }
