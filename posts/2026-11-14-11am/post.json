@@ -1,0 +1,26 @@
+{
+ "style": "paper",
+ "topic": "Fix your Instagram profile in 10 minutes",
+ "captions": false,
+ "music": "bed",
+ "sources": [
+  "https://www.socialmediatoday.com/news/instagram-outlines-how-its-search-algorithms-work-and-how-you-can-optimize/605596/",
+  "https://www.business-standard.com/technology/tech-news/instagram-adds-feature-to-allow-users-to-add-up-to-5-links-to-profile-bios-123041900587_1.html",
+  "https://www.engadget.com/instagram-grid-pinning-now-available-180201676.html"
+ ],
+ "explainer": [
+  {"hi": "कोई आपकी प्रोफाइल पर आया, देखा, और बिना फॉलो किए चला गया", "say": "Someone visited your profile, looked around, and left without following."},
+  {"hi": "सिंपल भाषा में, आपकी प्रोफाइल आपकी दुकान का बोर्ड है", "say": "Simply put, your profile is your shop's signboard."},
+  {"hi": "पर रील्स तो अच्छी हैं, फिर लोग फॉलो क्यों नहीं करते", "say": "But your reels are good, so why don't people follow?"},
+  {"hi": "इंस्टाग्राम ख़ुद बताता है, सर्च आपके यूज़रनेम, बायो, कैप्शन, हैशटैग और लोकेशन से मैच करता है", "say": "Instagram itself says search matches usernames, bios, captions, hashtags and places."},
+  {"hi": "सोचिए, कोई पुणे में बेकिंग क्रिएटर ढूँढ रहा है, और आपके बायो में लिखा है बस जस्ट वाइब्स", "say": "Picture it: someone in Pune searches for a baking creator, and your bio just says 'just vibes'."},
+  {"hi": "पहला, नेम फील्ड में अपना नाम और आप क्या बनाते हो, दोनों लिखो", "say": "First, put your name and what you make in the name field."},
+  {"hi": "दूसरा, बायो में कीवर्ड्स और अपना शहर, ताकि आसपास के लोग आपको ढूँढ सकें", "say": "Second, keywords and your city in the bio, so people nearby can find you."},
+  {"hi": "अब सबसे बड़ा गेम चेंजर, अप्रैल दो हज़ार तेईस से बायो में पाँच लिंक लगा सकते हो", "say": "Now the biggest game changer: since April 2023 you can add five links to your bio."},
+  {"hi": "पर सबसे मज़ेदार बात, विज़िटर को पहले सिर्फ़ आपका पहला लिंक दिखता है, बाकी एक क्लिक पीछे", "say": "But the craziest part: visitors first see only your first link, the rest are one tap away."},
+  {"hi": "तो अपना सबसे ज़रूरी लिंक सबसे ऊपर रखो", "say": "So put your most important link on top."},
+  {"hi": "तीसरा, अपनी तीन बेस्ट रील्स पिन करो, ग्रिड के ऊपर तीन पोस्ट दिखते हैं", "say": "Third, pin your three best reels: three posts show above your grid."},
+  {"hi": "अब अगली बार कोई प्रोफाइल पर आएगा, तो फॉलो करके जाएगा", "say": "Next time someone visits your profile, they leave as a follower."},
+  {"hi": "ऐसी और टिप्स के लिए फॉलो करो, और ये रील उस दोस्त को भेजो जिसकी प्रोफाइल कुछ नहीं बताती", "say": "Follow for more tips like this, and send this to a friend whose profile says nothing."}
+ ]
+}
