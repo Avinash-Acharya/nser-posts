@@ -13,8 +13,8 @@ what was posted 3-11 Nov (new script, new shots; the old post.json in posts/2026
 | 6 | When does your Indian audience actually scroll? | posts/2026-11-11 | used: 2026-11-14 7pm |
 | 7 | Carousel or reel? When to use which | posts/2026-11-05 | used: 2026-11-15 11am |
 | 8 | It's never too late: started after 50 (case study, generic paper figure) | posts/2026-11-04 | used: 2026-11-15 7pm |
-| 9 | Years of posting before the first hit (case study, generic paper figure) | posts/2026-11-03 | |
-| 10 | Collab posts: one reel, two audiences | new (research Instagram's Collab feature) | |
+| 9 | Years of posting before the first hit (case study, generic paper figure) | posts/2026-11-03 | used: 2026-11-16 11am |
+| 10 | Collab posts: one reel, two audiences | new (research Instagram's Collab feature) | used: 2026-11-16 7pm |
 | 11 | UGC: getting paid by Indian brands without a big following | new (India-focused) | |
 | 12 | How Indian creators price a brand deal (rate card basics) | new (India-focused; sourced numbers only) | |
 | 13 | Insights basics: the 3 numbers that actually matter | new (Instagram Help Center / Creators pages) | |
