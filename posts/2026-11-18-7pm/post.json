@@ -1,0 +1,25 @@
+{
+ "style": "paper",
+ "topic": "Trial reels: test a reel on non-followers first",
+ "captions": false,
+ "music": "bed",
+ "sources": [
+  "https://creators.instagram.com/blog/instagram-trial-reels",
+  "https://about.fb.com/news/2024/12/trial-reels-try-content-non-followers-first/",
+  "https://www.socialmediatoday.com/news/instagram-launches-trial-reels-audience-sampling/735136/"
+ ],
+ "explainer": [
+  {"hi": "नया आइडिया ट्राय करना है, पर डर है कि फ़ॉलोअर्स को पसंद नहीं आएगा?", "say": "Want to try a new idea, but scared your followers won't like it?"},
+  {"hi": "सिंपल भाषा में, ट्रायल रील्स पहले उन लोगों को दिखती हैं, जो आपको फ़ॉलो नहीं करते", "say": "Simply put, trial reels are shown first to people who don't follow you."},
+  {"hi": "आपके फ़ॉलोअर्स को ये ना फ़ीड में दिखेगी, ना आपकी ग्रिड पर", "say": "Your followers won't see it in Feed, or on your grid."},
+  {"hi": "और सिर्फ़ आपको पता होगा कि ये ट्रायल है", "say": "And only you will know it's a trial."},
+  {"hi": "सोचिए, आप फ़ूड क्रिएटर हो, और एक ट्रैवल रील ट्राय करनी है, बस शेयर करने से पहले ट्रायल वाला टॉगल ऑन करो", "say": "Picture it: you're a food creator and want to try a travel reel. Just turn on the Trial toggle before you share."},
+  {"hi": "करीब चौबीस घंटे बाद, आपको व्यूज़, लाइक्स, कमेंट्स और शेयर्स दिख जाएँगे", "say": "About twenty-four hours later, you can see views, likes, comments and shares."},
+  {"hi": "अब सबसे बड़ा गेम चेंजर, अगर पहले बहत्तर घंटों में रील अच्छा करे, तो इंस्टाग्राम खुद उसे आपके फ़ॉलोअर्स को दिखा सकता है", "say": "Now the biggest game changer: if it does well in the first seventy-two hours, Instagram can share it with your followers automatically."},
+  {"hi": "और सबसे मज़ेदार बात, रील फ़्लॉप हुई, तो ज़्यादातर फ़ॉलोअर्स को पता भी नहीं चलेगा", "say": "And the craziest part: if it flops, most of your followers won't even know."},
+  {"hi": "तो, हर हफ़्ते एक नया आइडिया ट्रायल में डालो", "say": "So, put one new idea into a trial every week."},
+  {"hi": "जो चले, उसे सबके साथ शेयर करो, जो ना चले, उससे सीखो", "say": "What works, share with everyone. What doesn't, learn from it."},
+  {"hi": "अब नया आइडिया ट्राय करने से डरना कैसा?", "say": "So why be scared of trying a new idea now?"},
+  {"hi": "ऐसी और टिप्स के लिए फॉलो करो, और ये रील उस दोस्त को भेजो जो नया ट्राय करने से डरता है", "say": "Follow for more tips like this, and send this to the friend who's scared to try something new."}
+ ]
+}

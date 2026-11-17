@@ -1,0 +1,25 @@
+{
+ "style": "paper",
+ "topic": "Insights basics: the 3 numbers that actually matter",
+ "captions": false,
+ "music": "bed",
+ "sources": [
+  "https://torro.io/blog/3-most-important-instagram-metrics-for-reach",
+  "https://www.socialsamosa.com/topical-spot/instagram-new-engagement-tools-explained-9762802",
+  "https://www.fanpagekarma.com/insights/instagram-insights-update/"
+ ],
+ "explainer": [
+  {"hi": "इन्साइट्स खोलते ही नंबर्स का ढेर, पर असल में देखना कौन सा है?", "say": "You open Insights and there's a pile of numbers. But which ones actually matter?"},
+  {"hi": "सिंपल भाषा में, इन्साइट्स आपकी रील का रिपोर्ट कार्ड है, और उसमें बस तीन नंबर सबसे ज़रूरी हैं", "say": "Simply put, Insights is your reel's report card, and only three numbers matter most."},
+  {"hi": "इंस्टाग्राम के हेड एडम मोसेरी के हिसाब से, रीच के तीन बड़े सिग्नल हैं, वॉच टाइम, लाइक रेट और सेंड रेट", "say": "According to Instagram head Adam Mosseri, three big signals for reach: watch time, like rate and send rate."},
+  {"hi": "पहला, वॉच टाइम, यानी लोग आपकी रील कितनी देर तक देखते हैं", "say": "One: watch time, how long people keep watching your reel."},
+  {"hi": "दूसरा और तीसरा, लाइक्स और सेंड्स को, रील की रीच से भाग दो", "say": "Two and three: divide likes and sends by your reel's reach."},
+  {"hi": "सोचिए, आपकी रील एक हज़ार लोगों तक पहुँची, और अस्सी ने उसे दोस्तों को भेजा, तो आपका सेंड रेट आठ परसेंट", "say": "Picture it: your reel reached a thousand people and eighty sent it to friends. Your send rate is eight percent."},
+  {"hi": "अब सबसे बड़ा गेम चेंजर, स्किप रेट, यानी कितने लोग पहले तीन सेकंड में ही आगे निकल गए", "say": "Now the biggest game changer: skip rate, how many people scrolled past in the first three seconds."},
+  {"hi": "और सबसे मज़ेदार बात, अब हर रील के साथ एक ग्राफ़ आता है, जो दिखाता है कि लोग कहाँ छोड़कर गए", "say": "And the craziest part: every reel now comes with a chart that shows where people left."},
+  {"hi": "तो, स्किप रेट ज़्यादा है, तो पहले तीन सेकंड का हुक बदलो", "say": "So if your skip rate is high, change your first three seconds."},
+  {"hi": "और सेंड रेट कम है, तो ऐसी रील बनाओ जो कोई दोस्त को भेजना चाहे", "say": "And if your send rate is low, make a reel people want to send to a friend."},
+  {"hi": "अगली बार इन्साइट्स खोलो, तो बस ये तीन नंबर देखो", "say": "Next time you open Insights, just look at these three numbers."},
+  {"hi": "ऐसी और टिप्स के लिए फॉलो करो, और ये रील उस दोस्त को भेजो जो सिर्फ़ लाइक्स गिनता है", "say": "Follow for more tips like this, and send this to the friend who only counts likes."}
+ ]
+}
