@@ -1,0 +1,24 @@
+{
+ "style": "paper",
+ "topic": "GST basics for Indian creators: when you need to register",
+ "captions": false,
+ "music": "bed",
+ "sources": [
+  "https://www.gstcouncil.gov.in/sites/default/files/e-version-gst-flyers/Registration_under_GST_Law_new.pdf",
+  "https://www.kanakkupillai.com/learn/gst-for-freelancers-content-creators-in-india/"
+ ],
+ "explainer": [
+  {"hi": "ब्रांड डील्स से पैसा आने लगा है? तो GST का सवाल भी आएगा", "say": "Money from brand deals starting to come in? Then the GST question will come too."},
+  {"hi": "सिंपल भाषा में, सर्विस देने वालों को GST रजिस्ट्रेशन तब चाहिए, जब साल का टर्नओवर बीस लाख से ऊपर जाए", "say": "Simply put, service providers need GST registration when their yearly turnover goes above twenty lakh."},
+  {"hi": "मणिपुर, मिज़ोरम, नागालैंड और त्रिपुरा में ये लिमिट दस लाख है", "say": "In Manipur, Mizoram, Nagaland and Tripura, this limit is ten lakh."},
+  {"hi": "और ये गिनती पूरे इंडिया की होती है, आपके पैन पर", "say": "And this is counted for all of India, on your PAN."},
+  {"hi": "सोचिए, आपको ब्रांड डील्स, एडसेंस और एक विदेशी क्लाइंट, तीनों से पैसा आता है, लिमिट के लिए ये सब जुड़ता है", "say": "Picture it: you earn from brand deals, AdSense and a foreign client. All of it adds up for the limit."},
+  {"hi": "बीस लाख से नीचे हो, और क्लाइंट दूसरे स्टेट या विदेश में हों, तब भी रजिस्ट्रेशन ज़रूरी नहीं", "say": "If you're below twenty lakh, even with clients in other states or abroad, registration isn't compulsory."},
+  {"hi": "अब सबसे बड़ा गेम चेंजर, रजिस्टर होने के बाद, ज़्यादातर क्रिएटर सर्विसेज़ पर अठारह परसेंट GST लगता है", "say": "Now the biggest game changer: once registered, most creator services attract eighteen percent GST."},
+  {"hi": "और सबसे मज़ेदार बात, एडसेंस जैसी विदेशी कमाई, ज़ीरो रेटेड एक्सपोर्ट हो सकती है, बस पहले LUT फ़ाइल करो", "say": "And the craziest part: foreign income like AdSense can be a zero-rated export. Just file an LUT first."},
+  {"hi": "तो, हर महीने अपनी कुल कमाई का हिसाब रखो", "say": "So, track your total income every month."},
+  {"hi": "बीस लाख के पास पहुँचो, तो किसी CA से बात करके रजिस्टर करो", "say": "When you get close to twenty lakh, talk to a CA and register."},
+  {"hi": "फिर ब्रांड का पैसा भी आएगा, और GST का टेंशन भी नहीं", "say": "Then the brand money comes in, and no GST tension."},
+  {"hi": "ऐसी और टिप्स के लिए फॉलो करो, और ये रील उस दोस्त को भेजो जिसकी ब्रांड डील्स शुरू हो गई हैं", "say": "Follow for more tips like this, and send this reel to the friend whose brand deals have just started."}
+ ]
+}

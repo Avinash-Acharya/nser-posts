@@ -19,10 +19,13 @@ what was posted 3-11 Nov (new script, new shots; the old post.json in posts/2026
 | 12 | How Indian creators price a brand deal (rate card basics) | new (India-focused; sourced numbers only) | used: 2026-11-17 7pm |
 | 13 | Insights basics: the 3 numbers that actually matter | new (Instagram Help Center / Creators pages) | used: 2026-11-18 11am |
 | 14 | Trial reels: test a reel on non-followers first | new (research Instagram's Trial Reels feature) | used: 2026-11-18 7pm |
-| 15 | Shorts or Reels? Where Indian creators should post | new (India-focused; sourced numbers only) | |
-| 16 | GST basics for Indian creators: when you need to register | new (India-focused; official GST sources only) | |
+| 15 | Shorts or Reels? Where Indian creators should post | new (India-focused; sourced numbers only) | used: 2026-11-19 11am |
+| 16 | GST basics for Indian creators: when you need to register | new (India-focused; official GST sources only) | used: 2026-11-19 7pm |
 | 17 | Affiliate links: earning from products you already use (India) | new (India-focused; official program pages) | |
 | 18 | Barter vs paid deals: when to say no to free products | new (India-focused) | |
 | 19 | The media kit: one page that gets brands to reply | new | |
 | 20 | Repurpose one reel into 5 posts | new | |
 | 21 | ASCI disclosure rules: how to tag #ad the right way in India | new (India-focused; ASCI official guidelines only) | |
+| 22 | TDS on creator income: why brands deduct tax and how to claim it back (India) | new (India-focused; Income Tax Dept sources only) | |
+| 23 | Instagram's Edits app: free tools for reels | new (research Meta's official Edits announcements) | |
+| 24 | Story stickers that bring replies (polls, questions) | new (Instagram Help Center) | |
