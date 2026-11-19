@@ -21,8 +21,8 @@ what was posted 3-11 Nov (new script, new shots; the old post.json in posts/2026
 | 14 | Trial reels: test a reel on non-followers first | new (research Instagram's Trial Reels feature) | used: 2026-11-18 7pm |
 | 15 | Shorts or Reels? Where Indian creators should post | new (India-focused; sourced numbers only) | used: 2026-11-19 11am |
 | 16 | GST basics for Indian creators: when you need to register | new (India-focused; official GST sources only) | used: 2026-11-19 7pm |
-| 17 | Affiliate links: earning from products you already use (India) | new (India-focused; official program pages) | |
-| 18 | Barter vs paid deals: when to say no to free products | new (India-focused) | |
+| 17 | Affiliate links: earning from products you already use (India) | new (India-focused; official program pages) | used: 2026-11-20 11am |
+| 18 | Barter vs paid deals: when to say no to free products | new (India-focused) | used: 2026-11-20 7pm |
 | 19 | The media kit: one page that gets brands to reply | new | |
 | 20 | Repurpose one reel into 5 posts | new | |
 | 21 | ASCI disclosure rules: how to tag #ad the right way in India | new (India-focused; ASCI official guidelines only) | |
