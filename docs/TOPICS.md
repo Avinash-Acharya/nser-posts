@@ -23,9 +23,13 @@ what was posted 3-11 Nov (new script, new shots; the old post.json in posts/2026
 | 16 | GST basics for Indian creators: when you need to register | new (India-focused; official GST sources only) | used: 2026-11-19 7pm |
 | 17 | Affiliate links: earning from products you already use (India) | new (India-focused; official program pages) | used: 2026-11-20 11am |
 | 18 | Barter vs paid deals: when to say no to free products | new (India-focused) | used: 2026-11-20 7pm |
-| 19 | The media kit: one page that gets brands to reply | new | |
-| 20 | Repurpose one reel into 5 posts | new | |
+| 19 | The media kit: one page that gets brands to reply | new | used: 2026-11-21 11am |
+| 20 | Repurpose one reel into 5 posts | new | used: 2026-11-21 7pm |
 | 21 | ASCI disclosure rules: how to tag #ad the right way in India | new (India-focused; ASCI official guidelines only) | |
 | 22 | TDS on creator income: why brands deduct tax and how to claim it back (India) | new (India-focused; Income Tax Dept sources only) | |
 | 23 | Instagram's Edits app: free tools for reels | new (research Meta's official Edits announcements) | |
 | 24 | Story stickers that bring replies (polls, questions) | new (Instagram Help Center) | |
+| 25 | Writing a brand pitch DM/email that gets a reply (India) | new (India-focused) | |
+| 26 | Contracts 101: 5 things to check before you sign a brand deal (India) | new (India-focused; official/legal-aid sources only) | |
+| 27 | Broadcast channels: talk to your fans in one place | new (Instagram Help Center) | |
+| 28 | Batch-create a week of reels in one day | new | |
