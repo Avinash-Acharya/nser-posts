@@ -25,8 +25,8 @@ what was posted 3-11 Nov (new script, new shots; the old post.json in posts/2026
 | 18 | Barter vs paid deals: when to say no to free products | new (India-focused) | used: 2026-11-20 7pm |
 | 19 | The media kit: one page that gets brands to reply | new | used: 2026-11-21 11am |
 | 20 | Repurpose one reel into 5 posts | new | used: 2026-11-21 7pm |
-| 21 | ASCI disclosure rules: how to tag #ad the right way in India | new (India-focused; ASCI official guidelines only) | |
-| 22 | TDS on creator income: why brands deduct tax and how to claim it back (India) | new (India-focused; Income Tax Dept sources only) | |
+| 21 | ASCI disclosure rules: how to tag #ad the right way in India | new (India-focused; ASCI official guidelines only) | used: 2026-11-22 11am |
+| 22 | TDS on creator income: why brands deduct tax and how to claim it back (India) | new (India-focused; Income Tax Dept sources only) | used: 2026-11-22 7pm |
 | 23 | Instagram's Edits app: free tools for reels | new (research Meta's official Edits announcements) | |
 | 24 | Story stickers that bring replies (polls, questions) | new (Instagram Help Center) | |
 | 25 | Writing a brand pitch DM/email that gets a reply (India) | new (India-focused) | |

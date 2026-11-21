@@ -1,0 +1,25 @@
+{
+ "style": "paper",
+ "topic": "TDS on creator income: why brands deduct tax and how to claim it back (India)",
+ "captions": false,
+ "music": "bed",
+ "sources": [
+  "https://www.incometaxindia.gov.in/w/tds-on-benefit-or-perquisite-arising-from-business-or-profession",
+  "https://www.incometaxindia.gov.in/w/section-194r"
+ ],
+ "explainer": [
+  {"hi": "फ्री प्रोडक्ट पर भी टैक्स? हाँ, और इसे TDS कहते हैं", "say": "Tax on free products too? Yes, and it's called TDS."},
+  {"hi": "सिंपल भाषा में, TDS मतलब, देने वाला ही टैक्स काटकर सरकार में जमा करता है", "say": "Simply put, TDS means the one who pays deducts the tax and deposits it with the government."},
+  {"hi": "किसी ब्रांड से साल में बीस हज़ार से ज़्यादा के फ्री प्रोडक्ट या बेनिफ़िट मिले, तो दस परसेंट TDS", "say": "Get more than twenty thousand worth of free products or benefits from one brand in a year, and it's ten percent TDS."},
+  {"hi": "और ये पूरी वैल्यू पर लगता है, सिर्फ़ बीस हज़ार के ऊपर वाले हिस्से पर नहीं", "say": "And it's on the full value, not just the part above twenty thousand."},
+  {"hi": "मान लो एक ब्रांड ने आपको साल में तीस हज़ार के प्रोडक्ट भेजे, तो तीन हज़ार का TDS बनता है", "say": "Say one brand sent you thirty thousand worth of products in a year. That's three thousand in TDS."},
+  {"hi": "ब्रांड ये टैक्स सरकार में जमा करता है, और आपको फ़ॉर्म सोलह A देता है", "say": "The brand deposits this tax with the government and gives you Form 16A."},
+  {"hi": "अब सबसे बड़ा गेम चेंजर, प्रोडक्ट इस्तेमाल करके वापस कर दिया, तो वो बेनिफ़िट नहीं गिना जाता", "say": "Now the biggest game changer: use the product and return it, and it doesn't count as a benefit."},
+  {"hi": "पर प्रोडक्ट अपने पास रख लिया, तो TDS लगेगा", "say": "But keep the product, and TDS applies."},
+  {"hi": "और सबसे ज़रूरी बात, ये कटा हुआ टैक्स आपके नाम पर क्रेडिट है, पर मिलेगा तभी जब आप ITR फ़ाइल करोगे", "say": "And the most important part: this deducted tax is credit in your name, but you only get it when you file your ITR."},
+  {"hi": "तो, हर ब्रांड से फ़ॉर्म सोलह A माँगो, और संभाल कर रखो", "say": "So, ask every brand for Form 16A and keep it safe."},
+  {"hi": "साल के आख़िर में ITR फ़ाइल करो, और ये क्रेडिट क्लेम करो", "say": "At year end, file your ITR and claim this credit."},
+  {"hi": "टैक्स कटा है, खोया नहीं", "say": "The tax was deducted, not lost."},
+  {"hi": "ऐसी और टिप्स के लिए फॉलो करो, और ये रील उस दोस्त को भेजो जिसके घर रोज़ PR पैकेज आते हैं", "say": "Follow for more tips like this, and send this reel to the friend who gets PR packages every day."}
+ ]
+}
