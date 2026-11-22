@@ -10,7 +10,7 @@ post_dir, model_dir = os.path.abspath(sys.argv[1]), os.path.abspath(sys.argv[2])
 post = json.load(open(os.path.join(post_dir, "post.json"), encoding="utf-8"))
 out = os.path.join(post_dir, "reel"); os.makedirs(out, exist_ok=True)
 
-GAP, LEAD, TAIL = (0.1 if os.path.exists(os.path.join(post_dir, "voice", "manifest.json")) else 0.16), 0.12, 0.6
+GAP, LEAD, TAIL = (0.3 if os.path.exists(os.path.join(post_dir, "voice", "manifest.json")) else 0.16), 0.12, 0.6
 
 
 def tighten(a, sr, keep=0.14, th_rel=0.04):

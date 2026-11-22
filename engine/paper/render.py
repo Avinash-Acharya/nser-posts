@@ -21,7 +21,7 @@ if not os.path.exists(os.path.join(pd, "shots.js")): sys.exit(f"{pd}/shots.js mi
 
 # 1. timing
 if EST:
-    CPS, GAP, t, L = 18.3, 0.1, 0.12, []          # Hindi chars per second measured on the VoxCPM storyteller voice
+    CPS, GAP, t, L = 18.3, 0.3, 0.12, []          # Hindi chars per second measured on the VoxCPM storyteller voice
     for i, b in enumerate(beats):
         d = max(1.2, len(b["hi"]) / CPS); L.append({"i": i, "text": b["say"], "start": round(t, 3), "end": round(t + d, 3)}); t += d + GAP
     total = round(t + 0.5, 3)
