@@ -1,0 +1,25 @@
+{
+ "style": "paper",
+ "topic": "Story stickers that bring replies (polls, questions)",
+ "captions": false,
+ "music": "bed",
+ "sources": [
+  "https://about.instagram.com/blog/announcements/introducing-polls-in-instagram-stories",
+  "https://about.instagram.com/blog/announcements/introducing-the-questions-sticker"
+ ],
+ "explainer": [
+  {"hi": "स्टोरी पर व्यूज़ आते हैं, पर रिप्लाई ज़ीरो? बस एक स्टिकर लगाओ", "say": "Your story gets views but zero replies? Just add a sticker."},
+  {"hi": "सिंपल भाषा में, स्टिकर आपकी स्टोरी को बातचीत बना देते हैं, लोग सिर्फ़ देखते नहीं, टैप करते हैं", "say": "Simply put, stickers turn your story into a conversation: people don't just watch, they tap."},
+  {"hi": "पहला, पोल स्टिकर, एक सवाल, दो ऑप्शन, और लोग वोट करते ही लाइव रिज़ल्ट देखते हैं", "say": "First, the poll sticker: one question, two options, and people see live results as soon as they vote."},
+  {"hi": "और आप देख सकते हो किसने वोट किया, और कौन सा ऑप्शन चुना", "say": "And you can see who voted and which option they picked."},
+  {"hi": "मान लो आप दो थंबनेल में कन्फ़्यूज़ हो, पोल लगाओ, और आपकी ऑडियंस फ़ैसला कर देगी", "say": "Say you're stuck between two thumbnails. Add a poll, and your audience decides."},
+  {"hi": "अब सबसे बड़ा गेम चेंजर, क्वेश्चन स्टिकर, लोग आपसे कुछ भी पूछ सकते हैं, जितनी बार चाहें", "say": "Now the biggest game changer: the questions sticker. People can ask you anything, as many times as they want."},
+  {"hi": "हर सवाल पर टैप करो, और उसका जवाब एक नई स्टोरी बन जाता है", "say": "Tap any question, and your answer becomes a new story."},
+  {"hi": "और सबसे मज़ेदार बात, जवाब शेयर करोगे तो पूछने वाले का नाम और फ़ोटो नहीं दिखता", "say": "And the best part: when you share the answer, the asker's name and photo aren't shown."},
+  {"hi": "और स्टोरी की तरह, पोल भी चौबीस घंटे में गायब", "say": "And just like the story, the poll disappears in twenty-four hours."},
+  {"hi": "तो, आज की स्टोरी पर एक पोल लगाओ", "say": "So, add a poll to today's story."},
+  {"hi": "कल क्वेश्चन स्टिकर लगाओ, और अच्छे सवालों का जवाब स्टोरी पर दो", "say": "Tomorrow, add a questions sticker and answer the good ones on your story."},
+  {"hi": "व्यूज़ से बातचीत, बस एक स्टिकर से", "say": "From views to conversations, with one sticker."},
+  {"hi": "ऐसी और टिप्स के लिए फॉलो करो, और ये रील उस दोस्त को भेजो जिसकी स्टोरी पर कोई रिप्लाई नहीं करता", "say": "Follow for more tips like this, and send this reel to the friend whose stories never get replies."}
+ ]
+}

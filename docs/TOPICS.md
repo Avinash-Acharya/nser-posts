@@ -27,9 +27,12 @@ what was posted 3-11 Nov (new script, new shots; the old post.json in posts/2026
 | 20 | Repurpose one reel into 5 posts | new | used: 2026-11-21 7pm |
 | 21 | ASCI disclosure rules: how to tag #ad the right way in India | new (India-focused; ASCI official guidelines only) | used: 2026-11-22 11am |
 | 22 | TDS on creator income: why brands deduct tax and how to claim it back (India) | new (India-focused; Income Tax Dept sources only) | used: 2026-11-22 7pm |
-| 23 | Instagram's Edits app: free tools for reels | new (research Meta's official Edits announcements) | |
-| 24 | Story stickers that bring replies (polls, questions) | new (Instagram Help Center) | |
+| 23 | Instagram's Edits app: free tools for reels | new (research Meta's official Edits announcements) | used: 2026-11-23 11am |
+| 24 | Story stickers that bring replies (polls, questions) | new (Instagram Help Center) | used: 2026-11-23 7pm |
 | 25 | Writing a brand pitch DM/email that gets a reply (India) | new (India-focused) | |
 | 26 | Contracts 101: 5 things to check before you sign a brand deal (India) | new (India-focused; official/legal-aid sources only) | |
 | 27 | Broadcast channels: talk to your fans in one place | new (Instagram Help Center) | |
 | 28 | Batch-create a week of reels in one day | new | |
+| 29 | YouTube Shopping affiliate in India: tag products, earn commission | new (India-focused; YouTube Help official pages only) | |
+| 30 | Instagram's Original content rules: why reposts lose reach | new (Instagram/Creators official announcements) | |
+| 31 | Copyright-safe music for reels (India): what you can and can't use | new (India-focused; Meta Sound Collection / official help pages) | |
