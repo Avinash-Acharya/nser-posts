@@ -1,0 +1,24 @@
+{
+ "style": "paper",
+ "topic": "Writing a brand pitch DM that gets a reply (India)",
+ "captions": false,
+ "music": "bed",
+ "sources": [
+  "https://techcrunch.com/2024/11/01/instagram-upgrades-dms-with-focus-on-creators/"
+ ],
+ "explainer": [
+  {"hi": "ब्रांड को डीएम किया, और रिप्लाई ज़ीरो? शायद आपका मैसेज उन तक पहुँचा ही नहीं", "say": "You DMed a brand and got zero replies? Maybe your message never even reached them."},
+  {"hi": "सिंपल भाषा में, आपका डीएम सीधा इनबॉक्स में नहीं, मैसेज रिक्वेस्ट्स के ढेर में जाता है", "say": "Simply put, your DM doesn't go to the main inbox. It lands in a pile of message requests."},
+  {"hi": "और दो हज़ार चौबीस में इंस्टाग्राम ने इस ढेर के लिए फ़िल्टर दिए, फ़ॉलोअर काउंट, वेरिफ़ाइड, बिज़नेस, क्रिएटर अकाउंट", "say": "In 2024 Instagram added filters for that pile: follower count, verified, business, creator account."},
+  {"hi": "मतलब जिनके पास ढेर सारे मैसेज आते हैं, वो सिर्फ़ काम के मैसेज छाँट लेते हैं", "say": "So people who get tons of messages pick out only the useful ones."},
+  {"hi": "मान लो आपने लिखा, हाय सर, कोलैब करोगे? वो मैसेज वहीं दब जाता है", "say": "Say you wrote: Hi sir, collab? That message gets buried right there."},
+  {"hi": "अब सबसे बड़ा गेम चेंजर, पहली लाइन में ब्रांड का नाम और उनका एक प्रोडक्ट लिखो", "say": "Now the biggest game changer: put the brand's name and one of their products in the first line."},
+  {"hi": "फिर एक रील आइडिया, सिर्फ़ एक, साफ़ साफ़", "say": "Then one reel idea. Just one, clearly."},
+  {"hi": "फिर एक नंबर, आपकी इनसाइट्स से, जैसे आपकी रील्स की एवरेज रीच", "say": "Then one number from your Insights, like your reels' average reach."},
+  {"hi": "और सबसे मज़ेदार बात, फ़िल्टर में क्रिएटर अकाउंट भी है, तो प्रोफ़ेशनल अकाउंट पर स्विच कर लो", "say": "And the craziest part: one filter is creator account, so switch to a professional account."},
+  {"hi": "तो, आज तीन ब्रांड चुनो जिनका प्रोडक्ट आप सच में यूज़ करते हो", "say": "So today, pick three brands whose product you actually use."},
+  {"hi": "हर एक को छोटा मैसेज, नाम, आइडिया, नंबर, और एक सवाल, बात करें?", "say": "Send each one a short message: name, idea, number, and one question: shall we talk?"},
+  {"hi": "हाय सर नहीं, नाम आइडिया नंबर", "say": "Not hi sir. Name, idea, number."},
+  {"hi": "ऐसी और टिप्स के लिए फॉलो करो, और ये रील उस दोस्त को भेजो जो ब्रांड्स को डीएम करता रहता है", "say": "Follow for more tips like this, and send this reel to the friend who keeps DMing brands."}
+ ]
+}
