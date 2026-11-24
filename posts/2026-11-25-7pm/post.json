@@ -1,0 +1,24 @@
+{
+ "style": "paper",
+ "topic": "Batch-create a week of reels in one day",
+ "captions": false,
+ "music": "bed",
+ "sources": [
+  "https://techcrunch.com/2022/11/08/instagram-scheduling-tool-all-professional-accounts/"
+ ],
+ "explainer": [
+  {"hi": "रोज़ सुबह यही सोचते हो, आज कौन सी रील बनाऊँ?", "say": "Every morning you wonder: which reel do I make today?"},
+  {"hi": "सिंपल भाषा में, बैच बनाना मतलब एक ही दिन में पूरे हफ़्ते की रील्स बना लेना", "say": "Simply put, batching means making a whole week of reels in a single day."},
+  {"hi": "क्योंकि हर बार कैमरा, लाइट और कपड़े सेट करने में ही टाइम चला जाता है", "say": "Because every time, setting up the camera, the light and the outfit eats your time."},
+  {"hi": "सोचो, रविवार है, आप एक बार लाइट लगाते हो, और एक के बाद एक पाँच रील्स शूट कर लेते हो", "say": "Picture this: it's Sunday, you set the light up once, and shoot five reels back to back."},
+  {"hi": "स्टेप एक, पहले सारे आइडियाज़ एक लिस्ट में लिखो, हर एक के हुक के साथ", "say": "Step one: write all the ideas in one list first, each with its hook."},
+  {"hi": "स्टेप दो, हर रील के बीच कपड़े बदलो, ताकि हर रील अलग दिन की लगे", "say": "Step two: change outfits between reels, so each one looks like a different day."},
+  {"hi": "स्टेप तीन, सब एक साथ एडिट करो, एक ही स्टाइल में", "say": "Step three: edit them all together, in one style."},
+  {"hi": "अब सबसे बड़ा गेम चेंजर, प्रोफेशनल अकाउंट से इंस्टाग्राम पर ही रील्स शेड्यूल हो जाती हैं", "say": "Now the biggest game changer: with a professional account, you can schedule reels right inside Instagram."},
+  {"hi": "सबसे मज़ेदार बात, पचहत्तर दिन आगे तक", "say": "The craziest part: up to seventy-five days ahead."},
+  {"hi": "पोस्ट करते वक़्त एडवांस्ड सेटिंग्स खोलो, शेड्यूल ऑन करो, और तारीख चुनो", "say": "While posting, open Advanced settings, turn on schedule, and pick the date."},
+  {"hi": "बाकी हफ़्ता? कमेंट्स का जवाब दो, और नए आइडियाज़ सोचो", "say": "The rest of the week? Reply to comments, and think up new ideas."},
+  {"hi": "अब सुबह कोई सवाल नहीं, बस रील", "say": "Now mornings bring no question. Just the reel."},
+  {"hi": "ऐसी और टिप्स के लिए फॉलो करो, और ये रील उस दोस्त को भेजो जो रोज़ सुबह यही सोचता है", "say": "Follow for more tips like this, and send this reel to the friend who wonders this every morning."}
+ ]
+}

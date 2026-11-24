@@ -1,0 +1,24 @@
+{
+ "style": "paper",
+ "topic": "Broadcast channels: talk to your fans in one place",
+ "captions": false,
+ "music": "bed",
+ "sources": [
+  "https://about.instagram.com/blog/announcements/introducing-broadcast-channels/",
+  "https://about.fb.com/news/2023/02/instagram-broadcast-channels-creators-deepen-connections-with-followers/"
+ ],
+ "explainer": [
+  {"hi": "आपकी रील हर फॉलोअर तक नहीं पहुँचती? तो सीधे उनके इनबॉक्स में जाओ", "say": "Your reel doesn't reach every follower? Then go straight to their inbox."},
+  {"hi": "सिंपल भाषा में, ब्रॉडकास्ट चैनल एक ग्रुप चैट है, जहाँ सिर्फ़ आप बोलते हो", "say": "Simply put, a broadcast channel is a group chat where only you talk."},
+  {"hi": "उसमें आप टेक्स्ट, फोटो, वीडियो, वॉइस नोट और पोल भेज सकते हो", "say": "In it you can send text, photos, videos, voice notes and polls."},
+  {"hi": "फॉलोअर्स मैसेज नहीं कर सकते, बस रिएक्ट करते हैं और पोल में वोट देते हैं", "say": "Followers can't send messages, they just react and vote in polls."},
+  {"hi": "सोचो, कल आपकी नई रील आ रही है, और आप चैनल में एक वॉइस नोट भेजते हो, कल शाम सात बजे", "say": "Picture this: your new reel drops tomorrow, and you send a voice note to the channel: tomorrow, 7 PM."},
+  {"hi": "और जिन्होंने जॉइन किया है, उन्हें अपडेट्स का नोटिफिकेशन मिलता है", "say": "And the people who joined get notified about updates."},
+  {"hi": "अब सबसे बड़ा गेम चेंजर, पहला मैसेज भेजते ही, आपके फॉलोअर्स को एक बार जॉइन करने का नोटिफिकेशन जाता है", "say": "Now the biggest game changer: the moment you send the first message, your followers get a one-time notification to join."},
+  {"hi": "सबसे मज़ेदार बात, चैनल कोई भी ढूँढकर पढ़ सकता है, पर जॉइन करने के लिए फॉलो करना पड़ता है", "say": "The craziest part: anyone can find and read the channel, but to join, they have to follow you."},
+  {"hi": "तो करना क्या है? इनबॉक्स से चैनल बनाओ, और स्टोरी में जॉइन वाला स्टिकर लगाओ", "say": "So what do you do? Start the channel from your inbox, and add the join sticker to your story."},
+  {"hi": "फिर एक पोल डालो, और पूछो अगली रील किस पर बने", "say": "Then post a poll and ask what your next reel should be about."},
+  {"hi": "रील फीड के लिए, बातें इनबॉक्स के लिए", "say": "Reels for the feed. The talk, for the inbox."},
+  {"hi": "ऐसी और टिप्स के लिए फॉलो करो, और ये रील उस दोस्त को भेजो जो अपने फैंस से और जुड़ना चाहता है", "say": "Follow for more tips like this, and send this reel to the friend who wants to get closer to their fans."}
+ ]
+}
