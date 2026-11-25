@@ -33,10 +33,13 @@ what was posted 3-11 Nov (new script, new shots; the old post.json in posts/2026
 | 26 | Contracts 101: 5 things to check before you sign a brand deal (India) | new (India-focused; official/legal-aid sources only) | used: 2026-11-24 7pm |
 | 27 | Broadcast channels: talk to your fans in one place | new (Instagram Help Center) | used: 2026-11-25 11am |
 | 28 | Batch-create a week of reels in one day | new | used: 2026-11-25 7pm |
-| 29 | YouTube Shopping affiliate in India: tag products, earn commission | new (India-focused; YouTube Help official pages only) | |
-| 30 | Instagram's Original content rules: why reposts lose reach | new (Instagram/Creators official announcements) | |
+| 29 | YouTube Shopping affiliate in India: tag products, earn commission | new (India-focused; YouTube Help official pages only) | used: 2026-11-26 11am |
+| 30 | Instagram's Original content rules: why reposts lose reach | new (Instagram/Creators official announcements) | used: 2026-11-26 7pm |
 | 31 | Copyright-safe music for reels (India): what you can and can't use | new (India-focused; Meta Sound Collection / official help pages) | |
 | 32 | Instagram Creator Marketplace: how brands find creators (India) | new (official Instagram/Meta pages only) | |
 | 33 | Your first 1,000 followers: what to post in week one | new | |
 | 34 | Reels length: short vs long, what Instagram says | new (Instagram official announcements) | |
 | 35 | Invoices for brand deals in India: what to put on one | new (India-focused; official sources only) | |
+| 36 | Instagram Close Friends & subscriptions: paid content for your biggest fans | new (Instagram Help Center / official pages) | |
+| 37 | Pinned comments and replies: turn comments into the next reel | new (Instagram Help Center) | |
+| 38 | Ads for brand deals: what "partnership ads" mean for creators | new (Instagram/Meta official pages) | |

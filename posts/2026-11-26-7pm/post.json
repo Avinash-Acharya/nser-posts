@@ -1,0 +1,24 @@
+{
+ "style": "paper",
+ "topic": "Instagram's Original content rules: why reposts lose reach",
+ "captions": false,
+ "music": "bed",
+ "sources": [
+  "https://techcrunch.com/2026/04/30/instagram-restricts-reach-of-content-aggregators-in-new-crackdown/",
+  "https://www.engadget.com/instagrams-algorithm-overhaul-will-reward-original-content-and-penalize-aggregators-130018977.html"
+ ],
+ "explainer": [
+  {"hi": "आपने वायरल रील दोबारा पोस्ट की, और व्यूज़ ज़ीरो? इसकी वजह है Instagram का ओरिजिनल कंटेंट वाला रूल", "say": "You reposted a viral reel and got zero views? The reason is Instagram's original content rule."},
+  {"hi": "सिंपल भाषा में, जो कंटेंट आपने नहीं बनाया, उसे बार बार रीपोस्ट करोगे, तो Instagram आपको रिकमेंड नहीं करेगा", "say": "Simply put, keep reposting content you didn't make, and Instagram won't recommend you."},
+  {"hi": "दो हज़ार चौबीस में ये रूल रील्स पर आया, तीस दिन में दस या ज़्यादा बार रीपोस्ट, और रिकमेंडेशन बंद", "say": "In 2024 this rule came for Reels: repost 10 or more times in 30 days, and recommendations stop."},
+  {"hi": "और अप्रैल दो हज़ार छब्बीस से, ये रूल फोटो और कैरसेल पर भी लागू है", "say": "And since April 2026, the rule covers photos and carousels too."},
+  {"hi": "सोचो, आपने किसी और की फनी रील उठाई, अपना वॉटरमार्क लगाया, और स्पीड थोड़ी बढ़ा दी", "say": "Picture this: you took someone else's funny reel, added your watermark, and sped it up a bit."},
+  {"hi": "Instagram कहता है, ये काफ़ी नहीं है, और यूज़रनेम वाला स्क्रीनशॉट डालकर क्रेडिट देना भी नहीं चलेगा", "say": "Instagram says that's not enough, and crediting with a screenshot of the username doesn't count either."},
+  {"hi": "अब सबसे बड़ा गेम चेंजर, जब दो एक जैसी रील्स मिलती हैं, तो रिकमेंडेशन में Instagram ओरिजिनल वाली दिखाता है", "say": "Now the biggest game changer: when two identical reels show up, Instagram shows the original one in recommendations."},
+  {"hi": "सबसे मज़ेदार बात, आपके फॉलोअर्स फिर भी आपकी पोस्ट देखते हैं, बस फीड और डिस्कवर में नए लोगों तक आप नहीं पहुँचते", "say": "The craziest part: your followers still see your posts, you just don't reach new people in feeds and Discover."},
+  {"hi": "तो करना क्या है? किसी क्लिप पर अपना वॉइस ओवर डालो, या उस पर अपना रिएक्शन बनाओ", "say": "So what do you do? Put your own voice-over on a clip, or make your reaction to it."},
+  {"hi": "और मीम बनाओ, तो उसमें अपना कुछ नया जोड़ो, जो उसे बेहतर बनाए", "say": "And when you make a meme, add something of your own that makes it better."},
+  {"hi": "कॉपी मत करो, अपना ट्विस्ट डालो", "say": "Don't copy. Add your twist."},
+  {"hi": "ऐसी और टिप्स के लिए फॉलो करो, और ये रील उस दोस्त को भेजो जो सिर्फ़ रीपोस्ट करता है", "say": "Follow for more tips like this, and send this reel to the friend who only reposts."}
+ ]
+}
