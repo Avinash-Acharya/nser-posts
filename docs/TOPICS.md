@@ -35,8 +35,8 @@ what was posted 3-11 Nov (new script, new shots; the old post.json in posts/2026
 | 28 | Batch-create a week of reels in one day | new | used: 2026-11-25 7pm |
 | 29 | YouTube Shopping affiliate in India: tag products, earn commission | new (India-focused; YouTube Help official pages only) | used: 2026-11-26 11am |
 | 30 | Instagram's Original content rules: why reposts lose reach | new (Instagram/Creators official announcements) | used: 2026-11-26 7pm |
-| 31 | Copyright-safe music for reels (India): what you can and can't use | new (India-focused; Meta Sound Collection / official help pages) | |
-| 32 | Instagram Creator Marketplace: how brands find creators (India) | new (official Instagram/Meta pages only) | |
+| 31 | Copyright-safe music for reels (India): what you can and can't use | new (India-focused; Meta Sound Collection / official help pages) | used: 2026-11-27 11am |
+| 32 | Instagram Creator Marketplace: how brands find creators (India) | new (official Instagram/Meta pages only) | used: 2026-11-27 7pm |
 | 33 | Your first 1,000 followers: what to post in week one | new | |
 | 34 | Reels length: short vs long, what Instagram says | new (Instagram official announcements) | |
 | 35 | Invoices for brand deals in India: what to put on one | new (India-focused; official sources only) | |
