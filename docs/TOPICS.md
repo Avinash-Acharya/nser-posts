@@ -37,9 +37,13 @@ what was posted 3-11 Nov (new script, new shots; the old post.json in posts/2026
 | 30 | Instagram's Original content rules: why reposts lose reach | new (Instagram/Creators official announcements) | used: 2026-11-26 7pm |
 | 31 | Copyright-safe music for reels (India): what you can and can't use | new (India-focused; Meta Sound Collection / official help pages) | used: 2026-11-27 11am |
 | 32 | Instagram Creator Marketplace: how brands find creators (India) | new (official Instagram/Meta pages only) | used: 2026-11-27 7pm |
-| 33 | Your first 1,000 followers: what to post in week one | new | |
-| 34 | Reels length: short vs long, what Instagram says | new (Instagram official announcements) | |
+| 33 | Your first 1,000 followers: what to post in week one | new | used: 2026-11-28 11am |
+| 34 | Reels length: short vs long, what Instagram says | new (Instagram official announcements) | used: 2026-11-28 7pm |
 | 35 | Invoices for brand deals in India: what to put on one | new (India-focused; official sources only) | |
 | 36 | Instagram Close Friends & subscriptions: paid content for your biggest fans | new (Instagram Help Center / official pages) | |
 | 37 | Pinned comments and replies: turn comments into the next reel | new (Instagram Help Center) | |
 | 38 | Ads for brand deals: what "partnership ads" mean for creators | new (Instagram/Meta official pages) | |
+| 39 | Hashtags in 2026: why 5 targeted tags beat 30 | new (Instagram @Creators / official pages only) | |
+| 40 | Instagram search & SEO: get found by keywords, not luck | new (Instagram Help Center / official pages) | |
+| 41 | Saves and shares: the signals that push a reel to new people | new (Instagram official statements only) | |
+| 42 | Brand deal payments in India: getting paid on time (advance, milestones, follow-ups) | new (India-focused; official/legal-aid sources only) | |
