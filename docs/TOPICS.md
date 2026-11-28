@@ -39,8 +39,8 @@ what was posted 3-11 Nov (new script, new shots; the old post.json in posts/2026
 | 32 | Instagram Creator Marketplace: how brands find creators (India) | new (official Instagram/Meta pages only) | used: 2026-11-27 7pm |
 | 33 | Your first 1,000 followers: what to post in week one | new | used: 2026-11-28 11am |
 | 34 | Reels length: short vs long, what Instagram says | new (Instagram official announcements) | used: 2026-11-28 7pm |
-| 35 | Invoices for brand deals in India: what to put on one | new (India-focused; official sources only) | |
-| 36 | Instagram Close Friends & subscriptions: paid content for your biggest fans | new (Instagram Help Center / official pages) | |
+| 35 | Invoices for brand deals in India: what to put on one | new (India-focused; official sources only) | used: 2026-11-29 11am |
+| 36 | Instagram Close Friends & subscriptions: paid content for your biggest fans | new (Instagram Help Center / official pages) | used: 2026-11-29 7pm |
 | 37 | Pinned comments and replies: turn comments into the next reel | new (Instagram Help Center) | |
 | 38 | Ads for brand deals: what "partnership ads" mean for creators | new (Instagram/Meta official pages) | |
 | 39 | Hashtags in 2026: why 5 targeted tags beat 30 | new (Instagram @Creators / official pages only) | |

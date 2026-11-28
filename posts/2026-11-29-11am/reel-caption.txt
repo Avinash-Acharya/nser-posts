@@ -1,0 +1,21 @@
+The brand says "send the invoice". Here's exactly what goes on it.
+
+If you're GST registered, Rule 46 of the CGST Rules lists what a tax invoice must have:
+- Your name, address and GSTIN
+- An invoice number: up to 16 characters, unique in each financial year
+- The date
+- The brand's name, address and GSTIN
+- What you did, the service code, the taxable value, and the GST rate and amount
+- For a brand in another state: the place of supply, with the state name
+
+Sent after the work is done? The GST Council's invoice guide gives 30 days from the date of the service.
+
+Simple habit: one template, numbers in one series (INV/26-27/001, 002...), send it on delivery day. Any GST doubt, ask a CA.
+
+Save this, and send it to the friend whose first brand payment is on the way.
+
+Follow @nser.in_officials for more on creator growth and monetisation.
+
+Sources: CBIC, CGST Rules, Rule 46 "Tax invoice"; GST Council flyer, "Tax Invoice and other such instruments".
+
+#gst #indiancreators #creatortips #branddeals

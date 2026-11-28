@@ -1,0 +1,25 @@
+{
+ "style": "paper",
+ "topic": "Invoices for brand deals in India: what to put on one",
+ "captions": false,
+ "music": "bed",
+ "sources": [
+  "https://taxinformation.cbic.gov.in/content/html/tax_repository/gst/rules/cgst_rules/active/chapter6/rule46_v1.00.html",
+  "https://www.gstcouncil.gov.in/sites/default/files/e-version-gst-flyers/Tax_Invoice_and_other_new.pdf"
+ ],
+ "explainer": [
+  {"hi": "ब्रांड ने बोला इनवॉइस भेजो, और आप सोच रहे हो, इसमें लिखूँ क्या?", "say": "The brand says send the invoice, and you're thinking: what do I even write on it?"},
+  {"hi": "सिंपल भाषा में, इनवॉइस एक पेज का बिल है, किसने क्या काम किया, कितने का, और कब", "say": "Simply put, an invoice is a one-page bill: who did what work, for how much, and when."},
+  {"hi": "अगर आप GST रजिस्टर्ड हो, तो रूल छियालीस बताता है कि टैक्स इनवॉइस पर क्या क्या ज़रूरी है", "say": "If you're GST registered, Rule 46 lists what a tax invoice must have."},
+  {"hi": "जैसे इनवॉइस नंबर, सोलह कैरेक्टर तक, और हर फ़ाइनेंशियल ईयर में यूनिक", "say": "Like the invoice number: up to 16 characters, and unique in each financial year."},
+  {"hi": "सोचो, आपने रील डिलीवर कर दी, पर बिल पर ना नंबर है, ना तारीख़, ना ब्रांड का पता", "say": "Picture it: you delivered the reel, but the bill has no number, no date, no brand address."},
+  {"hi": "तो लिस्ट याद रखो, आपका नाम, पता और GSTIN, फिर ब्रांड का नाम, पता और GSTIN", "say": "So remember the list: your name, address and GSTIN, then the brand's name, address and GSTIN."},
+  {"hi": "अब सबसे बड़ा गेम चेंजर, काम का डिस्क्रिप्शन, सर्विस कोड, टैक्सेबल वैल्यू, और GST का रेट और अमाउंट", "say": "Now the biggest game changer: the work description, the service code, the taxable value, and the GST rate and amount."},
+  {"hi": "सबसे मज़ेदार बात, सर्विस देने के बाद इनवॉइस भेजने की भी लिमिट है, तीस दिन", "say": "The craziest part: there's even a limit for sending the invoice after the service: 30 days."},
+  {"hi": "और ब्रांड दूसरे स्टेट में है, तो प्लेस ऑफ़ सप्लाई में स्टेट का नाम लिखो", "say": "And if the brand is in another state, write the state name in the place of supply."},
+  {"hi": "तो करना क्या है? एक टेम्पलेट बनाओ, और नंबर एक सीरीज़ में चलाओ", "say": "So what do you do? Make one template, and run the numbers in one series."},
+  {"hi": "डिलीवरी वाले दिन ही इनवॉइस भेजो, और GST का कोई डाउट हो, तो CA से पूछो", "say": "Send the invoice on delivery day, and if you have any GST doubt, ask a CA."},
+  {"hi": "इनवॉइस में क्या लिखें? अब पता है", "say": "What to write on an invoice? Now you know."},
+  {"hi": "ऐसी और टिप्स के लिए फॉलो करो, और ये रील उस दोस्त को भेजो जिसका पहला ब्रांड पेमेंट आने वाला है", "say": "Follow for more tips like this, and send this reel to the friend whose first brand payment is on the way."}
+ ]
+}
